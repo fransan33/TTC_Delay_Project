@@ -1,5 +1,5 @@
-# [Project Title]
-> *One sentence. What did you analyze, build, or solve - and why does it matter?*
+# TTC Subway Delay 
+> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes are within TTC's operation control and can be prevented by prioritizing improvement initiatives [One sentence. What did you analyze, build, or solve - and why does it matter?]*
 
 ---
 
