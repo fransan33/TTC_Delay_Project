@@ -1,19 +1,17 @@
 # TTC Subway Delay 
-> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes are within TTC's operation control and can be prevented by prioritizing improvement initiatives [One sentence. What did you analyze, build, or solve - and why does it matter?]*
+> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes are within TTC's operation control and can be prevented by prioritizing improvement initiatives*
 
 ---
 
 ## ⚙️ Project Type Flags
 > *Check what applies. This helps reviewers and collaborators understand the nature of the work at a glance. Delete this block before publishing.*
 
-- [ ] Exploratory Data Analysis (EDA)
 - [ ] SQL Analysis / Querying
 - [ ] Dashboard / Data Visualization
 - [ ] Data Pipeline / ETL
 - [ ] Predictive Modelling / Machine Learning
 - [ ] Data Cleaning / Wrangling
 - [ ] End-to-End (multiple of the above)
-- [ ] Other: ___________
 
 ---
 
@@ -45,7 +43,7 @@
   WHAT GOOD LOOKS LIKE:
   "A mid-size retail business was seeing inconsistent revenue across
   its regional stores but couldn't identify the root cause. This project
-  explored 18 months of transaction data across five regions to determine
+  explored over 10 years of delay data across the TTC Subway to determine
   whether underperformance was driven by sales volume, pricing, or return
   rates. The analysis revealed that one region's gap was almost entirely
   explained by an unusually high return rate on a single product category -
