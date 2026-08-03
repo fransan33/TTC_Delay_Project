@@ -54,7 +54,7 @@
   (Too vague. Could describe 10,000 projects. Describes none of them.)
 -->
 
-**Context:** [The business, research, or personal situation that motivated this project.]
+**Context:** [The business, research, or personal situation that motivated this project.] The TTC Subway System has been receiving an ongoing backlash by word of mouth and/or from online forums, and I also have personally experienced the delays a few times myself whilst taking the transit, which begs the question - what are the root causes of these delays that happen often, and can they be prevented? This project explored over 10 years of delays data across the TTC Subway to determine whether underperformance was driven by factors that are within the system's control or outside the system's control. The analysis revealed that the highest delay count across the system is caused by a delay reason that is not within TTC's control.
 
 **Problem Statement:** [The specific question or challenge you were addressing.]
 
