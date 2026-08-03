@@ -54,7 +54,7 @@
   (Too vague. Could describe 10,000 projects. Describes none of them.)
 -->
 
-**Context:** [The business, research, or personal situation that motivated this project.] The TTC Subway System has been receiving an ongoing backlash by word of mouth and/or from online forums, and I also have personally experienced the delays a few times myself whilst taking the transit, which begs the question - what are the root causes of these delays that happen often, and can they be prevented? This project explored over 10 years of delays data across the TTC Subway to determine whether underperformance was driven by factors that are within the system's control or outside the system's control. The analysis revealed that the highest delay count across the system is caused by a delay reason that is not within TTC's control.
+**Context:** [The business, research, or personal situation that motivated this project.] The TTC Subway System has been receiving an ongoing backlash by word of mouth and/or from online forums, and I also have personally experienced the delays a few times myself whilst taking the transit, which begs the question - what are the root causes of these delays that happen often, and can they be prevented? This project explored over 10 years of delays data across the TTC Subway to determine whether underperformance was driven by factors that are within the system's control or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
 
 **Problem Statement:** [The specific question or challenge you were addressing.]
 
@@ -82,9 +82,9 @@
   (These can't fail - which means they can't succeed either.)
 -->
 
-- **Primary Objective:** [The main thing you set out to do] Determine whether the negative feedback towards the TTC Subway System correlates with reasons that are controllable (i.e. vehicle issues, crew availability)
-- **Secondary Objective 1:** [Supporting goal]
-- **Secondary Objective 2:** [Supporting goal]
+- **Primary Objective:** [The main thing you set out to do] Determine whether the frequent delays in TTC Subway System correlates with reasons that are controllable (i.e. vehicle issues, crew availability)
+- **Secondary Objective 1:** [Supporting goal] Identify the specific times or days when service reliability drops 
+- **Secondary Objective 2:** [Supporting goal] Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact?
 - **Secondary Objective 3:** [Remove if not applicable]
 
 > 💡 *Every analysis decision in this project traces back to one of these objectives.*
@@ -110,10 +110,10 @@
 
 | Dimension | Details |
 |-----------|---------|
-| **In Scope** | [What is included - data sources, time periods, segments] |
-| **Out of Scope** | [What you explicitly excluded - and a brief reason why] |
-| **Time Period** | [Date range of the data or the project itself] |
-| **Granularity** | [Unit of analysis - row-level, daily aggregates, per-user, etc.] |
+| **In Scope** | Delay data across all 4 TTC Subway Lines, Jan 2014 - Apr 2025, & delay codes. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
+| **Out of Scope** | Delay data from May 2025 - Dec 2025 were excluded - the data sets were extracted and reviewed in Jun 2025 |
+| **Time Period** | January 2014 - April 2025 |
+| **Granularity** | single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
 
 ### Tools & Technologies
 
