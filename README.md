@@ -124,13 +124,12 @@
 
 | Category | Tool(s) Used |
 |----------|-------------|
-| Data Storage | [e.g., PostgreSQL, CSV files, BigQuery, S3] |
-| Data Processing | [e.g., Python, R, SQL, Excel, dbt] |
-| Analysis | [e.g., pandas, dplyr, custom SQL queries] |
-| Visualization | [e.g., Matplotlib, Tableau, Power BI, Looker] |
-| Version Control | [e.g., Git / GitHub] |
-| Documentation | [e.g., Markdown, Notion] |
-| Other | [Any additional tools] |
+| Data Storage | CSV files |
+| Data Processing | MySQL, Excel, Command Prompt |
+| Analysis | custom MySQL queries |
+| Visualization | Tableau |
+| Version Control | Git / GitHub |
+| Documentation | Word / Excel |
 
 ---
 
@@ -204,8 +203,9 @@
 [Output / Visualisation / Reporting]
 ```
 
-1. **Source:** [Where did the data come from? Format, size, access method.]
-2. **Ingestion:** [How was it brought in?]
+1. **Source:** Yearly XLSX exports & Delay Code Descriptions pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
+               Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes, and code descriptions.
+2. **Ingestion:** Converted files into CSV, combined the multiple delay data CSV files & delay codes CSV files into a single CSV, & loaded into MySQL using Command                   Prompt. 
 3. **Cleaning:** [What issues did you find and fix?]
 4. **Transformation:** [What new fields, aggregations, or structures did you create?]
 5. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
