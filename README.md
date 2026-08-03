@@ -82,7 +82,7 @@
   (These can't fail - which means they can't succeed either.)
 -->
 
-- **Primary Objective:** [The main thing you set out to do]
+- **Primary Objective:** [The main thing you set out to do] Determine whether the negative feedback towards the TTC Subway System correlates with reasons that are controllable (i.e. vehicle issues, crew availability)
 - **Secondary Objective 1:** [Supporting goal]
 - **Secondary Objective 2:** [Supporting goal]
 - **Secondary Objective 3:** [Remove if not applicable]
