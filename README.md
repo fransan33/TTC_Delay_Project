@@ -125,7 +125,7 @@
 | Category | Tool(s) Used |
 |----------|-------------|
 | Data Storage | CSV files |
-| Data Processing | MySQL, Excel, Command Prompt |
+| Data Processing | MySQL, Excel (Power Query), Command Prompt |
 | Analysis | custom MySQL queries |
 | Visualization | Tableau |
 | Version Control | Git / GitHub |
@@ -203,13 +203,18 @@
 [Output / Visualisation / Reporting]
 ```
 
-1. **Source:** Yearly XLSX exports & Delay Code Descriptions pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-               Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes, and code descriptions.
-2. **Ingestion:** Converted files into CSV, combined the multiple delay data CSV files & delay codes CSV files into a single CSV, & loaded into MySQL using Command                   Prompt. 
-3. **Cleaning:** [What issues did you find and fix?]
-4. **Transformation:** [What new fields, aggregations, or structures did you create?]
-5. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
-6. **Output:** [What form do the results take?]
+1. **Source:** Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
+               Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes, and                   code descriptions.
+2. **Ingestion:** Consolidated multiple delay data CSV files (230,841 rows)and the delay codes CSV files into a                      single CSV using Power Query in Excel, and loaded into MySQL using Command Prompt. 
+3. **Cleaning:** - subway delay table -
+                 Removed trailing white space.
+                 Generated unique primary key values.
+                 Removed 0.09% of duplicated rows.
+                 Created a new time_military_hour column and converted the time column values into                    an hourly basis and excluded the minutes.
+                 Non-sensical station names in station column (5.66% rows) converted into NULL values as it is a non-critical column.
+5. **Transformation:** [What new fields, aggregations, or structures did you create?]
+6. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
+7. **Output:** [What form do the results take?]
 
 ---
 
