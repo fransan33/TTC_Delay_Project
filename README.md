@@ -210,8 +210,19 @@
                  Removed trailing white space.
                  Generated unique primary key values.
                  Removed 0.09% of duplicated rows.
-                 Created a new time_military_hour column and converted the time column values into                    an hourly basis and excluded the minutes.
+                 Converted the time column values into an hourly basis and excluded the minutes.
                  Non-sensical station names in station column (5.66% rows) converted into NULL values as it is a non-critical column.
+                 Resolved station name inconsistencies.
+                 Removed 0.08% of rows containing nonsensical values in code column.
+                 Converted the abbreviated values in bound column into the full name of bounds.
+                 Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values as it is a non-critical column.
+                 Resolved line name inconsistencies.
+                 Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values as it is a non-critical column
+                 Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values.
+                 - code desc table -
+                 Removed trailing white space.
+                 Removed 0.06% of duplicated rows.   
+                 
 5. **Transformation:** [What new fields, aggregations, or structures did you create?]
 6. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
 7. **Output:** [What form do the results take?]
