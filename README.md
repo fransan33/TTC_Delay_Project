@@ -273,19 +273,34 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
      if a formal schema doesn't apply. Even one paragraph is more helpful than nothing.
 -->
 
-### Dataset / Table: `[name]`
+### Dataset / Table: `ttc_subway_cleaned`
 
-| Field Name | Data Type | Description | Example Value |
-|------------|-----------|-------------|---------------|
-| `[row_id]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
-| `[field_2]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
-| `[field_3]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
+| Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
+|------------|-----------|-------------|---------------|----------|
+| `row_id` | int | Unique identifier per delay record | 33 | no |
+| `date` | date | Date the delay occurred | 2022-01-01 | no |
+| `day` | text | Day of week the delay occurred | Saturday | no |
+| `cleaned_station` | varchar(27) | Standardized station name after cleaning | Islington | yes |
+| `code` | text | Abbreviated delay cause code from TTC | MUIRS | no |
+| `min_delay` | int | Duration of delay in minutes (rider-facing) | 0 | no |
+| `min_gap` | int | Gap between successive vehicles in minutes | 0 | no |
+| `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
+| `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
+| `cleaned_vehicle` | bigint | 	Vehicle number after null/invalid removal | 5471 | yes |
+| `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
-> **Row count (approx.):** [X rows]
-> **Date range:** [Start] – [End]
+> **Row count (approx.):** 230,456
+> **Date range:** Jan 2014 – Apr 2025
 > **Key join / relationship:** [e.g., `orders.customer_id` → `customers.id`]
 
-*Add additional table blocks as needed for multi-table projects.*
+### Dataset / Table: `code_desc_clean_v2`
+
+| Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
+|------------|-----------|-------------|---------------|----------|
+| `row_id` | int | Unique identifier per delay record | 33 | no |
+| `code` | text | Date the delay occurred | 2022-01-01 | no |
+| `description` | text | Day of week the delay occurred | Saturday | no |
+| `control_level` | varchar(50) | Standardized station name after cleaning | Islington | no |
 
 ---
 
