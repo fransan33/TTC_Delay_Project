@@ -224,9 +224,10 @@
                  Removed 0.06% of duplicated rows.   
                  
 5. **Transformation:** [What new fields, aggregations, or structures did you create?]
-                       Created a view on MySQL, ttc_delay_tagged, for efficiency in writing queries involving delay reason and its control level.
+                       Collected code description data from the open toronto data website to decode the abbreviated delay reason on the ttc delay data. Created a reference look up table and mapped it to the cleaned dataset subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and operational control level classifications.
                        Collected the subway line names and line numbers from external source and replaced the abbreviated line column in the data set.
                        Collected the subway station names from external source to validate the values in station column and resolve inconsistencies and identify                           non-sensical names.
+                       Converted the time column data from VARCHAR -> TIME datatype to be able to analyze the data properly throughout the MySQL queries, as well as through Tableau dashboards.
 7. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
 8. **Output:** [What form do the results take?]
 
