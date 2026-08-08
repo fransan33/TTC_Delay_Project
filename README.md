@@ -277,7 +277,7 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 
 | Field Name | Data Type | Description | Example Value |
 |------------|-----------|-------------|---------------|
-| `[field_1]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
+| `[row_id]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
 | `[field_2]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
 | `[field_3]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
 
