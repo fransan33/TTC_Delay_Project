@@ -229,7 +229,24 @@
                        Collected the subway station names from external source to validate the values in station column and resolve inconsistencies and identify                           non-sensical names.
                        Converted the time column data from VARCHAR -> TIME datatype to be able to analyze the data properly throughout the MySQL queries, as well as through Tableau dashboards.
 7. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
-8. **Output:** [What form do the results take?]
+                 Yearly KPI, delay trends comparison.
+                 Segmenting delay trends by time, station, ttc line, vehicles.
+                 Evaluating the operational impact of delays that are within control.
+9. **Output/ Visualization:** [What form do the results take?] Tableau Public
+                               Developed 4 interactive dashboards targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing. Included charts are listed below:
+
+Bar charts (most common cause of delay)
+Barbell charts (delay frequency by train line and bound)
+Bubble charts (delay frequency by station)
+Pareto charts (delay cause contribution and vehicle impact)
+Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
+Year-over-year trend lines (avg delay comparison)
+Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
+Bullet charts (on-time performance vs. 90% KPI target)
+Heatmaps (service reliability by day and hour)
+
+
+Dashboard design decisions included dynamic parameters for station, hour of day, day of week, & year selection, LOD expressions for consistency metrics, calculated fields for disruption rate and KPI, and dual-axis configurations for layered storytelling.
 
 ---
 
