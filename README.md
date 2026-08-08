@@ -224,8 +224,11 @@
                  Removed 0.06% of duplicated rows.   
                  
 5. **Transformation:** [What new fields, aggregations, or structures did you create?]
-6. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
-7. **Output:** [What form do the results take?]
+                       Created a view on MySQL, ttc_delay_tagged, for efficiency in writing queries involving delay reason and its control level.
+                       Collected the subway line names and line numbers from external source and replaced the abbreviated line column in the data set.
+                       Collected the subway station names from external source to validate the values in station column and resolve inconsistencies and identify                           non-sensical names.
+7. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
+8. **Output:** [What form do the results take?]
 
 ---
 
