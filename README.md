@@ -289,9 +289,9 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 | `cleaned_vehicle` | bigint | 	Vehicle number after null/invalid removal | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
-> **Row count (approx.):** 230,456
+> **Row count:** 230,456
 > **Date range:** Jan 2014 – Apr 2025
-> **Key join / relationship:** [e.g., `orders.customer_id` → `customers.id`]
+> **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
 ### Dataset / Table: `code_desc_clean_v2`
 
@@ -302,6 +302,8 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 | `description` | text | Day of week the delay occurred | Saturday | no |
 | `control_level` | varchar(50) | Standardized station name after cleaning | Islington | no |
 
+> **Row count:** 212
+> **Key join / relationship:** [ `code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
 ---
 
 ## 7. ERD - Entity Relationship Diagram
