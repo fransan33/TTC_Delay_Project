@@ -331,60 +331,8 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 -->
 
 ### Option A - Embedded Image
-![ERD Diagram](visuals/erd.png)
-*[Brief caption: e.g., "Three-table schema - orders, customers, and products joined on shared IDs."]*
-
----
-
-### Option B - dbdiagram.io Schema Definition
-```
-Table orders {
-  order_id    int     [pk]
-  customer_id int     [ref: > customers.customer_id]
-  product_id  int     [ref: > products.product_id]
-  order_date  date
-  amount      float
-}
-
-Table customers {
-  customer_id int  [pk]
-  region_code string
-  signup_date date
-}
-
-Table products {
-  product_id   int    [pk]
-  category     string
-  unit_price   float
-}
-```
-*Paste this into [dbdiagram.io](https://dbdiagram.io) to view the visual.*
-
----
-
-### Option C - Mermaid Diagram *(renders on GitHub)*
-```mermaid
-erDiagram
-    ORDERS {
-        int order_id PK
-        int customer_id FK
-        int product_id FK
-        date order_date
-        float amount
-    }
-    CUSTOMERS {
-        int customer_id PK
-        string region_code
-        date signup_date
-    }
-    PRODUCTS {
-        int product_id PK
-        string category
-        float unit_price
-    }
-    ORDERS ||--o{ CUSTOMERS : "placed by"
-    ORDERS ||--o{ PRODUCTS : "contains"
-```
+![ERD Diagram](https://online.visual-paradigm.com/w/qpigpvht/diagrams/#pdfeditor:workspace=qpigpvht&proj=0&id=1&type=PDFDocument)
+*[Brief caption: e.g., "Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes."]*
 
 ---
 
@@ -392,9 +340,7 @@ erDiagram
 
 | Relationship | Join Key | Type |
 |-------------|----------|------|
-| `orders` → `customers` | `customer_id` | Many-to-One |
-| `orders` → `products` | `product_id` | Many-to-One |
-| [Add rows as needed] | | |
+| `ttc_subway_cleaned` → `code_desc_cleaned_v2` | `code` | Many-to-One |
 
 ---
 
