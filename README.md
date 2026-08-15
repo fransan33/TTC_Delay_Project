@@ -371,7 +371,7 @@ In this project, I used an exploratory, stakeholder-driven approach to have a be
 
 Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what that specific audience would need to make a decision. For example, the questions under Head of Operations prioritize frequency and controllability of delay causes, while the questions under Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
-There are two 'deliberate' metric distinctions that shaped the entire analysis — min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between the current train and the next train (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
+There are two 'deliberate' metric distinctions that shaped the entire analysis — min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between one train and the next arriving at a station (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
 
 It is worth noting that using raw delay counts (delay frequency counts) alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate (proportion of events that are beyond the on-time threshold) was used alongside raw delay counts to give a proportional view.
 
@@ -381,9 +381,15 @@ Lastly, a CREATE VIEW statement was built to capture the LEFT JOIN between the d
 
 | Metric | Plain-Language Definition | Why It Matters |
 |--------|--------------------------|----------------|
-| `[Metric 1]` | [What it measures, in one sentence] | [What decision or question it answers] |
-| `[Metric 2]` | [What it measures, in one sentence] | [What decision or question it answers] |
-| `[Metric 3]` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `min_delay` | 	Duration in minutes between a train's scheduled and actual arrival, as experienced by the rider | The primary rider-facing severity metric — used wherever the question concerns passenger impact rather than operational |
+| `min_gap` | Time in minutes between one vehicle and the next arriving at a station | Measures service regularity from an operator perspective — used to assess whether a delay cascaded into a wider service disruption |
+| `disruption_rate` | Percentage of delay incidents where min_gap exceeded 8 minutes, indicating a service gap beyond the on-time threshold | Distinguishes delay causes that are operationally contained from those that cascade into broader network unreliability |
+| `avg_disruptive_gap` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `total_disruptive_gap` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `on_time_service_pct` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `pct_line_delays / pct_station_delays` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `severity_consistency_ratio` | [What it measures, in one sentence] | [What decision or question it answers] |
+| `control_level` | [What it measures, in one sentence] | [What decision or question it answers] |
 
 ### Methods Used
 
