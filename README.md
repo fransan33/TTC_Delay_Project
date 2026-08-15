@@ -331,7 +331,7 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 -->
 
 ### Embedded Image
-[ERD Diagram](TTC.Subway.Delay_ERD.png)
+[ERD Diagram](TTC.Subway.Delay_ERD.pdf)
 *[Brief caption: e.g., "Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes."]*
 
 ---
