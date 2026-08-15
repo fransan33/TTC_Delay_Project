@@ -330,7 +330,7 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
   PICK ONE. Don't use all three. Delete the options you don't use.
 -->
 
-### Option A - Embedded Image
+### Embedded Image
 ![ERD Diagram](https://online.visual-paradigm.com/w/qpigpvht/diagrams/#pdfeditor:workspace=qpigpvht&proj=0&id=1&type=PDFDocument)
 *[Brief caption: e.g., "Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes."]*
 
