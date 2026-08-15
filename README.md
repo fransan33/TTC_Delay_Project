@@ -371,11 +371,11 @@ In this project, I used an exploratory, stakeholder-driven approach to have a be
 
 Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what that specific audience would need to make a decision. For example, the questions under Head of Operations prioritize frequency and controllability of delay causes, while the questions under Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
-There are two 'deliberate' metric distinctions that shaped the entire analysis - min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between the current train and the next train (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
+There are two 'deliberate' metric distinctions that shaped the entire analysis — min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between the current train and the next train (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
 
 It is worth noting that using raw delay counts (delay frequency counts) alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate (proportion of events that are beyond the on-time threshold) was used alongside raw delay counts to give a proportional view.
 
-A
+Lastly, a CREATE VIEW statement was built to capture the LEFT JOIN between the delay records and the code description reference table, avoiding repetition across queries and ensuring consistent mapping of delay reason and control level classifications throughout the analysis.
 
 ### Key Metrics Defined
 
