@@ -367,6 +367,12 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 
 [Describe how you approached the analysis. Were you exploring patterns? Testing a hypothesis? Building and validating a pipeline? Be honest about your method - exploratory work is valid, just call it that.]
 
+In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed across different 'audiences' within 'a transit authority' - Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
+
+Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what that specific audience would need to make a decision. For example, the questions under Head of Operations prioritize frequency and controllability of delay causes, while the questions under Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
+/
+
+
 ### Key Metrics Defined
 
 | Metric | Plain-Language Definition | Why It Matters |
