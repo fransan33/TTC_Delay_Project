@@ -416,9 +416,9 @@ Cumulative contribution analysis in Tableau — running sum of total disruptive 
 
 On-time performance benchmarking — per train line OTP calculated using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report
 
-.Disproportionate contributor identification — Lorenz-style cumulative distribution curve in Tableau showing that approximately 33.92% of TTC vehicles account for 80% of total delay minutes, quantifying vehicle-level concentration of system impact
+Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further
 
-Prioritization matrix — scatter plot segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and incident count as axes, with bubble size encoding total delay minutes to surface both high-volume and high-severity candidates for improvement initiatives
+Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) 'using average delay time and delay count as axes', to surface both high-volume and high-severity candidates for improvement initiatives
 
 Service reliability heatmap — disruption rate visualized across a day × hour grid in Tableau to identify specific day/time combinations where service reliability consistently drops, directly supporting customer communication and marketing campaign timing decisions
 
