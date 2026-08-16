@@ -406,17 +406,17 @@ Top-N ranking per partition in MySQL — RANK() and DENSE_RANK() window function
 
 Trend analysis (2014–2025) — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity
 
-Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table, enabling analyses to be filtered by what TTC can realistically act on vs. not act on due to external factors
+Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table, enabling analyses to be filtered by what TTC can realistically act on vs. can't act on due to external factors
 
-Disruption cascade analysis — conditional aggregation using CASE WHEN min_gap > 8 to distinguish delays that remained self-contained from those that triggered downstream service gaps exceeding the 8-minute on-time threshold, producing disruption rate and total disruptive gap metrics per delay cause
+Disruption analysis — conditional aggregation using CASE WHEN min_gap > 8 to distinguish delays that remained self-contained from those that caused downstream service gaps exceeding the 8-minute on-time threshold, 'analyzing' disruption rate and total disruptive gap metrics per delay cause
 
-Cumulative contribution analysis (Pareto) — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line
+Cumulative contribution analysis in Tableau — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line
 
-Consistency scoring via signal-to-noise ratio — two-level CTE aggregation computing average delay severity and standard deviation across weekdays per hour, combined into a severity consistency ratio (avg / NULLIF(stddev, 0)) to identify time periods where delay severity is not just high but reliably predictable — the analytical basis for rider behaviour adjustment analysis
+\\ Consistency scoring via signal-to-noise ratio — two-level CTE aggregation computing average delay severity and standard deviation across weekdays per hour, combined into a severity consistency ratio (avg / NULLIF(stddev, 0)) to identify time periods where delay severity is not just high but reliably predictable — the analytical basis for rider behaviour adjustment analysis //
 
-On-time performance benchmarking — system-wide and per-line OTP calculated using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report
+On-time performance benchmarking — per train line OTP calculated using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report
 
-Disproportionate contributor identification — Lorenz-style cumulative distribution curve in Tableau showing that approximately 33.92% of TTC vehicles account for 80% of total delay minutes, quantifying vehicle-level concentration of system impact
+.Disproportionate contributor identification — Lorenz-style cumulative distribution curve in Tableau showing that approximately 33.92% of TTC vehicles account for 80% of total delay minutes, quantifying vehicle-level concentration of system impact
 
 Prioritization matrix — scatter plot segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and incident count as axes, with bubble size encoding total delay minutes to surface both high-volume and high-severity candidates for improvement initiatives
 
