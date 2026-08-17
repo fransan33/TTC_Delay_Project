@@ -412,7 +412,7 @@ Disruption analysis — conditional aggregation using CASE WHEN min_gap > 8 to d
 
 Cumulative contribution analysis in Tableau — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line
 
-\\ Consistency scoring via signal-to-noise ratio — two-level CTE aggregation computing average delay severity and standard deviation across weekdays per hour, combined into a severity consistency ratio (avg / NULLIF(stddev, 0)) to identify time periods where delay severity is not just high but reliably predictable — the analytical basis for rider behaviour adjustment analysis //
+Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level CTE to first calculate the average delay per hour per day, then measured how much that varied across weekdays using standard deviation. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour
 
 On-time performance benchmarking — per train line OTP calculated using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report
 
@@ -422,7 +422,7 @@ Prioritization matrix — scatter plot in Tableau segmenting controllable delay 
 
 Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops, directly addressing to customers
 
-.Proportional share analysis in MySQL — SUM(COUNT(*)) OVER() and SUM(COUNT(*)) OVER(PARTITION BY cleaned_line) window functions to compute each station and line's share of total system delays, enabling relative impact comparisons beyond raw counts
+Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different overall volumes rather than relying on raw counts alone
 
 
 
