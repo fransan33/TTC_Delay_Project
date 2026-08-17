@@ -425,9 +425,6 @@ Service reliability heatmap — disruption rate visualized across a day x hour g
 Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different overall volumes rather than relying on raw counts alone
 
 
-
-
-
 ---
 
 ## 9. Key Insights
