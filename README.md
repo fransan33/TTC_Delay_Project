@@ -418,11 +418,11 @@ On-time performance benchmarking — per train line OTP calculated using min_gap
 
 Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further
 
-Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) 'using average delay time and delay count as axes', to surface both high-volume and high-severity candidates for improvement initiatives
+Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and delay count as axes, to surface both high-volume and high-severity delay causes for improvement initiatives
 
-Service reliability heatmap — disruption rate visualized across a day × hour grid in Tableau to identify specific day/time combinations where service reliability consistently drops, directly supporting customer communication and marketing campaign timing decisions
+Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops, directly addressing to customers
 
-Proportional share analysis — SUM(COUNT(*)) OVER() and SUM(COUNT(*)) OVER(PARTITION BY cleaned_line) window functions to compute each station and line's share of total system delays, enabling relative impact comparisons beyond raw counts
+.Proportional share analysis in MySQL — SUM(COUNT(*)) OVER() and SUM(COUNT(*)) OVER(PARTITION BY cleaned_line) window functions to compute each station and line's share of total system delays, enabling relative impact comparisons beyond raw counts
 
 
 
