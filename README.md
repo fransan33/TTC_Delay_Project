@@ -1,5 +1,5 @@
 # TTC Subway Delay 
-> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes are within TTC's operation control and can be prevented by prioritizing improvement initiatives*
+> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes of delays are within TTC's operation control and can be prevented by prioritizing improvement initiatives*
 
 ---
 
@@ -286,7 +286,7 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 | `min_gap` | int | Gap between successive vehicles in minutes | 0 | no |
 | `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
-| `cleaned_vehicle` | bigint | 	Vehicle number after null/invalid removal | 5471 | yes |
+| `cleaned_vehicle` | bigint | 	Vehicle number of the train in operation | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
 > **Row count:** 230,456
@@ -298,9 +298,9 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
 | `row_id` | int | Unique identifier per delay record | 33 | no |
-| `code` | text | Date the delay occurred | 2022-01-01 | no |
-| `description` | text | Day of week the delay occurred | Saturday | no |
-| `control_level` | varchar(50) | Standardized station name after cleaning | Islington | no |
+| `code` | varchar(10) | Abbreviated delay cause code from TTC | ERAC | no |
+| `description` | text | 	Full description of delay cause | work zone problems - signals | no |
+| `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
 > **Row count:** 212
 > **Key join / relationship:** [ `code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
