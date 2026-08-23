@@ -52,38 +52,20 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 ### Scope
 
-<!--
-  WHAT GOOD LOOKS LIKE:
-  In Scope: "Transaction-level data for Regions A–E, Jan 2023–Jun 2024.
-             Analysis covers revenue, return rates, and product category performance."
-  Out of Scope: "Customer demographics and marketing spend data were excluded -
-                 demographic data was incomplete for two regions, and marketing
-                 data sits in a separate system outside this engagement."
-
-  WHAT TO AVOID:
-  ❌ Leaving Out of Scope blank. This is the section that protects your credibility.
-     If you don't define the fence, reviewers assume you missed things.
--->
-
 | Dimension | Details |
 |-----------|---------|
-| **In Scope** | Delay data across all 4 TTC Subway Lines, Jan 2014 - Apr 2025, & delay codes. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
-| **Out of Scope** | Delay data from May 2025 - Dec 2025 were excluded - the data sets were extracted and reviewed in Jun 2025 |
+| **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
+| **Out of Scope** | Delay data from May 2025 - December 2025 were excluded as the data sets were extracted and reviewed in June 2025 |
 | **Time Period** | January 2014 - April 2025 |
-| **Granularity** | single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
+| **Granularity** | Single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
 
 ### Tools & Technologies
 
-<!--
-  List only what you actually used on this project.
-  This is not your skills section - it's the project's technical context.
--->
-
 | Category | Tool(s) Used |
 |----------|-------------|
-| Data Storage | CSV files |
+| Data Storage | CSV Files |
 | Data Processing | MySQL, Excel (Power Query), Command Prompt |
-| Analysis | custom MySQL queries |
+| Analysis | MySQL Queries |
 | Visualization | Tableau |
 | Version Control | Git / GitHub |
 | Documentation | Word / Excel |
