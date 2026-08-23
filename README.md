@@ -165,30 +165,27 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
      Removed trailing white space.
      Removed 0.06% of duplicated rows.   
                  
-5. **Transformation:** [What new fields, aggregations, or structures did you create?]
-                       Collected code description data from the open toronto data website to decode the abbreviated delay reason on the ttc delay data. Created a reference look up table and mapped it to the cleaned dataset subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and operational control level classifications.
-                       Collected the subway line names and line numbers from external source and replaced the abbreviated line column in the data set.
-                       Collected the subway station names from external source to validate the values in station column and resolve inconsistencies and identify                           non-sensical names.
-                       Converted the time column data from VARCHAR -> TIME datatype to be able to analyze the data properly throughout the MySQL queries, as well as through Tableau dashboards.
-7. **Analysis:** [What methods - statistical, visual, query-based, model-based?]
-                 Yearly KPI, delay trends comparison.
-                 Segmenting delay trends by time, station, ttc line, vehicles.
-                 Evaluating the operational impact of delays that are within control.
-9. **Output/ Visualization:** [What form do the results take?] Tableau Public
-                               Developed 4 interactive dashboards targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing. Included charts are listed below:
-
-Bar charts (most common cause of delay)
-Barbell charts (delay frequency by train line and bound)
-Bubble charts (delay frequency by station)
-Pareto charts (delay cause contribution and vehicle impact)
-Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
-Year-over-year trend lines (avg delay comparison)
-Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
-Bullet charts (on-time performance vs. 90% KPI target)
-Heatmaps (service reliability by day and hour)
-
-
-Dashboard design decisions included dynamic parameters for station, hour of day, day of week, & year selection, LOD expressions for consistency metrics, calculated fields for disruption rate and KPI, and dual-axis configurations for layered storytelling.
+4. **Transformation:**
+   - Collected code description data from the open Toronto data website to decode the abbreviated delay reason on the TTC delay data. Created a reference look up        table and mapped it to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and              operational control level classifications.
+   - Collected the subway line names and line numbers from external source and replaced the abbreviated values in line column in the data set by creating CASE WHEN queries.
+   - Collected the subway station names from external source to validate the values in station column, resolve inconsistencies and identify non-sensical names. CASE WHEN queries were created to resolve inconsistencies.
+   - Converted the time column data from VARCHAR to TIME datatype to be able to analyze the data properly throughout the MySQL queries, as well as through Tableau dashboards.
+5. **Analysis:** 
+   - Yearly KPI and delay trends comparison.
+   - Segmenting delay trends by time, station, TTC line, and vehicles.
+   - Evaluating the operational impact of delays that are within control.
+6. **Output/ Visualization:**
+   Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior              Management, and Head of Marketing. Included charts are listed below:
+     - Bar charts (most common cause of delay)
+     - Barbell charts (delay frequency by train line and bound)
+     - Bubble charts (delay frequency by station)
+     - Pareto charts (delay cause contribution and vehicle impact)
+     - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
+     - Year-over-year trend lines (avg delay comparison)
+     - Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
+     - Bullet charts (on-time performance vs. 90% KPI target)
+     - Heatmaps (service reliability by day and hour)
+  Dashboard design decisions included dynamic parameters for station, hour of day, day of week, & year selection, LOD expressions for consistency metrics,            calculated fields for disruption rate and KPI, and dual-axis configurations for layered storytelling.
 
 ---
 
