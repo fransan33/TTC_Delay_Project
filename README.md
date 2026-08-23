@@ -367,7 +367,7 @@ Dashboard design decisions included dynamic parameters for station, hour of day,
 
 [Describe how you approached the analysis. Were you exploring patterns? Testing a hypothesis? Building and validating a pipeline? Be honest about your method - exploratory work is valid, just call it that.]
 
-In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed across different 'audiences' within 'a transit authority' - Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
+In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed across different 'audiences' within 'a transit industry' - Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
 
 Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what that specific audience would need to make a decision. For example, the questions under Head of Operations prioritize frequency and controllability of delay causes, while the questions under Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
@@ -449,12 +449,17 @@ Relative delay share analysis — computed each station and line's percentage co
 
 **Insight 1: [Short descriptive headline]**
 [What you found + what it suggests. One short paragraph.]
+Disorderly patron explains TTC's frequent delays.
+The overall disruption rate of disorderly patron delay cause is 53.85% - 
+Disorderly patron has the highest delay count overall - being the top delay cause in over 60% of ttc stations, 75% of the time throughout the day, and on a daily basis. This points to a delay issue that is not within our control.  
 
 **Insight 2: [Short descriptive headline]**
 [What you found + what it suggests.]
+KPI?
 
 **Insight 3: [Short descriptive headline]**
 [What you found + what it suggests.]
+delays are more prominent during peak hour windows
 
 **Insight 4 (if applicable): [Short descriptive headline]**
 [What you found + what it suggests.]
