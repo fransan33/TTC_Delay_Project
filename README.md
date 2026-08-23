@@ -142,25 +142,28 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 [Output / Visualisation / Reporting]
 ```
 
-1. **Source:** Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-               Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes and descriptions.
-2. **Ingestion:** Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in Excel, and loaded into MySQL using Command Prompt. 
-3. **Cleaning:** - ttc_subway schema -
-                 Removed trailing white space.
-                 Generated unique primary key values for each row.
-                 Removed 0.09% of duplicated rows.
-                 Converted the time column values into an hourly basis and excluded the minutes.
-                 Non-sensical station names in station column (5.66% rows) converted into NULL values (non-critical column).
-                 Resolved station name inconsistencies.
-                 Removed 0.08% of rows containing nonsensical values in code column (critical column).
-                 Converted the abbreviated values in bound column into the full direction description.
-                 Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values (non-critical column).
-                 Resolved line name inconsistencies.
-                 Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column).
-                 Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column).
-                 - code_desc schema -
-                 Removed trailing white space.
-                 Removed 0.06% of duplicated rows.   
+1. **Source:**
+   Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
+   Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes and descriptions.
+2. **Ingestion:**
+   Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in Excel,    and loaded into MySQL using Command Prompt. 
+3. **Cleaning:**
+   - ttc_subway schema -
+     Removed trailing white space.
+     Generated unique primary key values for each row.
+     Removed 0.09% of duplicated rows.
+     Converted the time column values into an hourly basis and excluded the minutes.
+     Non-sensical station names in station column (5.66% rows) converted into NULL values (non-critical column).
+     Resolved station name inconsistencies.
+     Removed 0.08% of rows containing nonsensical values in code column (critical column).
+     Converted the abbreviated values in bound column into the full direction description.
+     Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values (non-critical column).
+     Resolved line name inconsistencies.
+     Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column).
+     Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column).
+   - code_desc schema -
+     Removed trailing white space.
+     Removed 0.06% of duplicated rows.   
                  
 5. **Transformation:** [What new fields, aggregations, or structures did you create?]
                        Collected code description data from the open toronto data website to decode the abbreviated delay reason on the ttc delay data. Created a reference look up table and mapped it to the cleaned dataset subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and operational control level classifications.
