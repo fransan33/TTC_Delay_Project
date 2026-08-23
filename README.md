@@ -185,7 +185,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
      - Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
      - Bullet charts (on-time performance vs. 90% KPI target)
      - Heatmaps (service reliability by day and hour)
-  Dashboard design decisions included dynamic parameters for station, hour of day, day of week, & year selection, LOD expressions for consistency metrics,            calculated fields for disruption rate and KPI, and dual-axis configurations for layered storytelling.
+   Dashboard design decisions included dynamic parameters for station, hour of day, day of week, & year selection, LOD expressions for consistency metrics,            calculated fields for disruption rate and KPI, and dual-axis configurations for layered storytelling.
 
 ---
 
