@@ -220,30 +220,13 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 ## 8. Analysis & Metrics
 
-<!--
-  Explain what you measured and how - before you share what you found.
-
-  WHAT GOOD LOOKS LIKE:
-  Metric: "Customer Return Rate"
-  Definition: "Number of transactions flagged as returns divided by total
-               transactions, calculated at product-category and regional grain."
-  Why It Matters: "Return rate - not sales volume - was hypothesised to
-                  explain regional revenue gaps. This metric tests that hypothesis."
-
-  WHAT TO AVOID:
-  ❌ Defining a metric only in code: SUM(returns) / COUNT(transaction_id)
-     That's an implementation. Write the plain-language definition here.
-     Both belong in your project - the definition in the README,
-     the implementation in the code.
--->
-
 ### Analytical Approach
 
 [Describe how you approached the analysis. Were you exploring patterns? Testing a hypothesis? Building and validating a pipeline? Be honest about your method - exploratory work is valid, just call it that.]
 
-In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed across different 'audiences' within 'a transit industry' - Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
+In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed by key stakeholders across TTC — Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
 
-Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what that specific audience would need to make a decision. For example, the questions under Head of Operations prioritize frequency and controllability of delay causes, while the questions under Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
+Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what each specific key stakeholder would need to make a decision. For example, the questions structured for the Head of Operations prioritize frequency and controllability of delay causes, while the questions structured for Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
 There are two 'deliberate' metric distinctions that shaped the entire analysis — min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between one train and the next arriving at a station (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
 
