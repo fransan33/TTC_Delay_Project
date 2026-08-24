@@ -55,8 +55,8 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | Dimension | Details |
 |-----------|---------|
 | **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
-| **Out of Scope** | Delay data from May 2025 - December 2025 were excluded as the data sets were extracted and reviewed in June 2025 |
-| **Time Period** | January 2014 - April 2025 |
+| **Out of Scope** | Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025 |
+| **Time Period** | January 2014-April 2025 |
 | **Granularity** | Single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
 
 ### Tools & Technologies
@@ -108,28 +108,6 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 ## 5. Data Workflow
 
-<!--
-  Show how data moved through your project - from source to output.
-  Every transformation decision should be traceable here.
-
-  WHAT GOOD LOOKS LIKE:
-  1. Source: "Monthly CSV exports pulled from the internal POS system.
-              Five files, one per region, covering Jan 2023–Jun 2024."
-  2. Ingestion: "Loaded into Python using pandas. Files concatenated into
-                 a single dataframe (approx. 340,000 rows)."
-  3. Cleaning: "Removed 1.2% of rows with null transaction IDs.
-                Standardised date formats across regional files.
-                Resolved product category naming inconsistencies (3 variants → 1)."
-  4. Transformation: "Created a returns_rate field at product-category level.
-                      Aggregated to weekly and regional grain for trend analysis."
-  5. Analysis: "Descriptive statistics, regional comparison, return rate
-                segmentation by product category."
-  6. Output: "Summary report (PDF), annotated notebook, processed CSV."
-
-  WHAT TO AVOID:
-  ❌ "Data was cleaned and analysed." (No chain. No decisions. No trust.)
--->
-
 ```
 [Data Source(s)]
       ↓
@@ -143,12 +121,12 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 ```
 
 1. **Source:**
-   Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-   Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes and descriptions.
+   - Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
+     Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes and descriptions.
 2. **Ingestion:**
-   Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in Excel,    and loaded into MySQL using Command Prompt. 
+   - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel, and loaded into MySQL using Command Prompt. 
 3. **Cleaning:**
-   - ttc_subway schema -
+   - ttc_subway table -
      Removed trailing white space.
      Generated unique primary key values for each row.
      Removed 0.09% of duplicated rows.
@@ -161,10 +139,9 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
      Resolved line name inconsistencies.
      Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column).
      Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column).
-   - code_desc schema -
+   - code_desc table -
      Removed trailing white space.
      Removed 0.06% of duplicated rows.   
-                 
 4. **Transformation:**
    - Collected code description data from the open Toronto data website to decode the abbreviated delay reason on the TTC delay data. Created a reference look up        table and mapped it to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and              operational control level classifications.
    - Collected the subway line names and line numbers from external source and replaced the abbreviated values in line column in the data set by creating CASE WHEN queries.
@@ -191,27 +168,6 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 ## 6. Data Model & Schema
 
-<!--
-  Define your fields so that someone reading your analysis can follow along
-  without digging through your code.
-
-  WHAT GOOD LOOKS LIKE (one row example):
-  | transaction_id | string | Unique identifier per sales transaction | TXN-00482 |
-  | return_flag    | boolean | Whether the transaction included a return | TRUE |
-  | region_code    | string | Two-letter identifier for store region | "NE" |
-
-  WHAT TO AVOID:
-  ❌ Skipping this section because "the field names are self-explanatory."
-     They're not. Not to a reviewer. Not to you in six months.
-
-  📌 FOR SQL PROJECTS: If you have multiple tables, create one block per table.
-     Describe join keys and relationships here. Your ERD (Section 7) will
-     visualise what this section describes in text.
-
-  📌 FOR NON-SQL PROJECTS: Describe the shape of your dataset informally
-     if a formal schema doesn't apply. Even one paragraph is more helpful than nothing.
--->
-
 ### Dataset / Table: `ttc_subway_cleaned`
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
@@ -219,17 +175,17 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | `row_id` | int | Unique identifier per delay record | 33 | no |
 | `date` | date | Date the delay occurred | 2022-01-01 | no |
 | `day` | text | Day of week the delay occurred | Saturday | no |
-| `cleaned_station` | varchar(27) | Standardized station name after cleaning | Islington | yes |
+| `cleaned_station` | varchar(27) | Standardized station name | Islington | yes |
 | `code` | text | Abbreviated delay cause code from TTC | MUIRS | no |
-| `min_delay` | int | Duration of delay in minutes (rider-facing) | 0 | no |
-| `min_gap` | int | Gap between successive vehicles in minutes | 0 | no |
+| `min_delay` | int | Duration of delay in minutes (rider-facing) | 5 | no |
+| `min_gap` | int | Gap between successive vehicles in minutes | 12 | no |
 | `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
 | `cleaned_vehicle` | bigint | 	Vehicle number of the train in operation | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
 > **Row count:** 230,456
-> **Date range:** Jan 2014 – Apr 2025
+> **Date range:** January 2014 – April 2025
 > **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
 ### Dataset / Table: `code_desc_clean_v2`
