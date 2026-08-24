@@ -122,7 +122,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 1. **Source:**
    - Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-     Ten files covering Jan 2014 – Apr 2025, and two files containing delays codes and descriptions.
+     Ten files covering January 2014–April 2025, and two files containing delays codes and descriptions.
 2. **Ingestion:**
    - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel, and loaded into MySQL using Command Prompt. 
 3. **Cleaning:**
@@ -181,11 +181,11 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | `min_gap` | int | Gap between successive vehicles in minutes | 12 | no |
 | `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
-| `cleaned_vehicle` | bigint | 	Vehicle number of the train in operation | 5471 | yes |
+| `cleaned_vehicle` | bigint | Vehicle number of the train in operation | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
 > **Row count:** 230,456
-> **Date range:** January 2014 – April 2025
+> **Date range:** January 2014–April 2025
 > **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
 ### Dataset / Table: `code_desc_clean_v2`
@@ -194,7 +194,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 |------------|-----------|-------------|---------------|----------|
 | `row_id` | int | Unique identifier per delay record | 33 | no |
 | `code` | varchar(10) | Abbreviated delay cause code from TTC | ERAC | no |
-| `description` | text | 	Full description of delay cause | work zone problems - signals | no |
+| `description` | text | Full description of delay cause | work zone problems - signals | no |
 | `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
 > **Row count:** 212
@@ -204,30 +204,9 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 ## 7. ERD - Entity Relationship Diagram
 ### *(Primarily for SQL Projects - remove this section if not applicable)*
 
-<!--
-  An ERD shows how your tables connect to each other visually.
-  It is the fastest way for a reviewer to understand the data structure
-  of a SQL project without reading every query.
-
-  HOW TO INCLUDE YOUR ERD:
-  Option A - Image embed (most common):
-    Export your ERD from dbdiagram.io, DBeaver, Lucidchart, or similar.
-    Save to /visuals/erd.png and reference it below.
-
-  Option B - dbdiagram.io code block (version-controllable):
-    Paste your schema definition code directly in the fenced block below.
-    Anyone can paste it into dbdiagram.io to regenerate the visual.
-
-  Option C - Mermaid diagram (renders natively in GitHub):
-    Use the mermaid code block syntax below.
-    GitHub will render this as a diagram automatically.
-
-  PICK ONE. Don't use all three. Delete the options you don't use.
--->
-
 ### Embedded Image
 [ERD Diagram](TTC.Subway.Delay_ERD.pdf)
-*[Brief caption: e.g., "Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes."]*
+*[Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes]*
 
 ---
 
