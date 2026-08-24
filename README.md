@@ -176,7 +176,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | `date` | date | Date the delay occurred | 2022-01-01 | no |
 | `day` | text | Day of week the delay occurred | Saturday | no |
 | `cleaned_station` | varchar(27) | Standardized station name | Islington | yes |
-| `code` | text | Abbreviated delay cause code from TTC | MUIRS | no |
+| `code` | text | Abbreviated delay cause code | MUIRS | no |
 | `min_delay` | int | Duration of delay in minutes (rider-facing) | 5 | no |
 | `min_gap` | int | Gap between successive vehicles in minutes | 12 | no |
 | `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
@@ -193,7 +193,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
 | `row_id` | int | Unique identifier per delay record | 3 | no |
-| `code` | varchar(10) | Abbreviated delay cause code from TTC | ERAC | no |
+| `code` | varchar(10) | Abbreviated delay cause code | ERAC | no |
 | `description` | text | Full description of delay cause | work zone problems - signals | no |
 | `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
@@ -255,7 +255,7 @@ Lastly, a CREATE VIEW statement was built to capture the LEFT JOIN between the d
 
 | Metric | Plain-Language Definition | Why It Matters |
 |--------|--------------------------|----------------|
-| `min_delay` | 	Duration in minutes between a train's scheduled and actual arrival, as experienced by the rider | This is the primary rider-facing severity metric, and is used wherever the question concerns passenger impact rather than operational |
+| `min_delay` | Duration in minutes between a train's scheduled and actual arrival, as experienced by the rider | This is the primary rider-facing severity metric, and is used wherever the question concerns passenger impact rather than operational |
 | `min_gap` | Time in minutes between one vehicle and the next arriving at a station | It measures service regularity from an operator perspective, and is used to assess whether a delay caused a wider service disruption |
 | `disruption_rate` | Percentage of delay incidents where min_gap exceeded 8 minutes, indicating a service gap beyond the on-time threshold | Helps distinguish manageable delays from those that compound into system-wide problems |
 | `avg_disruptive_gap` | 	Average min_gap value among incidents where min_gap > 8, calculated using conditional aggregation to exclude non-disruptive events from the average | Measures how severe the downstream service disruption is when it does occur — a high average indicates more severe downstream impact |
