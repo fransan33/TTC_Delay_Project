@@ -184,21 +184,21 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | `cleaned_vehicle` | bigint | Vehicle number of the train in operation | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
-> **Row count:** 230,456
-> **Date range:** January 2014–April 2025
+> **Row count:** 230,456 |
+> **Date range:** January 2014–April 2025 |
 > **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
 ### Dataset / Table: `code_desc_clean_v2`
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
-| `row_id` | int | Unique identifier per delay record | 33 | no |
+| `row_id` | int | Unique identifier per delay record | 3 | no |
 | `code` | varchar(10) | Abbreviated delay cause code from TTC | ERAC | no |
 | `description` | text | Full description of delay cause | work zone problems - signals | no |
 | `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
-> **Row count:** 212
-> **Key join / relationship:** [ `code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
+> **Row count:** 212 |
+> **Key join / relationship:** [`code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
 ---
 
 ## 7. ERD - Entity Relationship Diagram
