@@ -248,30 +248,15 @@ Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the 
 
 ### Methods Used
 
-- [e.g., Descriptive statistics - distribution, central tendency, outlier detection]
-- [e.g., Trend analysis across [time period]]
-- [e.g., Segmentation / group comparison by [dimension]]
-- [e.g., Correlation analysis between [variable A] and [variable B]]
-- [e.g., SQL window functions for [specific aggregation]]
-- [e.g., Custom aggregation or transformation logic in [tool]]
-
-Descriptive statistics — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (station, line, bound direction, vehicle, time of day, day of week) to establish delay patterns across the TTC subway network
-
-Top-N ranking per partition in MySQL — RANK() and DENSE_RANK() window functions partitioned by station, time of day, and day of week to surface the single most common delay cause per grouping
-
-Trend analysis (2014–2025) — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity
-
-Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table, enabling analyses to be filtered by what TTC can realistically act on vs. can't act on due to external factors
-
-Disruption analysis — conditional aggregation using CASE WHEN min_gap > 8 to distinguish delays that remained self-contained from those that caused downstream service gaps exceeding the 8-minute on-time threshold, 'analyzing' disruption rate and total disruptive gap metrics per delay cause
-
-Cumulative contribution analysis in Tableau — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line
-
-Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level CTE to first calculate the average delay per hour per day, then measured how much that varied across weekdays using standard deviation. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour
-
-On-time performance benchmarking — per train line OTP calculated using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report
-
-Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further
+- Descriptive statistics — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (station, line, bound direction, vehicle, time of day, day of week) to establish delay patterns across the TTC subway network.
+- Top-N ranking per partition — RANK() and DENSE_RANK() window functions partitioned by station, time of day, and day of week in MySQL to surface the single most common delay cause per grouping.
+- Trend analysis (2014–2025) — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity.
+- Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table in MySQL, enabling analyses to be filtered by what TTC can realistically act on vs. can't act on due to external factors.
+- Disruption analysis — conditional aggregation using CASE WHEN min_gap > 8 to distinguish delays that remained self-contained from those that caused downstream service gaps exceeding the 8-minute on-time threshold, analyzing disruption rate and total disruptive gap metrics per delay cause.
+- Cumulative contribution analysis — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line.
+- Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level CTE to first calculate the average delay per hour per day, then measured how much of that varied across weekdays using standard deviation. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour.
+- On-time performance benchmarking — per train line, OTP is calculated in a yearly basis using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report. For the purpose of the project, I made an assumption that 90% is the KPI target for each year.
+- Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further
 
 Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and delay count as axes, to surface both high-volume and high-severity delay causes for improvement initiatives
 
@@ -323,6 +308,8 @@ Measures the overall time lost to service gaps across all incidents — a cause 
 pct_line_delays / pct_station_delays
 
 severity_consistency_ratio
+
+Weekday delay consistency analysis
 
 ---
 
