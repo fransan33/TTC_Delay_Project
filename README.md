@@ -319,6 +319,11 @@ delays are more prominent during peak hour windows
 **Insight 4 (if applicable): [Short descriptive headline]**
 [What you found + what it suggests.]
 Measures the overall time lost to service gaps across all incidents — a cause that disrupts service moderately but frequently can have a more significant total impact than a rare but severe one -> connect with number of delays increase during peak hours ->  more significant impact
+
+pct_line_delays / pct_station_delays
+
+severity_consistency_ratio
+
 ---
 
 ## 10. Recommendations
