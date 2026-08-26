@@ -284,18 +284,18 @@ Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the 
 -->
 
 **Insight 1: Disorderly patron explains TTC's frequent delays**
-Disorderly patron explains TTC's frequent delays
 Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and 75% of hourly intervals on a daily basis. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
 
 **Insight 2: [Short descriptive headline]**
 [What you found + what it suggests.]
-KPI?
+34% of TTC vehicles account for 80% of delays
+pointing to specific vehicles worth investigating further
 
 **Insight 3: [Short descriptive headline]**
 [What you found + what it suggests.]
 delays are more prominent during peak hour windows
 
-**Insight 4 (if applicable): [Short descriptive headline]**
+**Insight 4: [Short descriptive headline]**
 [What you found + what it suggests.]
 Measures the overall time lost to service gaps across all incidents — a cause that disrupts service moderately but frequently can have a more significant total impact than a rare but severe one -> connect with number of delays increase during peak hours ->  more significant impact
 
@@ -304,6 +304,8 @@ pct_line_delays / pct_station_delays
 severity_consistency_ratio
 
 Weekday delay consistency analysis
+
+KPI?
 
 ---
 
