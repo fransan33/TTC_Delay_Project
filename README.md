@@ -256,14 +256,10 @@ Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the 
 - Cumulative contribution analysis — running sum of total disruptive gap by delay cause visualized as a Pareto chart in Tableau to identify which causes account for the largest share of cumulative service gap, with an 80% threshold reference line.
 - Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level CTE to first calculate the average delay per hour per day, then measured how much of that varied across weekdays using standard deviation. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour.
 - On-time performance benchmarking — per train line, OTP is calculated in a yearly basis using min_gap ≤ 8 as the on-time threshold, benchmarked against TTC's published 90% KPI target from the 2025 Corporate Plan Mid-Year Progress Report. For the purpose of the project, I made an assumption that 90% is the KPI target for each year.
-- Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further
-
-Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and delay count as axes, to surface both high-volume and high-severity delay causes for improvement initiatives
-
-Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops, directly addressing to customers
-
-Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different overall volumes rather than relying on raw counts alone
-
+- Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how unevenly delay is distributed across TTC vehicles — roughly a third of the trains accounts for 80% of all delay time, pointing to specific vehicles worth investigating further.
+- Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, monitor) using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
+- Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops.
+- Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
 
 ---
 
@@ -287,11 +283,9 @@ Relative delay share analysis — computed each station and line's percentage co
   Aim for 3–6 insights. Quality over quantity.
 -->
 
-**Insight 1: [Short descriptive headline]**
-[What you found + what it suggests. One short paragraph.]
-Disorderly patron explains TTC's frequent delays.
-The overall disruption rate of disorderly patron delay cause is 53.85% - 
-Disorderly patron has the highest delay count overall - being the top delay cause in over 60% of ttc stations, 75% of the time throughout the day, and on a daily basis. This points to a delay issue that is not within our control.  
+**Insight 1: Disorderly patron explains TTC's frequent delays**
+Disorderly patron explains TTC's frequent delays
+Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and 75% of hourly intervals on a daily basis. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
 
 **Insight 2: [Short descriptive headline]**
 [What you found + what it suggests.]
