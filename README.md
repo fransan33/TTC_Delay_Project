@@ -286,10 +286,8 @@ Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the 
 **Insight 1: Disorderly patron explains TTC's frequent delays**
 Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and 75% of hourly intervals on a daily basis. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
 
-**Insight 2: [Short descriptive headline]**
-[What you found + what it suggests.]
-34% of TTC vehicles account for 80% of delays
-pointing to specific vehicles worth investigating further
+**Insight 2: Roughly a third of TTC vehicles account for most delays**
+34% of trains make up for 80% of total delay time. This points to specific trains that contribute disproportionately to system delays, which should be investigated further.
 
 **Insight 3: [Short descriptive headline]**
 [What you found + what it suggests.]
