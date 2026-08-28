@@ -291,10 +291,10 @@ Disorderly patron ranks as the leading cause of delays across 60% of TTC subway 
 
 **Insight 3: [Short descriptive headline]**
 [What you found + what it suggests.]
-delays are more prominent during peak hour windows
+Line 3 has the lowest OTP during the years it was running (2014 - 2023).
+OTP for Line 3 ranges from 41% - 59% only, which is extremely low compared to the OTP range from other Lines (70% - 93%), and is 31-49% lower than the targeted KPI of 90%. This suggests that this TTC Line was experiencing significant delay issues on a year to year basis, heavily struggling to meet the KPI Target of 90%, which supports the company's decision to permanently shut down the line in July 2023.
 
 **Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays**
-[What you found + what it suggests.]
 Disruption rate in this specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service in these times, and they are likely to find a different method of transportation. 
 
 
@@ -304,8 +304,9 @@ severity_consistency_ratio
 
 Weekday delay consistency analysis
 
-KPI?
+OTP is being met from 2014 - 2019 for Lines 1 & 2, but struggles to meet it from 2020 onwards. This suggests that the COVID-19 affected the performance of TTC ??...
 
+delays are more prominent during peak hour windows
 ---
 
 ## 10. Recommendations
