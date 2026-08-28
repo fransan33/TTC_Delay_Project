@@ -55,8 +55,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 | Dimension | Details |
 |-----------|---------|
 | **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
-| **Out of Scope** | - Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025. 
-- Three delay records with Line 3 as the TTC Line and dated after July 24, 2023 were excluded from KPI calculation in Tableau as Line 3 was shut down permanently following a derailment on July 24, 2023 - these were included in other analysis though, as the error was seen after the MySQL queries and Tableau dashboard were created. |
+| **Out of Scope** | - Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025. - Three delay records with Line 3 as the TTC Line and dated after July 24, 2023 were excluded from KPI calculation in Tableau as Line 3 was shut down permanently following a derailment on July 24, 2023 - these were included in other analysis though, as the error was seen after the MySQL queries and Tableau dashboard were created. |
 | **Time Period** | January 2014-April 2025 |
 | **Granularity** | Single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
 
