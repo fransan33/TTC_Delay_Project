@@ -297,6 +297,11 @@ delays are more prominent during peak hour windows
 [What you found + what it suggests.]
 Measures the overall time lost to service gaps across all incidents — a cause that disrupts service moderately but frequently can have a more significant total impact than a rare but severe one -> connect with number of delays increase during peak hours ->  more significant impact
 
+Are there specific times or days when service reliability drops and should be addressed in customer communication or loyalty campaigns? 
+
+Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays. 
+Disruption rate in this specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service in these times, and they are likely to find a different method of transportation.
+
 pct_line_delays / pct_station_delays
 
 severity_consistency_ratio
