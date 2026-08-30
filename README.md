@@ -297,7 +297,7 @@ The OTP for Line 3 ranges from 41%-59%, which is extremely low compared to the O
 
 **Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays**
 
-Disruption rate in these specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service during these times, and they are likely to find a different method of transportation. [this also suggests that there may be crew availability issues during these times, causing them to resolve the delay issue slower.]
+Disruption rate in these specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service during these times, and they are likely to find a different method of transportation. This also suggests that there may be crew availability issues during these times, causing the delay issues to get resolved slower.
 
 
 [pct_line_delays / pct_station_delays
@@ -334,9 +334,9 @@ delays are more prominent during peak hour windows]
 
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
-| High | [Specific, actionable step] | [Insight it comes from] | [Who should act] |
-| Medium | [Specific, actionable step] | [Insight it comes from] | [Who should act] |
-| Low | [Exploratory or longer-term suggestion] | [Insight it comes from] | [Who should act] |
+| High | Conduct an operational audit / inspection on the trains that contribute disproportionately to system delays - specifically investigate if they're causing significant delay issues on a year to year basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
+| Medium | [Specific, actionable step] | Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning vs Head of Marketing |
+| Low | Address to the public that delays are to be expected on a daily basis due to erratic behaviors of other riders | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
 
 ---
 
