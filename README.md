@@ -334,9 +334,11 @@ delays are more prominent during peak hour windows]
 
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
-| High | Conduct an operational audit / inspection on the trains that contribute disproportionately to system delays - specifically investigate if they're causing significant delay issues on a year to year basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
-| Medium | [Specific, actionable step] | Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning vs Head of Marketing |
-| Low | Address to the public that delays are to be expected on a daily basis due to erratic behaviors of other riders | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
+| High | Conduct targeted inspection and maintenance reviews on the top 34% of trains by total delay minutes - specifically investigate if they're causing significant delay issues on a year to year basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
+| Medium | Schedule more trains more frequently on weekends, and on weekdays between 8pm and 1am - specifically on lines and directions with highest disruption rates during these timeframes | Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning |
+| Low | Develop public-facing messaging and awareness campaigns regarding expected delays on a daily basis due to rider misconduct - include offering travel incentives or loyalty rewards for frequent riders affected by this delay | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
+
+Note: Priority reflects both delay severity and operational controllability — outside-control causes are assigned lower priority because the improvement initiatives are limited to communication and mitigation rather than operational.
 
 ---
 
