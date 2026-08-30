@@ -307,8 +307,8 @@ severity_consistency_ratio
 Weekday delay consistency analysis
 
 OTP is being met from 2014 - 2019 for Lines 1 & 2, but struggles to meet it from 2020 onwards. This suggests that the COVID-19 affected the performance of TTC ??...
-
 delays are more prominent during peak hour windows]
+
 ---
 
 ## 10. Recommendations
