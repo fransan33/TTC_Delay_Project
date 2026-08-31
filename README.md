@@ -364,11 +364,99 @@ Note: Priority reflects both delay severity and operational controllability — 
 - [What simplifications did you make for scope or feasibility?]
 - [What domain rules or definitions did you accept as given?]
 
+- **`min_delay = 0` records were treated as non-events** — records where 
+`min_delay = 0` were excluded from all delay analyses on the assumption 
+that they do not represent genuine delay incidents. These may reflect 
+on-time arrivals logged in the system rather than actual delays.
+
+- **The 8-minute service gap threshold was treated as the on-time benchmark** 
+— based on TTC's published definition that a train is considered on time 
+if it arrives within 1.5 times its scheduled headway. Assuming a standard 
+5-minute headway, 1.5 × 5 = 7.5 minutes, rounded up to 8 minutes. This 
+threshold was applied consistently across all disruption rate and OTP 
+calculations.
+
+- **`min_gap = 0` records were treated as evaluable service intervals** — 
+after investigating the distribution of zero-gap records across hours of 
+the day, their pattern mirrored overall delay volume rather than clustering 
+at service start times, suggesting they represent normal service intervals 
+rather than system resets or data artifacts. They were retained in OTP 
+calculations accordingly.
+
+- **Delay reason classifications were accepted as given from the TTC code 
+description reference table** — the `control_level` classification 
+(`within_control`, `partial_control`, `outside_control`) assigned to each 
+delay code was treated as accurate without independent verification. These 
+classifications directly influenced prioritization and improvement initiative 
+analyses.
+
+- **Weekday analysis excluded Saturday and Sunday throughout** — peak period 
+and consistency analyses were scoped to Monday–Friday on the assumption that 
+weekday commuter patterns are the primary planning concern. Weekend service 
+patterns were analyzed separately where relevant.
+
+- **The top-ranked delay cause per partition was treated as the dominant cause** 
+— where `RANK() = 1` was used to identify the most common delay cause per 
+station, hour, or day, ties were included (RANK rather than ROW_NUMBER). 
+In practice, ties at rank 1 are rare but were not explicitly handled.
+
 ### Limitations
 - [What gaps exist in the data?]
 - [What analysis was out of scope but could affect interpretation?]
 - [What would a more rigorous version of this project include?]
 - [Are there known biases in the data source or collection method?]
+
+- **No external validation of delay records against TTC operational logs** — 
+the dataset was sourced from Open Toronto and accepted at face value. There 
+was no way to verify whether all delay incidents were captured, whether 
+records were complete, or whether reporting practices changed over the 
+January 2014–April 2025 period in ways that could affect trend comparisons.
+
+- **Line 3 Scarborough records post-July 24, 2023 were not excluded from 
+all analyses** — Line 3 was permanently shut down following a derailment 
+on July 24, 2023. Three records with Line 3 as the TTC line dated after 
+this date were identified and excluded from KPI calculations in Tableau, 
+but were retained in MySQL query results as the discrepancy was discovered 
+after queries and dashboards were completed. This has minimal impact given 
+the small record count but is noted for transparency.
+
+- **Vehicle-level analysis cannot confirm whether the same physical vehicle 
+is consistently problematic year over year** — the query identifies vehicles 
+with the highest cumulative delay by vehicle number, but does not track 
+whether those vehicle numbers recur across multiple years. A vehicle 
+retired and replaced with the same number would appear as one continuous 
+record.
+
+- **`min_gap` as a service regularity proxy has known limitations** — 
+the 8-minute gap threshold was derived from a standard headway assumption 
+and may not accurately reflect scheduled headways for all lines, times, 
+and service periods. Lines with longer scheduled headways (e.g. late night 
+service) would be disproportionately flagged as disruptive under a fixed 
+8-minute threshold.
+
+- **Disruption rate calculations do not account for service frequency** — 
+a route running every 3 minutes and a route running every 12 minutes are 
+both assessed against the same 8-minute threshold, even though the 
+operational impact of an 8-minute gap differs significantly between them.
+
+- **The analysis cannot distinguish between delay causes that were accurately 
+coded at the time vs. coded generically** — codes like "miscellaneous other" 
+and "paa - no trouble found" suggest some incidents were logged without a 
+confirmed cause. These records were included in frequency counts but may 
+mask the true prevalence of more specific delay causes.
+
+- **On-time performance comparisons to other transit authorities are 
+approximate** — TTC's OTP methodology (headway adherence at end terminals) 
+differs from methodologies used by other agencies such as NYC MTA (schedule 
+adherence per stop). Direct percentage comparisons should be interpreted 
+with caution rather than taken as precise benchmarks.
+
+- **A more rigorous version of this project would include** — ridership 
+volume data to weight delay impact by the number of passengers affected; 
+weather data to isolate seasonal or weather-driven delay patterns; and 
+real-time headway data at intermediate stations rather than end terminals 
+only, which would give a more complete picture of service regularity 
+experienced by riders mid-route.
 
 > *The goal here is pre-emptive Q&A. What would a thoughtful skeptic push back on? Document the answer here, before they ask.*
 
