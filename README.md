@@ -553,7 +553,7 @@ analysis.
 **Francine Sangil** <br> current role: Team Leader, Fund Accounting at CIBC Mellon <br>target role: Data Analyst
 
 - 🔗 [www.linkedin.com/in/francinesangil]
-- 💼 [Portfolio or GitHub profile URL]
+- 💼 [https://github.com/fransan33]
 - 📧 [Email - sangilfrancine@gmail.com]
 
 ---
