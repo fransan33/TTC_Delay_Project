@@ -550,9 +550,7 @@ analysis.
 
 ## 14. Author
 
-**Francine Sangil**
-current role: Team Leader, Fund Accounting at CIBC Mellon
-target role: Data Analyst
+**Francine Sangil** <br> current role: Team Leader, Fund Accounting at CIBC Mellon <br>target role: Data Analyst
 
 - 🔗 [www.linkedin.com/in/francinesangil]
 - 💼 [Portfolio or GitHub profile URL]
