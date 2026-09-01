@@ -112,7 +112,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 2. **Ingestion:**
    - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
 3. **Cleaning:**
-   - ttc_subway table - <br>
+   - ttc_subway table <br>
      - Removed trailing white space <br>
      - Generated unique primary key values for each row <br>
      - Removed 0.09% of duplicated rows <br>
@@ -125,7 +125,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
      - Resolved line name inconsistencies <br>
      - Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column) <br>
      - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column) <br>
-   - code_desc table - <br>
+   - code_desc table <br>
      - Removed trailing white space <br>
      - Removed 0.06% of duplicated rows <br>
 4. **Transformation:**
