@@ -112,7 +112,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 2. **Ingestion:**
    - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
 3. **Cleaning:**
-   - ttc_subway table -
+   - ttc_subway table - <br>
      - Removed trailing white space.
      Generated unique primary key values for each row.
      Removed 0.09% of duplicated rows.
