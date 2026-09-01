@@ -23,11 +23,11 @@
 
 ## 1. Project Overview
 
-The TTC Subway System has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question - what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of delays data across the TTC Subway to determine whether underperformance was driven by factors that are within the system's control or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
+The TTC Subway System has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question — what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of data across the TTC Subway to determine whether underperformance was driven by factors that are within the system's control or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
 
 ## 2. Objectives
 
-- **Primary Objective:** Determine whether the frequent delays in TTC Subway System correlates with reasons that are controllable (i.e. vehicle issues, crew availability)
+- **Primary Objective:** Determine whether the frequent delays in TTC Subway System are caused by factors that are controllable (i.e. vehicle issues, crew availability)
 - **Secondary Objective 1:** Identify the specific times or days when service reliability drops 
 - **Secondary Objective 2:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
 - **Secondary Objective 3:** [Remove if not applicable]
@@ -42,7 +42,7 @@ The TTC Subway System has been receiving an ongoing negative feedback through wo
 
 | Dimension | Details |
 |-----------|---------|
-| **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions. Analysis covers delay frequency, delay trends, delay times, and delay causes  |
+| **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions data. Analysis covers delay frequency, delay trends, delay times, and delay causes |
 | **Out of Scope** | - Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025. <br> - Three delay records with Line 3 as the TTC Line dated after July 24, 2023 were excluded from KPI calculation in Tableau as Line 3 was shut down permanently following a derailment on July 24, 2023. Note that these three records were included in other analysis, as the error was seen after the MySQL queries and Tableau dashboard were created. |
 | **Time Period** | January 2014-April 2025 |
 | **Granularity** | Single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
