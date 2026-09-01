@@ -168,7 +168,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 | `day` | text | Day of week the delay occurred | Saturday | no |
 | `cleaned_station` | varchar(27) | Standardized station name | Islington | yes |
 | `code` | text | Abbreviated delay cause code | MUIRS | no |
-| `min_delay` | int | Duration of delay in minutes (rider-facing) | 5 | no |
+| `min_delay` | int | Duration of delay in minutes | 5 | no |
 | `min_gap` | int | Gap between successive vehicles in minutes | 12 | no |
 | `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
