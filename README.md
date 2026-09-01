@@ -32,8 +32,6 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 - **Secondary Objective 2:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
 - **Secondary Objective 3:** [Remove if not applicable]
 
-> 💡 *Every analysis decision in this project traces back to one of these objectives.*
-
 ---
 
 ## 3. Project Scope & Tools
