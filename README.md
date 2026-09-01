@@ -108,9 +108,9 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 1. **Source:**
    - Yearly CSV exports & Delay Code Description CSV exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-     Ten files covering January 2014–April 2025, and two files containing delays codes and descriptions.
+     Ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
 2. **Ingestion:**
-   - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel, and loaded into MySQL using Command Prompt. 
+   - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel, and loaded the consolidated CSV file into MySQL using Command Prompt. 
 3. **Cleaning:**
    - ttc_subway table -
      Removed trailing white space.
