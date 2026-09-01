@@ -3,18 +3,6 @@
 
 ---
 
-## ⚙️ Project Type Flags
-> *Check what applies. This helps reviewers and collaborators understand the nature of the work at a glance. Delete this block before publishing.*
-
-- [x] SQL Analysis / Querying
-- [x] Dashboard / Data Visualization
-- [x] Data Pipeline / ETL
-- [ ] Predictive Modelling / Machine Learning
-- [x] Data Cleaning / Wrangling
-- [ ] End-to-End (multiple of the above)
-
----
-
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
 2. [Objectives](#2-objectives)
