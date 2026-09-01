@@ -27,7 +27,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ## 2. Objectives
 
-- **Primary Objective:** Determine whether the frequent delays in TTC Subway System are caused by factors that are controllable (i.e. vehicle issues, crew availability)
+- **Primary Objective:** Determine whether the frequent delays in TTC Subway system are caused by factors that are controllable (i.e. vehicle issues & crew availability)
 - **Secondary Objective 1:** Identify the specific times or days when service reliability drops 
 - **Secondary Objective 2:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
 - **Secondary Objective 3:** [Remove if not applicable]
