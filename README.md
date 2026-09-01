@@ -193,7 +193,6 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 ---
 
 ## 7. ERD - Entity Relationship Diagram
-### *(Primarily for SQL Projects - remove this section if not applicable)*
 
 ### Embedded Image
 [ERD Diagram](TTC.Subway.Delay_ERD.pdf)
