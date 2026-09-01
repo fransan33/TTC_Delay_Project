@@ -132,7 +132,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
    - Collected code description data from the open Toronto data website to decode the abbreviated delay reason on the TTC Subway delay data, and assigned operational control level classifications to each delay reasons — this dataset was created as a new table (code_desc).
    -  Created a reference look up table to map the code description to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and operational control level classifications.
    - Collected the subway line names and line numbers from external source and replaced the abbreviated values in line column in the data set by creating CASE WHEN queries.
-   - Collected the subway station names from external source to validate the values in station column, resolve inconsistencies and identify non-sensical names. CASE WHEN queries were created to resolve inconsistencies.
+   - Collected the subway station names from external source to validate the values in station column, resolve inconsistencies, and identify non-sensical names. CASE WHEN queries were created to resolve inconsistencies.
    - Converted the time column data from VARCHAR to TIME datatype to be able to analyze the data properly throughout the MySQL queries, as well as through Tableau dashboards.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
