@@ -113,21 +113,21 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
    - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
 3. **Cleaning:**
    - ttc_subway table - <br>
-     - Removed trailing white space.
-     Generated unique primary key values for each row.
-     Removed 0.09% of duplicated rows.
-     Converted the time column values into an hourly basis and excluded the minutes.
-     Non-sensical station names in station column (5.66% rows) converted into NULL values (non-critical column).
-     Resolved station name inconsistencies.
-     Removed 0.08% of rows containing nonsensical values in code column (critical column).
-     Converted the abbreviated values in bound column into the full direction description.
-     Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values (non-critical column).
-     Resolved line name inconsistencies.
-     Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column).
-     Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column).
-   - code_desc table -
-     Removed trailing white space.
-     Removed 0.06% of duplicated rows.   
+     - Removed trailing white space <br>
+     - Generated unique primary key values for each row <br>
+     - Removed 0.09% of duplicated rows <br>
+     - Converted the time column values into an hourly basis and excluded the minutes <br>
+     - Non-sensical station names in station column (5.66% rows) converted into NULL values (non-critical column) <br>
+     - Resolved station name inconsistencies <br>
+     - Removed 0.08% of rows containing nonsensical values in code column (critical column) <br>
+     - Converted the abbreviated values in bound column into the full direction description <br>
+     - Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values (non-critical column) <br>
+     - Resolved line name inconsistencies <br>
+     - Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column) <br>
+     - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column) <br>
+   - code_desc table - <br>
+     - Removed trailing white space <br>
+     - Removed 0.06% of duplicated rows <br>
 4. **Transformation:**
    - Collected code description data from the open Toronto data website to decode the abbreviated delay reason on the TTC delay data. Created a reference look up        table and mapped it to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and              operational control level classifications.
    - Collected the subway line names and line numbers from external source and replaced the abbreviated values in line column in the data set by creating CASE WHEN queries.
