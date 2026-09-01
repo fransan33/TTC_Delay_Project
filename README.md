@@ -101,7 +101,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
       ↓
 [Cleaning & Transformation]
       ↓
-[Analysis / Modelling / Querying]
+[Analysis]
       ↓
 [Output / Visualisation / Reporting]
 ```
@@ -138,7 +138,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicles.
    - Evaluating the operational impact of delays that are within control.
-6. **Output/ Visualization:**
+6. **Output / Visualization:**
    Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior              Management, and Head of Marketing. Included charts are listed below:
      - Bar charts (most common cause of delay)
      - Barbell charts (delay frequency by train line and bound)
