@@ -23,7 +23,7 @@
 
 ## 1. Project Overview
 
-The TTC Subway System has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question — what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of data across the TTC Subway to determine whether underperformance was driven by factors that are within or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
+The TTC Subway system has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question — what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of data across the TTC Subway system to determine whether underperformance was driven by factors that are within or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
 
 ## 2. Objectives
 
