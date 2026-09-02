@@ -163,7 +163,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
-| `row_id` | int | Unique identifier per delay record | 33 | no |
+| `row_id` | int PK | Unique identifier per delay record | 33 | no |
 | `date` | date | Date the delay occurred | 2022-01-01 | no |
 | `day` | text | Day of week the delay occurred | Saturday | no |
 | `cleaned_station` | varchar(27) | Standardized station name | Islington | yes |
@@ -184,7 +184,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
 | `row_id` | int | Unique identifier per delay record | 3 | no |
-| `code` | varchar(10) | Abbreviated delay cause code | ERAC | no |
+| `code` | varchar(10) PK | Abbreviated delay cause code | ERAC | no |
 | `description` | text | Full description of delay cause | work zone problems - signals | no |
 | `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
