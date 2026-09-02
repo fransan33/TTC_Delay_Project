@@ -218,7 +218,7 @@ Each question was treated as its own analytical unit: the appropriate grain, met
 
 There are two deliberate metric distinctions that shaped the entire analysis — min_delay & min_gap. min_delay captures how late a train was (service impact on riders), while min_gap captures the spacing between one train and the next arriving at a station (service impact on operations). These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
 
-Note that using raw delay counts alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate was used alongside raw delay counts to give a 'proportional' view.
+Note that using raw delay counts alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate was used alongside raw delay counts to give a proportional view.
 
 Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the delay records and the code description reference table, avoiding repetition across queries and ensuring consistent mapping of delay reason and control level classifications throughout the analysis. [IS THIS BEING REPEATED FROM ABOVE??]
 
