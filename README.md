@@ -220,7 +220,8 @@ There are two deliberate metric distinctions that shaped the entire analysis —
 
 Note that using raw delay counts alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate was used alongside raw delay counts to give a proportional view.
 
-Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the delay records and the code description reference table, avoiding repetition across queries and ensuring consistent mapping of delay reason and control level classifications throughout the analysis. [IS THIS BEING REPEATED FROM ABOVE??]
+Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the delay records and the code description reference table. This was used to
+avoid repetition of using LEFT JOIN between the two tables across queries, and to ensure consistent mapping of delay reasons and control level classifications throughout the analysis.
 
 ### Key Metrics Defined
 
