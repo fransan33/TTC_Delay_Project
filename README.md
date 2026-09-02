@@ -176,7 +176,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
 
 > **Row count:** 230,456 |
-> **Date range:** January 2014–April 2025 |
+> **Date range:** January 2014-April 2025 |
 > **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
 ### Dataset / Table: `code_desc_clean_v2`
@@ -196,7 +196,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ### Embedded Image
 [ERD Diagram](TTC_Subway_Delay_ERD.png)
-*[Two-table schema - ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes]*
+*[Two-table schema — ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes]*
 
 ---
 
