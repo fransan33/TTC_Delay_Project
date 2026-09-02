@@ -239,7 +239,7 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
 
 ### Methods Used
 
-- Descriptive statistics — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (station, line, bound direction, vehicle, time of day, day of week) to establish delay patterns across the TTC subway network.
+- Descriptive statistics — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (i.e. station, line, bound direction, vehicle, time of day, and day of week) to establish delay patterns across the TTC subway network.
 - Top-N ranking per partition — RANK() and DENSE_RANK() window functions partitioned by station, time of day, and day of week in MySQL to surface the single most common delay cause per grouping.
 - Trend analysis (2014–2025) — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity.
 - Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table in MySQL, enabling analyses to be filtered by what TTC can realistically act on vs. can't act on due to external factors.
