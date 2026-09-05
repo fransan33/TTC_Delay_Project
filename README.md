@@ -391,6 +391,8 @@ patterns were analyzed separately where relevant.
 station, hour, or day, ties were included (RANK rather than ROW_NUMBER). 
 In practice, ties at rank 1 are rare but were not explicitly handled.
 
+- 90% OTP is the KPI target for each year...
+
 ### Limitations
 - [What gaps exist in the data?]
 - [What analysis was out of scope but could affect interpretation?]
