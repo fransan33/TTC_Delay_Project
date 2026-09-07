@@ -350,12 +350,6 @@ the 8-minute gap threshold was derived from a standard headway assumption and ma
   ❌ Listing aspirational features that don't follow logically from the work.
 -->
 
-- [ ] [Enhancement 1 - specific and traceable to a real gap in this project]
-- [ ] [Enhancement 2]
-- [ ] [Enhancement 3]
-- [ ] [Enhancement 4]
-
-
 - [ ] **Incorporate ridership volume data** — delay impact is currently 
 measured by duration and frequency, but not by how many passengers were 
 affected. Joining Open Toronto's TTC ridership data to the delay dataset 
