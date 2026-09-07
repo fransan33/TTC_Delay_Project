@@ -303,47 +303,22 @@ Note: Priority reflects both delay severity and operational controllability — 
 -->
 
 ### Assumptions
-- [What did you treat as true without being able to verify?]
-- [What simplifications did you make for scope or feasibility?]
-- [What domain rules or definitions did you accept as given?]
-
-- **`min_delay = 0` records were treated as non-events** — records where 
-`min_delay = 0` were excluded from all delay analyses on the assumption 
-that they do not represent delay incidents. These may reflect 
-on-time arrivals logged in the system rather than actual delays.
+- **`min_delay = 0` records were treated as non-events** — records where min_delay = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
 
 - **The 8-minute service gap threshold was treated as the on-time benchmark** 
-— based on TTC's published definition that a train is considered on time 
-if it arrives within 1.5 times its scheduled headway. Assuming a standard 
-5-minute headway, 1.5 × 5 = 7.5 minutes, rounded up to 8 minutes. This 
-threshold was applied consistently across all disruption rate and OTP 
-calculations.
+— TTC published on the 2025 Corporate Plan Mid-year Progress Report that a train is considered on time if it arrives within 1.5 times its scheduled headway. Assuming a standard 5-minute headway, 1.5 × 5 = 7.5 minutes, rounded up to 8 minutes. This threshold was applied consistently across all disruption rate and OTP calculations.
 
 - **`min_gap = 0` records were treated as evaluable service intervals** — 
-after investigating the distribution of zero-gap records across hours of 
-the day, their pattern mirrored overall delay volume rather than clustering 
-at service start times, suggesting they represent normal service intervals 
-rather than system resets or data artifacts. They were retained in OTP 
-calculations accordingly.
+after investigating the distribution of zero-gap records across hours of the day, their pattern mirrored overall delay volume rather than clustering at service start times, suggesting they represent normal service intervals rather than system resets or data artifacts. They were retained in OTP calculations accordingly.
 
 - **Delay reason classifications were accepted as given from the TTC code 
-description reference table** — the `control_level` classification 
-(`within_control`, `partial_control`, `outside_control`) assigned to each 
-delay code was treated as accurate without independent verification. These 
-classifications directly influenced prioritization and improvement initiative 
-analyses.
+description reference table** — the control level classification (within_control, partial_control, and outside_control) assigned to each delay code was treated as accurate without independent verification. These classifications directly influenced prioritization and improvement initiative analyses.
 
-- **Weekday analysis excluded Saturday and Sunday throughout** — peak period 
-and consistency analyses were scoped to Monday–Friday on the assumption that 
-weekday commuter patterns are the primary planning concern. Weekend service 
-patterns were analyzed separately where relevant.
+- **Weekday analysis excluded Saturday and Sunday throughout** — peak period and consistency analyses were scoped to Monday–Friday on the assumption that weekday commuter patterns are the primary planning concern. Weekend service patterns were analyzed separately where relevant.
 
-- **The top-ranked delay cause per partition was treated as the dominant cause** 
-— where `RANK() = 1` was used to identify the most common delay cause per 
-station, hour, or day, ties were included (RANK rather than ROW_NUMBER). 
-In practice, ties at rank 1 are rare but were not explicitly handled.
+- **The top-ranked delay cause per partition was treated as the dominant cause** — where `RANK() = 1` was used to identify the most common delay cause per station, hour, or day, ties were included (RANK rather than ROW_NUMBER). In practice, ties at rank 1 are rare but were not explicitly handled.
 
-- 90% OTP is the KPI target for each year...
+- **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the KPI target yearly** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
 ### Limitations
 - [What gaps exist in the data?]
