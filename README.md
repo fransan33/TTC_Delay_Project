@@ -316,7 +316,7 @@ description reference table** — the control level classification (within_contr
 
 - **Weekday analysis excluded Saturday and Sunday throughout** — peak period and consistency analyses were scoped to Monday–Friday on the assumption that weekday commuter patterns are the primary planning concern. Weekend service patterns were analyzed separately where relevant.
 
-- **The top-ranked delay cause per partition was treated as the dominant cause** — where `RANK() = 1` was used to identify the most common delay cause per station, hour, or day, ties were included (RANK rather than ROW_NUMBER). In practice, ties at rank 1 are rare but were not explicitly handled.
+- **The top-ranked delay cause per partition was treated as the dominant cause** — RANK() = 1 was used to identify the most frequent delay cause by station, hour, or day. Where multiple causes tied for first, all tied causes were retained rather than selecting a single cause.
 
 - **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the KPI target yearly** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
