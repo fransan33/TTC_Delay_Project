@@ -321,64 +321,17 @@ description reference table** — the control level classification (within_contr
 - **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the KPI target yearly** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
 ### Limitations
-- [What gaps exist in the data?]
-- [What analysis was out of scope but could affect interpretation?]
-- [What would a more rigorous version of this project include?]
-- [Are there known biases in the data source or collection method?]
-
 - **No external validation of delay records against TTC operational logs** — 
-the dataset was sourced from Open Toronto and accepted at face value. There 
-was no way to verify whether all delay incidents were captured, whether 
-records were complete, or whether reporting practices changed over the 
-January 2014–April 2025 period in ways that could affect trend comparisons.
+the dataset was sourced from Open Toronto and accepted at face value. There was no way to verify whether all delay incidents were captured, whether records were complete, or whether reporting practices changed over the January 2014–April 2025 period in ways that could affect trend comparisons.
 
-- **Line 3 Scarborough records post-July 24, 2023 were not excluded from 
-all analyses** — Line 3 was permanently shut down following a derailment 
-on July 24, 2023. Three records with Line 3 as the TTC line dated after 
-this date were identified and excluded from KPI calculations in Tableau, 
-but were retained in MySQL query results as the discrepancy was discovered 
-after queries and dashboards were completed. This has minimal impact given 
-the small record count but is noted for transparency.
+- **Line 3 Scarborough records post July 24, 2023 were not excluded from all analyses** — Line 3 was permanently shut down following a derailment on July 24, 2023. Three records with Line 3 as the TTC line dated after this date were identified and excluded from KPI calculations in Tableau, but were retained in MySQL query results as the discrepancy was discovered after queries and dashboards were completed. This has minimal impact given the small record count but is noted for transparency.
 
-- **Vehicle-level analysis cannot confirm whether the same physical vehicle 
-is consistently problematic year over year** — the query identifies vehicles 
-with the highest cumulative delay by vehicle number, but does not track 
-whether those vehicle numbers recur across multiple years. A vehicle 
-retired and replaced with the same number would appear as one continuous 
-record.
+- **Vehicle-level analysis cannot confirm persistent vehicle-specific performance issues over time** — the analysis identifies vehicles with the highest cumulative delay based on vehicle number. However, cumulative analysis does not show whether a vehicle consistently ranks among the highest-delay vehicles across multiple years. Year-over-year analysis would be required to determine whether the observed performance issues are persistent or concentrated within specific periods.
 
-- **`min_gap` as a service regularity proxy has known limitations** — 
-the 8-minute gap threshold was derived from a standard headway assumption 
-and may not accurately reflect scheduled headways for all lines, times, 
-and service periods. Lines with longer scheduled headways (e.g. late night 
-service) would be disproportionately flagged as disruptive under a fixed 
-8-minute threshold.
+- **Fixed min_gap threshold does not account for variation in scheduled headways** — 
+the 8-minute gap threshold was derived from a standard headway assumption and may not accurately reflect scheduled service across all lines, times, and service periods. For example, an 8-minute gap represents a much larger disruption for a route scheduled every 3 minutes than for one scheduled every 12 minutes. As a result, disruption rates may not be directly comparable across service periods with different scheduled headways.
 
-- **Disruption rate calculations do not account for service frequency** — 
-a route running every 3 minutes and a route running every 12 minutes are 
-both assessed against the same 8-minute threshold, even though the 
-operational impact of an 8-minute gap differs significantly between them.
-
-- **The analysis cannot distinguish between delay causes that were accurately 
-coded at the time vs. coded generically** — codes like "miscellaneous other" 
-and "paa - no trouble found" suggest some incidents were logged without a 
-confirmed cause. These records were included in frequency counts but may 
-mask the true prevalence of more specific delay causes.
-
-- **On-time performance comparisons to other transit authorities are 
-approximate** — TTC's OTP methodology (headway adherence at end terminals) 
-differs from methodologies used by other agencies such as NYC MTA (schedule 
-adherence per stop). Direct percentage comparisons should be interpreted 
-with caution rather than taken as precise benchmarks.
-
-- **A more rigorous version of this project would include** — ridership 
-volume data to weight delay impact by the number of passengers affected; 
-weather data to isolate seasonal or weather-driven delay patterns; and 
-real-time headway data at intermediate stations rather than end terminals 
-only, which would give a more complete picture of service regularity 
-experienced by riders mid-route.
-
-> *The goal here is pre-emptive Q&A. What would a thoughtful skeptic push back on? Document the answer here, before they ask.*
+- **The analysis cannot distinguish between delay causes that were accurately coded at the time vs. coded generically** — codes like "miscellaneous other" and "paa - no trouble found" suggest some incidents were logged without a confirmed cause. These records were included in frequency counts but may mask the true prevalence of more specific delay causes.
 
 ---
 
