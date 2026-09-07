@@ -274,20 +274,16 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
   Aim for 3–6 insights. Quality over quantity.
 -->
 
-**Insight 1: Disorderly patron explains TTC's frequent delays**
-
+**Insight 1: Disorderly patron explains TTC's frequent delays** <br>
 Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and 75% of hourly intervals on a daily basis. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
 
-**Insight 2: Roughly a third of TTC vehicles account for most delays**
-
+**Insight 2: Roughly a third of TTC vehicles account for most delays** <br>
 34% of trains make up for 80% of total delay time. This points to specific trains that contribute disproportionately to system delays, which should be investigated further.
 
-**Insight 3: Line 3 has the lowest OTP during the years it was running (2014 - 2023)**
-
+**Insight 3: Line 3 has the lowest OTP during the years it was running (2014 - 2023)** <br>
 The OTP for Line 3 ranges from 41%-59%, which is extremely low compared to the OTP range from other TTC lines (70%-93%), and is 31%-49% lower than the targeted KPI of 90%. This suggests that this TTC Line was experiencing significant delay issues on a year to year basis, heavily struggling to meet the KPI Target of 90%, which supports the company's decision to permanently shut down the line in July 2023.
 
-**Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays**
-
+**Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays** <br>
 Disruption rate in these specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service during these times, and they are likely to find a different method of transportation. This also suggests that there may be crew availability issues during these times, causing the delay issues to get resolved slower.
 
 
