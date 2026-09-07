@@ -147,7 +147,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
      - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
      - Year-over-year trend lines (avg delay comparison)
      - Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
-     - Bullet charts (on-time performance vs. 90% KPI target)
+     - Bullet charts (on-time performance (OTP) vs. KPI target of 90% OTP)
      - Heatmaps (service reliability by day and hour) <br>
    - Dashboard design decisions included: <br>
      - Dynamic parameters 
