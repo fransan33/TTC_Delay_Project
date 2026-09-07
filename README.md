@@ -275,30 +275,11 @@ Disruption rate in these specific times and days range from 50% to 82%, which su
 
 ## 10. Recommendations
 
-<!--
-  Action-oriented. Addressed to a real audience.
-  Tied explicitly to the insight that supports each one.
-
-  WHAT GOOD LOOKS LIKE:
-  Priority: High
-  Recommendation: "Conduct a fulfilment audit for home goods deliveries
-                   in Region A - specifically investigating whether returns
-                   correlate with a particular warehouse, carrier, or SKU batch."
-  Based On: Insight 1 - return rate anomaly in Region A
-  Owner: Operations / Supply Chain team
-
-  WHAT TO AVOID:
-  ❌ "Improve the return rate."
-     (Not actionable. Doesn't say who, how, or where to start.)
-  ❌ "Further analysis is needed."
-     (This is a placeholder, not a recommendation.)
--->
-
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
-| High | Conduct inspection and maintenance reviews on the top 34% of trains by total delay minutes - specifically investigate if they're causing significant delay issues on a year to year basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
-| Medium | Schedule more trains more frequently on weekends, and on weekdays between 8pm and 1am - specifically on lines and directions with highest disruption rates during these timeframes | Insight 4: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning |
-| Low | Develop public-facing messaging and awareness campaigns regarding expected delays on a daily basis due to rider misconduct - include offering travel incentives or loyalty rewards for frequent riders affected by this delay cause | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
+| High | Conduct inspection and maintenance reviews on the top 34% of trains by total delay minutes - specifically investigate if they're causing significant delay issues on a yearly basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
+| Medium | Schedule more trains more frequently on weekends, and on weekdays between 8pm and 1am — specifically on lines and directions with highest disruption rates during these timeframes | Insight 5: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning |
+| Low | Develop public-facing messaging and awareness campaigns regarding expected delays daily due to rider misconduct — include offering travel incentives or loyalty rewards for frequent riders affected by this delay cause | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
 
 Note: Priority reflects both delay severity and operational controllability — outside-control causes are assigned lower priority because the improvement initiatives are limited to communication and mitigation rather than operational.
 
