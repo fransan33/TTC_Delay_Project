@@ -350,32 +350,26 @@ the 8-minute gap threshold was derived from a standard headway assumption and ma
   ❌ Listing aspirational features that don't follow logically from the work.
 -->
 
-- [ ] **Incorporate ridership volume data** — delay impact is currently 
+- **Incorporate ridership volume data** — delay impact is currently 
 measured by duration and frequency, but not by how many passengers were 
 affected. Joining Open Toronto's TTC ridership data to the delay dataset 
 would allow disruption rate and service gap metrics to be weighted by 
 passenger volume, making prioritization recommendations significantly 
 more precise. A 10-minute delay at Kennedy Station during AM Peak affects 
-far more riders than the same delay at Ellesmere at midnight.
+more riders than the same delay at Ellesmere at midnight.
 
-- [ ] **Add weather data as an explanatory variable** — several delay 
-causes (track-level incidents, signal issues, door problems) may be 
+- **Add weather data as an explanatory variable** — several delay 
+causes (i.e. track-level incidents, signal issues, door problems) may be 
 seasonally driven but this cannot be confirmed from the current dataset 
-alone. Joining historical weather data (temperature, precipitation, 
-snowfall) from Environment Canada to the delay records by date would 
+alone. Joining historical weather data (i.e. temperature, precipitation, 
+snowfall, etc.) from Environment Canada to the delay records by date would 
 allow seasonal and weather-driven delay patterns to be isolated from 
 structural ones, strengthening the root cause analysis.
 
-- [ ] **Automate monthly data ingestion from Open Toronto** — the current 
-workflow requires manually downloading updated delay CSV files from the 
-Open Toronto data portal and re-running the Power Query consolidation 
-and MySQL cleaning steps. This could be replaced with a scheduled Python 
-script that pulls the latest monthly file from the Open Toronto API, 
-appends it to the staging table, and triggers a refresh of the Tableau 
-dashboard — removing the manual step entirely and keeping the analysis 
-current without intervention.
 
-- [ ] **Track vehicle-level delay patterns year over year** — the current 
+- **Automate monthly data ingestion from Open Toronto** — the current workflow requires manually downloading updated TTC delay CSV files from the Open Toronto data portal and re-running the Power Query consolidation and MySQL cleaning steps. This could be replaced with a scheduled Python pipeline that retrieves newly published monthly data from the Open Toronto data portal, appends it to a MySQL staging table, executes the required cleaning and transformation steps, and triggers a Tableau data-source refresh. This would eliminate recurring manual updates and keep the dashboard current as new data becomes available.
+
+- **Track vehicle-level delay patterns year over year** — the current 
 vehicle analysis identifies which vehicles have the highest cumulative 
 delay but cannot confirm whether the same vehicles are chronic offenders 
 across multiple years. Adding a year dimension to the vehicle query and 
@@ -384,7 +378,7 @@ would allow the operational audit recommendation to be validated —
 confirming whether flagged vehicles are genuinely deteriorating or 
 whether high totals reflect high utilization rather than poor condition.
 
-- [ ] **Refine the on-time performance calculation using line-specific 
+- **Refine the on-time performance calculation using line-specific 
 headway data** — the current OTP metric applies a fixed 8-minute gap 
 threshold uniformly across all lines, times, and service periods. A more 
 accurate calculation would apply each line's actual scheduled headway 
@@ -394,7 +388,7 @@ in their GTFS feed, which could be joined to the delay dataset to produce
 a headway-adjusted OTP metric that more accurately reflects the rider 
 experience on each line.
 
-- [ ] **Expand the analysis to include bus and streetcar delay data** — 
+- **Expand the analysis to include bus and streetcar delay data** — 
 the current project is scoped to subway delays only. Open Toronto also 
 publishes delay data for TTC bus and streetcar routes, which would allow 
 cross-modal comparisons and a more complete picture of system-wide 
@@ -417,7 +411,7 @@ analysis.
 
 ## 14. Author
 
-**Francine Sangil** <br> current role: Team Leader, Fund Accounting at CIBC Mellon <br>target role: Data Analyst
+**Francine Sangil** <br> **Current Role:** Team Leader, Fund Accounting at CIBC Mellon <br> **Target Role:** Data Analyst
 
 - 🔗 www.linkedin.com/in/francinesangil
 - 💼 https://github.com/fransan33
@@ -425,4 +419,4 @@ analysis.
 
 ---
 
-*Last updated: [August 2026]*
+*Last updated: [September 2026]*
