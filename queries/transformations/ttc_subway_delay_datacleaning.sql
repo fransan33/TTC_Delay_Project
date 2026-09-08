@@ -1,8 +1,5 @@
-SELECT 
-COUNT(*)
-FROM ttc_subway; #230841
 
--- create a staging table
+/* create a staging table */
 
 CREATE TABLE ttc_subway_staging
 LIKE ttc_subway;
@@ -11,15 +8,17 @@ INSERT INTO ttc_subway_staging
 SELECT *
 FROM ttc_subway;
 
--- add a unique row_id for all rows
+-- --------------------------------------------------------------------------------------------------------------
+
+/* add a unique row_id for all rows */
+
 ALTER TABLE ttc_subway_staging
-ADD row_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
-;
+ADD row_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
 
-SELECT *
-FROM ttc_subway_staging;
+-- --------------------------------------------------------------------------------------------------------------
 
--- trim white spaces
+/* trim white spaces */
+
 UPDATE ttc_subway_staging
 SET date = TRIM(date),
     time = TRIM(time),
@@ -30,12 +29,11 @@ SET date = TRIM(date),
     min_gap = TRIM(min_gap),
     bound = TRIM(bound),
     line = TRIM(line),
-    vehicle = TRIM(vehicle) ; #2 rows affected 
-    
+    vehicle = TRIM(vehicle);
 
-#now time to clean this bihhhh
+-- --------------------------------------------------------------------------------------------------------------
 
-#CTE + creating new table to save the final output 
+/* creating a new table using CTE to save the final output */
 
 CREATE TABLE ttc_subway_cleaned AS
 WITH duplicate_rows AS (
@@ -1308,11 +1306,7 @@ SELECT *
 FROM final_table
 ;
 
--- test
-SELECT DISTINCT min_gap
-FROM ttc_subway_staging 
-
-;
+-- --------------------------------------------------------------------------------------------------------------
 
 -- code column
 -- created a new table code_descriptions and imported data from a csv file containg the acronym code + their meaning.
