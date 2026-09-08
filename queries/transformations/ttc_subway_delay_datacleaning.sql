@@ -1,0 +1,1881 @@
+SELECT 
+COUNT(*)
+FROM ttc_subway; #230841
+
+-- create a staging table
+
+CREATE TABLE ttc_subway_staging
+LIKE ttc_subway;
+
+INSERT INTO ttc_subway_staging
+SELECT *
+FROM ttc_subway;
+
+-- add a unique row_id for all rows
+ALTER TABLE ttc_subway_staging
+ADD row_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
+;
+
+SELECT *
+FROM ttc_subway_staging;
+
+-- trim white spaces
+UPDATE ttc_subway_staging
+SET date = TRIM(date),
+    time = TRIM(time),
+	day = TRIM(day),
+    station = TRIM(station),
+    code = TRIM(code),
+    min_delay = TRIM(min_delay),
+    min_gap = TRIM(min_gap),
+    bound = TRIM(bound),
+    line = TRIM(line),
+    vehicle = TRIM(vehicle) ; #2 rows affected 
+    
+
+#now time to clean this bihhhh
+
+#CTE + creating new table to save the final output 
+
+CREATE TABLE ttc_subway_cleaned AS
+WITH duplicate_rows AS (
+    SELECT 
+        row_id,
+        ROW_NUMBER() OVER (
+            PARTITION BY date, time, day, station, code, min_delay, min_gap, bound, line, vehicle
+            ORDER BY row_id
+        ) AS row_num
+    FROM ttc_subway_staging
+),
+dupes_to_delete AS (
+    SELECT row_id 
+    FROM duplicate_rows
+	WHERE row_num > 1
+),
+unique_rows AS (
+	SELECT t.* 
+    FROM ttc_subway_staging t
+    LEFT JOIN dupes_to_delete d
+		ON t.row_id = d.row_id
+	WHERE d.row_id IS NULL
+),
+updated_time AS (
+	SELECT
+		*,
+		TIME_FORMAT(time, '%l%p') AS time_in_hours
+	FROM unique_rows
+),
+updated_station AS (
+	SELECT 
+    *,
+    CASE LOWER(station)
+		WHEN 'bathurst station' THEN 'Bathurst'
+		WHEN 'bathurst to castle fra' THEN 'Bathurst'
+		WHEN 'bathusrt station' THEN 'Bathurst'
+		WHEN 'bathust to pape statio' THEN 'Bathurst'
+		WHEN 'bay and bloor' THEN 'Bay'
+		WHEN 'bay lower' THEN 'Bay'
+		WHEN 'bay lower station' THEN 'Bay'
+		WHEN 'bay station' THEN 'Bay'
+		WHEN 'bay station to pape st' THEN 'Bay'
+		WHEN 'ramps bay lower' THEN 'Bay'
+		WHEN 'bayview station' THEN 'Bayview'
+		WHEN 'bayview to bessarion' THEN 'Bayview'
+		WHEN 'bayview to shepaprd/yo' THEN 'Bayview'
+		WHEN 'wilfred ee' THEN 'Bayview'
+		WHEN 'wilfred eeb' THEN 'Bayview'
+		WHEN 'wilfred emergency exit' THEN 'Bayview'
+		WHEN 'bessarian station' THEN 'Bessarion'
+		WHEN 'bessarion station' THEN 'Bessarion'
+		WHEN 'bloor hayden entrance' THEN 'Bloor-Yonge'
+		WHEN 'bloor hub' THEN 'Bloor-Yonge'
+		WHEN 'bloor interlocking' THEN 'Bloor-Yonge'
+		WHEN 'bloor sation' THEN 'Bloor-Yonge'
+		WHEN 'bloor south' THEN 'Bloor-Yonge'
+		WHEN 'bloor station' THEN 'Bloor-Yonge'
+		WHEN 'bloor station - yonge' THEN 'Bloor-Yonge'
+		WHEN 'bloor station (station' THEN 'Bloor-Yonge'
+		WHEN 'bloor station to york' THEN 'Bloor-Yonge'
+		WHEN 'bloor station-dundas s' THEN 'Bloor-Yonge'
+		WHEN 'bloor staton' THEN 'Bloor-Yonge'
+		WHEN 'bloor to college' THEN 'Bloor-Yonge'
+		WHEN 'bloor to davisville' THEN 'Bloor-Yonge'
+		WHEN 'bloor to davisville st' THEN 'Bloor-Yonge'
+		WHEN 'bloor to eglinton' THEN 'Bloor-Yonge'
+		WHEN 'bloor to eglinton stat' THEN 'Bloor-Yonge'
+		WHEN 'bloor to king stations' THEN 'Bloor-Yonge'
+		WHEN 'bloor to lawrence stat' THEN 'Bloor-Yonge'
+		WHEN 'bloor to musuem statio' THEN 'Bloor-Yonge'
+		WHEN 'bloor to osgoode stati' THEN 'Bloor-Yonge'
+		WHEN 'bloor to sheppard stat' THEN 'Bloor-Yonge'
+		WHEN 'bloor to st andrew sta' THEN 'Bloor-Yonge'
+		WHEN 'bloor to st.clair' THEN 'Bloor-Yonge'
+		WHEN 'bloor to union' THEN 'Bloor-Yonge'
+		WHEN 'bloor to york mills' THEN 'Bloor-Yonge'
+		WHEN 'bloor via duct' THEN 'Bloor-Yonge'
+		WHEN 'bloor viaduct' THEN 'Bloor-Yonge'
+		WHEN 'bloor yonge' THEN 'Bloor-Yonge'
+		WHEN 'bloor yonge lines' THEN 'Bloor-Yonge'
+		WHEN 'bloor yu / yonge bd st' THEN 'Bloor-Yonge'
+		WHEN 'bloor/yonge' THEN 'Bloor-Yonge'
+		WHEN 'yonge - university blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge & bloor station' THEN 'Bloor-Yonge'
+		WHEN 'yonge and bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge and bloor statio' THEN 'Bloor-Yonge'
+		WHEN 'yonge university - blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge university / blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge university and b' THEN 'Bloor-Yonge'
+		WHEN 'yonge university bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge university/bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge univesity and bl' THEN 'Bloor-Yonge'
+		WHEN 'yonge univresity/bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge/uinversity & blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge/univerisity-bloo' THEN 'Bloor-Yonge'
+		WHEN 'yonge/university - blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge/university & blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge/university and b' THEN 'Bloor-Yonge'
+		WHEN 'yonge/university bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge/university/ bloo' THEN 'Bloor-Yonge'
+		WHEN 'yonge-bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge-univeristy & blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge-univeristy and b' THEN 'Bloor-Yonge'
+		WHEN 'yonge-university & blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge-university / blo' THEN 'Bloor-Yonge'
+		WHEN 'yonge-university and b' THEN 'Bloor-Yonge'
+		WHEN 'yonge-university/bloor' THEN 'Bloor-Yonge'
+		WHEN 'yonge-universty and bl' THEN 'Bloor-Yonge'
+		WHEN 'braodview station to w' THEN 'Broadview'
+		WHEN 'broadview and danforth' THEN 'Broadview'
+		WHEN 'broadview and st georg' THEN 'Broadview'
+		WHEN 'broadview centre track' THEN 'Broadview'
+		WHEN 'broadview station' THEN 'Broadview'
+		WHEN 'broadview station to w' THEN 'Broadview'
+		WHEN 'broadview to chester s' THEN 'Broadview'
+		WHEN 'broadview to kipling s' THEN 'Broadview'
+		WHEN 'broadview to scarborou' THEN 'Broadview'
+		WHEN 'broadview to sherbourn' THEN 'Broadview'
+		WHEN 'broadview to st george' THEN 'Broadview'
+		WHEN 'broadview to st. georg' THEN 'Broadview'
+		WHEN 'broadview to woodbine' THEN 'Broadview'
+		WHEN 'broadview to yonge' THEN 'Broadview'
+		WHEN 'broadview to yonge sta' THEN 'Broadview'
+		WHEN 'castle frank - broadvi' THEN 'Castle Frank'
+		WHEN 'castle frank station' THEN 'Castle Frank'
+		WHEN 'castle frank to sherbo' THEN 'Castle Frank'
+		WHEN 'w/o castle frank to gr' THEN 'Castle Frank'
+		WHEN 'chester centre track' THEN 'Chester'
+		WHEN 'chester station' THEN 'Chester'
+		WHEN 'chester station (enter' THEN 'Chester'
+		WHEN 'chester station (leavi' THEN 'Chester'
+		WHEN 'chester to broadview' THEN 'Chester'
+		WHEN 'chester to castlefrank' THEN 'Chester'
+		WHEN 'chester to warden' THEN 'Chester'
+		WHEN 'chester to yonge stati' THEN 'Chester'
+		WHEN 'yonge station to chest' THEN 'Chester'
+		WHEN 'christie - st george s' THEN 'Christie'
+		WHEN 'christie center' THEN 'Christie'
+		WHEN 'christie centre track' THEN 'Christie'
+		WHEN 'christie station' THEN 'Christie'
+		WHEN 'christie station (appr' THEN 'Christie'
+		WHEN 'christie station (leav' THEN 'Christie'
+		WHEN 'christie station to ch' THEN 'Christie'
+		WHEN 'christie station to pa' THEN 'Christie'
+		WHEN 'christie to pape stati' THEN 'Christie'
+		WHEN 'chrstie to pape statio' THEN 'Christie'
+		WHEN 'college and osgoode st' THEN 'College'
+		WHEN 'college station' THEN 'College'
+		WHEN 'college to king' THEN 'College'
+		WHEN 'college to st clair' THEN 'College'
+		WHEN 'college to st.clair st' THEN 'College'
+		WHEN 'coxwell station' THEN 'Coxwell'
+		WHEN 'coxwell station (enter' THEN 'Coxwell'
+		WHEN 'coxwell station (exiti' THEN 'Coxwell'
+		WHEN 'coxwell station (leavi' THEN 'Coxwell'
+		WHEN 'coxwell to greenwood y' THEN 'Coxwell'
+		WHEN 'coxwell to kennedy' THEN 'Coxwell'
+		WHEN 'coxwell to kennedy sta' THEN 'Coxwell'
+		WHEN 'yonge to coxwell stati' THEN 'Coxwell'
+		WHEN 'yonge univeristy subwa' THEN 'Coxwell'
+		WHEN 'danforth and coxwell' THEN 'Coxwell'
+		WHEN 'davisville - st. clair' THEN 'Davisville'
+		WHEN 'davisville buid-up' THEN 'Davisville'
+		WHEN 'davisville build up' THEN 'Davisville'
+		WHEN 'davisville buildd up' THEN 'Davisville'
+		WHEN 'davisville buildup' THEN 'Davisville'
+		WHEN 'davisville build-up' THEN 'Davisville'
+		WHEN 'davisville car house' THEN 'Davisville'
+		WHEN 'davisville carhouse' THEN 'Davisville'
+		WHEN 'davisville hostler' THEN 'Davisville'
+		WHEN 'davisville offices' THEN 'Davisville'
+		WHEN 'davisville station' THEN 'Davisville'
+		WHEN 'davisville station - b' THEN 'Davisville'
+		WHEN 'davisville station - l' THEN 'Davisville'
+		WHEN 'davisville station bui' THEN 'Davisville'
+		WHEN 'davisville station to' THEN 'Davisville'
+		WHEN 'davisville to eglinton' THEN 'Davisville'
+		WHEN 'davisville to lawrence' THEN 'Davisville'
+		WHEN 'davisville to n/o bloo' THEN 'Davisville'
+		WHEN 'davisville to rosedale' THEN 'Davisville'
+		WHEN 'davisville yard' THEN 'Davisville'
+		WHEN 'davisville yard - t&s' THEN 'Davisville'
+		WHEN 'davisville yard - tunn' THEN 'Davisville'
+		WHEN 'davisville yard (appro' THEN 'Davisville'
+		WHEN 'davisville yard / trac' THEN 'Davisville'
+		WHEN 'mc brien' THEN 'Davisville'
+		WHEN 'mc brien building' THEN 'Davisville'
+		WHEN 'mcbrian building' THEN 'Davisville'
+		WHEN 'mcbrien buiding' THEN 'Davisville'
+		WHEN 'mcbrien building' THEN 'Davisville'
+		WHEN 'moore gate' THEN 'Davisville'
+		WHEN 'n/o davisville station' THEN 'Davisville'
+		WHEN 'n/o davisville to n/o' THEN 'Davisville'
+		WHEN 'subway operations bldg' THEN 'Davisville'
+		WHEN 'subway operations buil' THEN 'Davisville'
+		WHEN 'subway ops building' THEN 'Davisville'
+		WHEN 'don mills staiton' THEN 'Don Mills'
+		WHEN 'don mills station' THEN 'Don Mills'
+		WHEN 'don mlls station' THEN 'Don Mills'
+		WHEN 'leaving don mills' THEN 'Don Mills'
+		WHEN 'welbeck ee' THEN 'Don Mills'
+		WHEN 'welbeck emergency exit' THEN 'Don Mills'
+		WHEN 'wellbeck ee' THEN 'Don Mills'
+		WHEN 'wellbeck emergency' THEN 'Don Mills'
+		WHEN 'donlands station' THEN 'Donlands'
+		WHEN 'donlands station (appr' THEN 'Donlands'
+		WHEN 'donlands station (ente' THEN 'Donlands'
+		WHEN 'donlands to greenwod y' THEN 'Donlands'
+		WHEN 'donlands to kipling st' THEN 'Donlands'
+		WHEN 'north hostler' THEN 'Downsview'
+		WHEN 'north hostler (leaving' THEN 'Downsview'
+		WHEN 'sheppard west' THEN 'Downsview'
+		WHEN 'sheppard west - finch' THEN 'Downsview'
+		WHEN 'sheppard west - st cla' THEN 'Downsview'
+		WHEN 'sheppard west - wilson' THEN 'Downsview'
+		WHEN 'sheppard west ee (3940' THEN 'Downsview'
+		WHEN 'sheppard west migrati' THEN 'Downsview'
+		WHEN 'sheppard west migratio' THEN 'Downsview'
+		WHEN 'sheppard west portal' THEN 'Downsview'
+		WHEN 'sheppard west sation' THEN 'Downsview'
+		WHEN 'sheppard west station' THEN 'Downsview'
+		WHEN 'sheppard west to downs' THEN 'Downsview'
+		WHEN 'sheppard west to finch' THEN 'Downsview'
+		WHEN 'sheppard west to lawre' THEN 'Downsview'
+		WHEN 'sheppard west to st cl' THEN 'Downsview'
+		WHEN 'sheppard west to st. c' THEN 'Downsview'
+		WHEN 'sheppard west to union' THEN 'Downsview'
+		WHEN 'sheppard west to wilso' THEN 'Downsview'
+		WHEN 'sheppard wye' THEN 'Downsview'
+		WHEN 'the pond emergency exi' THEN 'Downsview'
+		WHEN 'ea closure sheppard we' THEN 'Downsview'
+		WHEN 'ea sheppard west to st' THEN 'Downsview'
+		WHEN 'downsview park station' THEN 'Downsview Park'
+		WHEN 'downsview park to vmc' THEN 'Downsview Park'
+		WHEN 'downsview station' THEN 'Downsview Park'
+		WHEN 'downsview station plat' THEN 'Downsview Park'
+		WHEN 'downsview sub station' THEN 'Downsview Park'
+		WHEN 'downsviewstation' THEN 'Downsview Park'
+		WHEN 'downview park station' THEN 'Downsview Park'
+		WHEN 'downview park stn - un' THEN 'Downsview Park'
+		WHEN 'hwy 407 & downsview pa' THEN 'Downsview Park'
+		WHEN 'dufferin and bloor' THEN 'Dufferin'
+		WHEN 'dufferin and dufferin' THEN 'Dufferin'
+		WHEN 'dufferin station' THEN 'Dufferin'
+		WHEN 'dufferin staton' THEN 'Dufferin'
+		WHEN 'dufferin to kipling' THEN 'Dufferin'
+		WHEN 'dufferin to kipling st' THEN 'Dufferin'
+		WHEN 'dufferin to lansdowne' THEN 'Dufferin'
+		WHEN 'dundas station' THEN 'Dundas'
+		WHEN 'dundas station - east' THEN 'Dundas'
+		WHEN 'dundas station e/s' THEN 'Dundas'
+		WHEN 'dundas station e/s 1' THEN 'Dundas'
+		WHEN 'dundas station to egli' THEN 'Dundas'
+		WHEN 'dundas to finch' THEN 'Dundas'
+		WHEN 'dundas to finch statio' THEN 'Dundas'
+		WHEN 'eaton centre' THEN 'Dundas'
+		WHEN 'eaton centre - dundas' THEN 'Dundas'
+		WHEN 'yonge and dundas' THEN 'Dundas'
+		WHEN 'yonge-dundas square' THEN 'Dundas'
+		WHEN 'dunda west station' THEN 'Dundas West'
+		WHEN 'dundas station - w/s' THEN 'Dundas West'
+		WHEN 'dundas station - west' THEN 'Dundas West'
+		WHEN 'dundas station (w/s' THEN 'Dundas West'
+		WHEN 'dundas station w/s' THEN 'Dundas West'
+		WHEN 'dundas west station' THEN 'Dundas West'
+		WHEN 'dundas west station -' THEN 'Dundas West'
+		WHEN 'dundas west station (a' THEN 'Dundas West'
+		WHEN 'dundas west to keele s' THEN 'Dundas West'
+		WHEN 'dupont migration point' THEN 'Dupont'
+		WHEN 'dupont station' THEN 'Dupont'
+		WHEN 'dupont station ( appro' THEN 'Dupont'
+		WHEN 'dupont station (approa' THEN 'Dupont'
+		WHEN 'dupont station (exitin' THEN 'Dupont'
+		WHEN 'dupont station (leavin' THEN 'Dupont'
+		WHEN 'dupont station approac' THEN 'Dupont'
+		WHEN 'dupont station to egli' THEN 'Dupont'
+		WHEN 'dupont station to spad' THEN 'Dupont'
+		WHEN 'dupont to osgoode' THEN 'Dupont'
+		WHEN 'dupont to spadina' THEN 'Dupont'
+		WHEN 'dupont to st clair wes' THEN 'Dupont'
+		WHEN 'n/o dupont to n/end st' THEN 'Dupont'
+		WHEN 'early closure eglinton' THEN 'Eglinton'
+		WHEN 'eginton station' THEN 'Eglinton'
+		WHEN 'eglinton - finch stati' THEN 'Eglinton'
+		WHEN 'eglinton - scarborough' THEN 'Eglinton'
+		WHEN 'eglinton (migration' THEN 'Eglinton'
+		WHEN 'eglinton bus terminal' THEN 'Eglinton'
+		WHEN 'eglinton garage' THEN 'Eglinton'
+		WHEN 'eglinton migration' THEN 'Eglinton'
+		WHEN 'eglinton migration poi' THEN 'Eglinton'
+		WHEN 'eglinton pocket' THEN 'Eglinton'
+		WHEN 'eglinton psudo station' THEN 'Eglinton'
+		WHEN 'eglinton staion' THEN 'Eglinton'
+		WHEN 'eglinton station' THEN 'Eglinton'
+		WHEN 'eglinton station - mig' THEN 'Eglinton'
+		WHEN 'eglinton station ( mig' THEN 'Eglinton'
+		WHEN 'eglinton station (appr' THEN 'Eglinton'
+		WHEN 'eglinton station (ente' THEN 'Eglinton'
+		WHEN 'eglinton station (exit' THEN 'Eglinton'
+		WHEN 'eglinton station (leav' THEN 'Eglinton'
+		WHEN 'eglinton station (migr' THEN 'Eglinton'
+		WHEN 'eglinton station (sout' THEN 'Eglinton'
+		WHEN 'eglinton station appro' THEN 'Eglinton'
+		WHEN 'eglinton station to co' THEN 'Eglinton'
+		WHEN 'eglinton station to fi' THEN 'Eglinton'
+		WHEN 'eglinton station to sh' THEN 'Eglinton'
+		WHEN 'eglinton station to st' THEN 'Eglinton'
+		WHEN 'eglinton station to va' THEN 'Eglinton'
+		WHEN 'eglinton station to vm' THEN 'Eglinton'
+		WHEN 'eglinton station to yo' THEN 'Eglinton'
+		WHEN 'eglinton stn' THEN 'Eglinton'
+		WHEN 'eglinton to bloor stat' THEN 'Eglinton'
+		WHEN 'eglinton to college' THEN 'Eglinton'
+		WHEN 'eglinton to college st' THEN 'Eglinton'
+		WHEN 'eglinton to davisville' THEN 'Eglinton'
+		WHEN 'eglinton to finch' THEN 'Eglinton'
+		WHEN 'eglinton to finch stat' THEN 'Eglinton'
+		WHEN 'eglinton to king stati' THEN 'Eglinton'
+		WHEN 'eglinton to lawrence' THEN 'Eglinton'
+		WHEN 'eglinton to lawrence s' THEN 'Eglinton'
+		WHEN 'eglinton to sheppard' THEN 'Eglinton'
+		WHEN 'eglinton to sheppard s' THEN 'Eglinton'
+		WHEN 'eglinton to sheppard-y' THEN 'Eglinton'
+		WHEN 'eglinton to st clair s' THEN 'Eglinton'
+		WHEN 'eglinton to union' THEN 'Eglinton'
+		WHEN 'eglinton to union sta' THEN 'Eglinton'
+		WHEN 'eglinton to union stat' THEN 'Eglinton'
+		WHEN 'eglinton to york mills' THEN 'Eglinton'
+		WHEN 'eglinton yard' THEN 'Eglinton'
+		WHEN 's/o eglinton to st cla' THEN 'Eglinton'
+		WHEN 'yonge and eglinton (eg' THEN 'Eglinton'
+		WHEN 'englinton to sheppard' THEN 'Eglinton'
+		WHEN 'eglinton west - sheppa' THEN 'Eglinton West'
+		WHEN 'eglinton west sation' THEN 'Eglinton West'
+		WHEN 'eglinton west station' THEN 'Eglinton West'
+		WHEN 'eglinton west to bloor' THEN 'Eglinton West'
+		WHEN 'eglinton west to st cl' THEN 'Eglinton West'
+		WHEN 'eglinton west to vmc' THEN 'Eglinton West'
+		WHEN 'ellesmere station' THEN 'Ellesmere'
+		WHEN 'ellesmere station depa' THEN 'Ellesmere'
+		WHEN 'closure finch to st cl' THEN 'Finch'
+		WHEN 'ficnh station' THEN 'Finch'
+		WHEN 'finch - north york cen' THEN 'Finch'
+		WHEN 'finch station' THEN 'Finch'
+		WHEN 'finch station (approac' THEN 'Finch'
+		WHEN 'finch station (exiting' THEN 'Finch'
+		WHEN 'finch station (leaving' THEN 'Finch'
+		WHEN 'finch station (platfor' THEN 'Finch'
+		WHEN 'finch station booth 2' THEN 'Finch'
+		WHEN 'finch station to dupon' THEN 'Finch'
+		WHEN 'finch station to eglin' THEN 'Finch'
+		WHEN 'finch station to st cl' THEN 'Finch'
+		WHEN 'finch station to st ge' THEN 'Finch'
+		WHEN 'finch station to st. c' THEN 'Finch'
+		WHEN 'finch stn 39 bus platf' THEN 'Finch'
+		WHEN 'finch tail' THEN 'Finch'
+		WHEN 'finch to downsview' THEN 'Finch'
+		WHEN 'finch to eglinton' THEN 'Finch'
+		WHEN 'finch to eglinton stat' THEN 'Finch'
+		WHEN 'finch to lawrence stat' THEN 'Finch'
+		WHEN 'finch to museum' THEN 'Finch'
+		WHEN 'finch to north york ct' THEN 'Finch'
+		WHEN 'finch to queen station' THEN 'Finch'
+		WHEN 'finch to queens park s' THEN 'Finch'
+		WHEN 'finch to rosedale' THEN 'Finch'
+		WHEN 'finch to sheppard stat' THEN 'Finch'
+		WHEN 'finch to sheppard west' THEN 'Finch'
+		WHEN 'finch to st clair' THEN 'Finch'
+		WHEN 'finch to st clair stat' THEN 'Finch'
+		WHEN 'finch to st clair west' THEN 'Finch'
+		WHEN 'finch to st. clair' THEN 'Finch'
+		WHEN 'finch to union' THEN 'Finch'
+		WHEN 'finch to union station' THEN 'Finch'
+		WHEN 'finch to vaughan metro' THEN 'Finch'
+		WHEN 'finch to vmc' THEN 'Finch'
+		WHEN 'finch to wilson' THEN 'Finch'
+		WHEN 'finch tower' THEN 'Finch'
+		WHEN 'n/b towards finch' THEN 'Finch'
+		WHEN 'platform 2 finch' THEN 'Finch'
+		WHEN 'finch west - sheppard' THEN 'Finch West'
+		WHEN 'finch west center trac' THEN 'Finch West'
+		WHEN 'finch west station' THEN 'Finch West'
+		WHEN 'finch west to lawrence' THEN 'Finch West'
+		WHEN 'finch west to sheppard' THEN 'Finch West'
+		WHEN 'finch west to vmc stat' THEN 'Finch West'
+		WHEN 'finch west to wilson' THEN 'Finch West'
+		WHEN 'glenacairn station (ap' THEN 'Glencairn'
+		WHEN 'glenayr ee' THEN 'Glencairn'
+		WHEN 'glenayr emergency exit' THEN 'Glencairn'
+		WHEN 'glenayr substation' THEN 'Glencairn'
+		WHEN 'glencairn' THEN 'Glencairn'
+		WHEN 'glencairn station' THEN 'Glencairn'
+		WHEN 'glencairn station (app' THEN 'Glencairn'
+		WHEN 'glencairn to st george' THEN 'Glencairn'
+		WHEN 'glencarin station' THEN 'Glencairn'
+		WHEN 'greeenwood yard' THEN 'Greenwood'
+		WHEN 'greenwood - track trai' THEN 'Greenwood'
+		WHEN 'greenwood and danforth' THEN 'Greenwood'
+		WHEN 'greenwood car house' THEN 'Greenwood'
+		WHEN 'greenwood carhouse' THEN 'Greenwood'
+		WHEN 'greenwood complex' THEN 'Greenwood'
+		WHEN 'greenwood complex - tr' THEN 'Greenwood'
+		WHEN 'greenwood gatehouse' THEN 'Greenwood'
+		WHEN 'greenwood plant buildi' THEN 'Greenwood'
+		WHEN 'greenwood portal' THEN 'Greenwood'
+		WHEN 'greenwood portal (exit' THEN 'Greenwood'
+		WHEN 'greenwood shop' THEN 'Greenwood'
+		WHEN 'greenwood shops' THEN 'Greenwood'
+		WHEN 'greenwood shops - 41 t' THEN 'Greenwood'
+		WHEN 'greenwood shops track' THEN 'Greenwood'
+		WHEN 'greenwood shops.' THEN 'Greenwood'
+		WHEN 'greenwood station' THEN 'Greenwood'
+		WHEN 'greenwood station (app' THEN 'Greenwood'
+		WHEN 'greenwood station carh' THEN 'Greenwood'
+		WHEN 'greenwood t&s building' THEN 'Greenwood'
+		WHEN 'greenwood to donlands' THEN 'Greenwood'
+		WHEN 'greenwood track & stru' THEN 'Greenwood'
+		WHEN 'greenwood track and st' THEN 'Greenwood'
+		WHEN 'greenwood track buildi' THEN 'Greenwood'
+		WHEN 'greenwood track&struct' THEN 'Greenwood'
+		WHEN 'greenwood track/struct' THEN 'Greenwood'
+		WHEN 'greenwood wye' THEN 'Greenwood'
+		WHEN 'greenwood wye (enteri' THEN 'Greenwood'
+		WHEN 'greenwood wye departin' THEN 'Greenwood'
+		WHEN 'greenwood yard' THEN 'Greenwood'
+		WHEN 'yonge station to green' THEN 'Greenwood'
+		WHEN 'yonge univeristy line' THEN 'Greenwood'
+		WHEN 'yonge university' THEN 'Greenwood'
+		WHEN 'high park' THEN 'High Park'
+		WHEN 'high park - keele' THEN 'High Park'
+		WHEN 'high park - keele stat' THEN 'High Park'
+		WHEN 'high park and lansdown' THEN 'High Park'
+		WHEN 'high park staiton' THEN 'High Park'
+		WHEN 'high park station' THEN 'High Park'
+		WHEN 'high park station (app' THEN 'High Park'
+		WHEN 'high park station (ent' THEN 'High Park'
+		WHEN 'high park to keele' THEN 'High Park'
+		WHEN 'high park to keele sta' THEN 'High Park'
+		WHEN 'highway 407 station' THEN 'Highway 407'
+		WHEN 'highway 407 station to' THEN 'Highway 407'
+		WHEN 'islington and jane' THEN 'Islington'
+		WHEN 'islington centre track' THEN 'Islington'
+		WHEN 'islington station' THEN 'Islington'
+		WHEN 'islington station ( ap' THEN 'Islington'
+		WHEN 'islington station (app' THEN 'Islington'
+		WHEN 'islington station (ent' THEN 'Islington'
+		WHEN 'islington station (exi' THEN 'Islington'
+		WHEN 'islington station (lea' THEN 'Islington'
+		WHEN 'islington substation' THEN 'Islington'
+		WHEN 'islington to keele' THEN 'Islington'
+		WHEN 'islington to kipling' THEN 'Islington'
+		WHEN 'islington to kipling-' THEN 'Islington'
+		WHEN 'islington to kipling s' THEN 'Islington'
+		WHEN 'islington to lansdown' THEN 'Islington'
+		WHEN 'islington to old mill' THEN 'Islington'
+		WHEN 'islington to prince ed' THEN 'Islington'
+		WHEN 'islinton station' THEN 'Islington'
+		WHEN 'leaving islington' THEN 'Islington'
+		WHEN 'weekend closure isling' THEN 'Islington'
+		WHEN 'jane & runnymede stati' THEN 'Jane'
+		WHEN 'jane and dufferin' THEN 'Jane'
+		WHEN 'jane and hwy 407' THEN 'Jane'
+		WHEN 'jane station' THEN 'Jane'
+		WHEN 'jane station (entering' THEN 'Jane'
+		WHEN 'jane station (exiting' THEN 'Jane'
+		WHEN 'jane station to kiplin' THEN 'Jane'
+		WHEN 'jane station to old mi' THEN 'Jane'
+		WHEN 'jane to old mill' THEN 'Jane'
+		WHEN 'jane to ossington' THEN 'Jane'
+		WHEN 'jane to ossington stat' THEN 'Jane'
+		WHEN 'subway closure - jane' THEN 'Jane'
+		WHEN 'closure- keele to ossi' THEN 'Keele'
+		WHEN 'keele station' THEN 'Keele'
+		WHEN 'keele station - kiplin' THEN 'Keele'
+		WHEN 'keele station (approac' THEN 'Keele'
+		WHEN 'keele station (crossin' THEN 'Keele'
+		WHEN 'keele station (enterin' THEN 'Keele'
+		WHEN 'keele station (exiting' THEN 'Keele'
+		WHEN 'keele station to kipli' THEN 'Keele'
+		WHEN 'keele to dundas west' THEN 'Keele'
+		WHEN 'keele to high park' THEN 'Keele'
+		WHEN 'keele to high park sta' THEN 'Keele'
+		WHEN 'keele to ossington' THEN 'Keele'
+		WHEN 'keele yard' THEN 'Keele'
+		WHEN 'kenndy station' THEN 'Kennedy'
+		WHEN 'kennedy' THEN 'Kennedy'
+		WHEN 'kennedy - lawrence eas' THEN 'Kennedy'
+		WHEN 'kennedy - mccowan' THEN 'Kennedy'
+		WHEN 'kennedy - warden - mai' THEN 'Kennedy'
+		WHEN 'kennedy and scarboroug' THEN 'Kennedy'
+		WHEN 'kennedy bd station' THEN 'Kennedy'
+		WHEN 'kennedy bd station ( a' THEN 'Kennedy'
+		WHEN 'kennedy bd station (ap' THEN 'Kennedy'
+		WHEN 'kennedy bd station (en' THEN 'Kennedy'
+		WHEN 'kennedy bd station (ex' THEN 'Kennedy'
+		WHEN 'kennedy bd station (le' THEN 'Kennedy'
+		WHEN 'kennedy bd station (pl' THEN 'Kennedy'
+		WHEN 'kennedy bd station pla' THEN 'Kennedy'
+		WHEN 'kennedy bd to kipling' THEN 'Kennedy'
+		WHEN 'kennedy platform 1' THEN 'Kennedy'
+		WHEN 'kennedy srt - lawrence' THEN 'Kennedy'
+		WHEN 'kennedy srt and lawren' THEN 'Kennedy'
+		WHEN 'kennedy srt station' THEN 'Kennedy'
+		WHEN 'kennedy srt station -' THEN 'Kennedy'
+		WHEN 'kennedy srt station (a' THEN 'Kennedy'
+		WHEN 'kennedy srt station (d' THEN 'Kennedy'
+		WHEN 'kennedy srt station (e' THEN 'Kennedy'
+		WHEN 'kennedy srt station (l' THEN 'Kennedy'
+		WHEN 'kennedy srt station [a' THEN 'Kennedy'
+		WHEN 'kennedy srt station la' THEN 'Kennedy'
+		WHEN 'kennedy srt station to' THEN 'Kennedy'
+		WHEN 'kennedy srt to lawren' THEN 'Kennedy'
+		WHEN 'kennedy srt to lawrenc' THEN 'Kennedy'
+		WHEN 'kennedy srt to mccowa' THEN 'Kennedy'
+		WHEN 'kennedy srt to mccowan' THEN 'Kennedy'
+		WHEN 'kennedy station' THEN 'Kennedy'
+		WHEN 'kennedy station (paltf' THEN 'Kennedy'
+		WHEN 'kennedy station to kip' THEN 'Kennedy'
+		WHEN 'kennedy station to law' THEN 'Kennedy'
+		WHEN 'kennedy station to mcc' THEN 'Kennedy'
+		WHEN 'kennedy station to woo' THEN 'Kennedy'
+		WHEN 'kennedy to coxwell' THEN 'Kennedy'
+		WHEN 'kennedy to kipling' THEN 'Kennedy'
+		WHEN 'kennedy to kipling sta' THEN 'Kennedy'
+		WHEN 'kennedy to lawrebce ea' THEN 'Kennedy'
+		WHEN 'kennedy to lawrence ea' THEN 'Kennedy'
+		WHEN 'kennedy to lawrence sr' THEN 'Kennedy'
+		WHEN 'kennedy to main street' THEN 'Kennedy'
+		WHEN 'kennedy to mc cowan st' THEN 'Kennedy'
+		WHEN 'kennedy to mccowan' THEN 'Kennedy'
+		WHEN 'kennedy to mccowan - l' THEN 'Kennedy'
+		WHEN 'kennedy to mccowan sta' THEN 'Kennedy'
+		WHEN 'kennedy to victoria pa' THEN 'Kennedy'
+		WHEN 'kennedy to warden' THEN 'Kennedy'
+		WHEN 'kennedy to warden stat' THEN 'Kennedy'
+		WHEN 'kennedy, don mills, sc' THEN 'Kennedy'
+		WHEN 'leaving kennedy statio' THEN 'Kennedy'
+		WHEN 'line 3 - kennedy to la' THEN 'Kennedy'
+		WHEN 'line 3 - kennedy to mc' THEN 'Kennedy'
+		WHEN 'early closure king to' THEN 'King'
+		WHEN 'king and bathurst' THEN 'King'
+		WHEN 'king commerce' THEN 'King'
+		WHEN 'king station' THEN 'King'
+		WHEN 'king station - commerc' THEN 'King'
+		WHEN 'king station to eglint' THEN 'King'
+		WHEN 'king station to osgood' THEN 'King'
+		WHEN 'king station to spadin' THEN 'King'
+		WHEN 'king station to st cla' THEN 'King'
+		WHEN 'king station to st geo' THEN 'King'
+		WHEN 'king station to st. cl' THEN 'King'
+		WHEN 'king station to union' THEN 'King'
+		WHEN 'king to college' THEN 'King'
+		WHEN 'king to eglinton stati' THEN 'King'
+		WHEN 'king to eglinton stato' THEN 'King'
+		WHEN 'king to osgoode statio' THEN 'King'
+		WHEN 'king to s/o st andrew' THEN 'King'
+		WHEN 'king to spadina' THEN 'King'
+		WHEN 'king to spadina statio' THEN 'King'
+		WHEN 'king to st clair w' THEN 'King'
+		WHEN 'king to st clair west' THEN 'King'
+		WHEN 'king to st george stat' THEN 'King'
+		WHEN 'king to union' THEN 'King'
+		WHEN 'kilping station' THEN 'Kipling'
+		WHEN 'kilping station to jan' THEN 'Kipling'
+		WHEN 'kipling - isliington s' THEN 'Kipling'
+		WHEN 'kipling - kennedy' THEN 'Kipling'
+		WHEN 'kipling & union' THEN 'Kipling'
+		WHEN 'kipling hub' THEN 'Kipling'
+		WHEN 'kipling sation' THEN 'Kipling'
+		WHEN 'kipling station' THEN 'Kipling'
+		WHEN 'kipling station - kenn' THEN 'Kipling'
+		WHEN 'kipling station (appro' THEN 'Kipling'
+		WHEN 'kipling station (enter' THEN 'Kipling'
+		WHEN 'kipling station (exiti' THEN 'Kipling'
+		WHEN 'kipling station (leavi' THEN 'Kipling'
+		WHEN 'kipling station (platf' THEN 'Kipling'
+		WHEN 'kipling station to cox' THEN 'Kipling'
+		WHEN 'kipling station to isl' THEN 'Kipling'
+		WHEN 'kipling station to jan' THEN 'Kipling'
+		WHEN 'kipling station to ken' THEN 'Kipling'
+		WHEN 'kipling tail track 2' THEN 'Kipling'
+		WHEN 'kipling to coxwell' THEN 'Kipling'
+		WHEN 'kipling to high park' THEN 'Kipling'
+		WHEN 'kipling to high park s' THEN 'Kipling'
+		WHEN 'kipling to islington' THEN 'Kipling'
+		WHEN 'kipling to islington s' THEN 'Kipling'
+		WHEN 'kipling to jane' THEN 'Kipling'
+		WHEN 'kipling to jane statio' THEN 'Kipling'
+		WHEN 'kipling to keele' THEN 'Kipling'
+		WHEN 'kipling to keele stati' THEN 'Kipling'
+		WHEN 'kipling to kennedy' THEN 'Kipling'
+		WHEN 'kipling to kennedy sta' THEN 'Kipling'
+		WHEN 'kipling to kennedy stn' THEN 'Kipling'
+		WHEN 'kipling to old mill' THEN 'Kipling'
+		WHEN 'kipling to royal york' THEN 'Kipling'
+		WHEN 'kipling to union stati' THEN 'Kipling'
+		WHEN 'lansdown station' THEN 'Lansdowne'
+		WHEN 'lansdown to islington' THEN 'Lansdowne'
+		WHEN 'lansdowne station' THEN 'Lansdowne'
+		WHEN 'lansdowne station and' THEN 'Lansdowne'
+		WHEN 'lansdowne to royal yor' THEN 'Lansdowne'
+		WHEN 'lawerence station' THEN 'Lawrence'
+		WHEN 'lawrence' THEN 'Lawrence'
+		WHEN 'lawrence - auto entran' THEN 'Lawrence'
+		WHEN 'lawrence and yonge' THEN 'Lawrence'
+		WHEN 'lawrence station' THEN 'Lawrence'
+		WHEN 'lawrence station (leav' THEN 'Lawrence'
+		WHEN 'lawrence station to st' THEN 'Lawrence'
+		WHEN 'lawrence station to yo' THEN 'Lawrence'
+		WHEN 'lawrence sub station' THEN 'Lawrence'
+		WHEN 'lawrence to bloor stat' THEN 'Lawrence'
+		WHEN 'lawrence to eglinton' THEN 'Lawrence'
+		WHEN 'lawrence to eglinton s' THEN 'Lawrence'
+		WHEN 'lawrence to st clair' THEN 'Lawrence'
+		WHEN 'lawrence to st clair s' THEN 'Lawrence'
+		WHEN 'lawrence to st.clair s' THEN 'Lawrence'
+		WHEN 'lawrence to york mills' THEN 'Lawrence'
+		WHEN 'lytton ee' THEN 'Lawrence'
+		WHEN 'lytton emergency exit' THEN 'Lawrence'
+		WHEN 'northbound to lawrence' THEN 'Lawrence'
+		WHEN 'south of lawrence srt' THEN 'Lawrence'
+		WHEN 'subway closure: lawren' THEN 'Lawrence'
+		WHEN 'lawrence east - kenne' THEN 'Lawrence East'
+		WHEN 'lawrence east - kenned' THEN 'Lawrence East'
+		WHEN 'lawrence east station' THEN 'Lawrence East'
+		WHEN 'lawrence east to elles' THEN 'Lawrence East'
+		WHEN 'lawrence east to kenne' THEN 'Lawrence East'
+		WHEN 'leaving lawrence east' THEN 'Lawrence East'
+		WHEN 'slow zone lawrence eas' THEN 'Lawrence East'
+		WHEN 'lawrecne west to finch' THEN 'Lawrence West'
+		WHEN 'lawrence west center t' THEN 'Lawrence West'
+		WHEN 'lawrence west centre' THEN 'Lawrence West'
+		WHEN 'lawrence west station' THEN 'Lawrence West'
+		WHEN 'lawrence west to eglin' THEN 'Lawrence West'
+		WHEN 'lawrence west to finch' THEN 'Lawrence West'
+		WHEN 'entering leslie statio' THEN 'Leslie'
+		WHEN 'leslie station' THEN 'Leslie'
+		WHEN 'leslie station (approa' THEN 'Leslie'
+		WHEN 'leslie station (enteri' THEN 'Leslie'
+		WHEN 'leslie station (leavin' THEN 'Leslie'
+		WHEN 'leslie station aproach' THEN 'Leslie'
+		WHEN 'leslie station(approac' THEN 'Leslie'
+		WHEN 'main station' THEN 'Main Street'
+		WHEN 'main street and union' THEN 'Main Street'
+		WHEN 'main street staiton' THEN 'Main Street'
+		WHEN 'main street station' THEN 'Main Street'
+		WHEN 'main street station (e' THEN 'Main Street'
+		WHEN 'main to victoria park' THEN 'Main Street'
+		WHEN 'mc cowan station' THEN 'Mccowan'
+		WHEN 'mccowan car house' THEN 'Mccowan'
+		WHEN 'mccowan carhouse' THEN 'Mccowan'
+		WHEN 'mccowan parking lot' THEN 'Mccowan'
+		WHEN 'mccowan station' THEN 'Mccowan'
+		WHEN 'mccowan station (appro' THEN 'Mccowan'
+		WHEN 'mccowan station (depar' THEN 'Mccowan'
+		WHEN 'mccowan station (enter' THEN 'Mccowan'
+		WHEN 'mccowan station nb' THEN 'Mccowan'
+		WHEN 'mccowan station to ken' THEN 'Mccowan'
+		WHEN 'mccowan to kennedy srt' THEN 'Mccowan'
+		WHEN 'mccowan to kennedy sta' THEN 'Mccowan'
+		WHEN 'mccowan yard' THEN 'Mccowan'
+		WHEN 'mccowan yard - 3 track' THEN 'Mccowan'
+		WHEN 'midland station' THEN 'Midland'
+		WHEN 'midland station to ell' THEN 'Midland'
+		WHEN 'midland to scarborough' THEN 'Midland'
+		WHEN 'south of midland srt' THEN 'Midland'
+		WHEN 'museum - osgoode' THEN 'Museum'
+		WHEN 'museum ( tunnel' THEN 'Museum'
+		WHEN 'museum station' THEN 'Museum'
+		WHEN 'museum station (approa' THEN 'Museum'
+		WHEN 'museum station (leavin' THEN 'Museum'
+		WHEN 'museum station st. geo' THEN 'Museum'
+		WHEN 'museum station to finc' THEN 'Museum'
+		WHEN 'museum station to osgo' THEN 'Museum'
+		WHEN 'museum to eglinton sta' THEN 'Museum'
+		WHEN 'museum to finch statio' THEN 'Museum'
+		WHEN 'museum to st andrew st' THEN 'Museum'
+		WHEN 's/e museum / to se spa' THEN 'Museum'
+		WHEN 'north york centre stat' THEN 'North York Centre'
+		WHEN 'north york ctr station' THEN 'North York Centre'
+		WHEN 'north york ctr to finc' THEN 'North York Centre'
+		WHEN 'north york ctr to st a' THEN 'North York Centre'
+		WHEN 'old mill station' THEN 'Old Mill'
+		WHEN 'old mill station (appr' THEN 'Old Mill'
+		WHEN 'old mill station (exit' THEN 'Old Mill'
+		WHEN 'old mill station to ja' THEN 'Old Mill'
+		WHEN 'old mill to islington' THEN 'Old Mill'
+		WHEN 'old mill to royal york' THEN 'Old Mill'
+		WHEN 'old mills station' THEN 'Old Mill'
+		WHEN 'osgoode' THEN 'Osgoode'
+		WHEN 'osgoode pocket' THEN 'Osgoode'
+		WHEN 'osgoode station' THEN 'Osgoode'
+		WHEN 'osgoode station pocket' THEN 'Osgoode'
+		WHEN 'osgoode to college sta' THEN 'Osgoode'
+		WHEN 'ea bloor danforth ossi' THEN 'Ossington'
+		WHEN 'ossignton station' THEN 'Ossington'
+		WHEN 'ossingtion staiton' THEN 'Ossington'
+		WHEN 'ossington and dufferin' THEN 'Ossington'
+		WHEN 'ossington and lansdown' THEN 'Ossington'
+		WHEN 'ossington centre' THEN 'Ossington'
+		WHEN 'ossington centre track' THEN 'Ossington'
+		WHEN 'ossington staiton' THEN 'Ossington'
+		WHEN 'ossington station' THEN 'Ossington'
+		WHEN 'ossington station (app' THEN 'Ossington'
+		WHEN 'ossington station (exi' THEN 'Ossington'
+		WHEN 'ossington station(appr' THEN 'Ossington'
+		WHEN 'ossington staton' THEN 'Ossington'
+		WHEN 'ossington to chester' THEN 'Ossington'
+		WHEN 'ossington to jane' THEN 'Ossington'
+		WHEN 'ossington to keele sta' THEN 'Ossington'
+		WHEN 'ossington to pape' THEN 'Ossington'
+		WHEN 'ossington to st george' THEN 'Ossington'
+		WHEN 'leaving pape' THEN 'Pape'
+		WHEN 'pape' THEN 'Pape'
+		WHEN 'pape station' THEN 'Pape'
+		WHEN 'pape to st george' THEN 'Pape'
+		WHEN 'pioneer village statio' THEN 'Pioneer Village'
+		WHEN 'pioneer village to vau' THEN 'Pioneer Village'
+		WHEN 'pionner village statio' THEN 'Pioneer Village'
+		WHEN 'n/o queen to markdale' THEN 'Queen'
+		WHEN 'queen albert' THEN 'Queen'
+		WHEN 'queen and yonge' THEN 'Queen'
+		WHEN 'queen quay station' THEN 'Queen'
+		WHEN 'queen station' THEN 'Queen'
+		WHEN 'queen station - east s' THEN 'Queen'
+		WHEN 'queen to finch station' THEN 'Queen'
+		WHEN 'queen to king stations' THEN 'Queen'
+		WHEN 'queen''s quay - union' THEN 'Queen'
+		WHEN 'queens quay (union' THEN 'Queen'
+		WHEN 'queens quay eleavator' THEN 'Queen'
+		WHEN 'queens quay elevator' THEN 'Queen'
+		WHEN 'queen''s quay elevator' THEN 'Queen'
+		WHEN 'queens quay loop' THEN 'Queen'
+		WHEN 'queens quay station' THEN 'Queen'
+		WHEN 'queens'' quay station' THEN 'Queen'
+		WHEN 'queen''s quay station' THEN 'Queen'
+		WHEN 'queens quay station WHEN ' THEN 'Queen'
+		WHEN 'university and queen' THEN 'Queen'
+		WHEN 'yonge and queen' THEN 'Queen'
+		WHEN 'queens park station' THEN 'Queen''s Park' 
+		WHEN 'queen''s park station' THEN 'Queen''s Park'
+		WHEN 'queen''s park to st cla' THEN 'Queen''s Park'
+		WHEN 'rosedale station' THEN 'Rosedale'
+		WHEN 'rosedale station (app' THEN 'Rosedale'
+		WHEN 'rosedale station (appr' THEN 'Rosedale'
+		WHEN 'rosedale to bloor' THEN 'Rosedale'
+		WHEN 'rosedale-wellesley sta' THEN 'Rosedale'
+		WHEN 'royal york and islingt' THEN 'Royal York'
+		WHEN 'royal york station' THEN 'Royal York'
+		WHEN 'royal york station (ap' THEN 'Royal York'
+		WHEN 'royal york station (en' THEN 'Royal York'
+		WHEN 'royal york station (le' THEN 'Royal York'
+		WHEN 'royal york station(app' THEN 'Royal York'
+		WHEN 'royal york to islingto' THEN 'Royal York'
+		WHEN 'runnymede station' THEN 'Runnymede'
+		WHEN 'scarb centre station' THEN 'Scarborough Centre'
+		WHEN 'scarb ctr station' THEN 'Scarborough Centre'
+		WHEN 'scarborough centre sta' THEN 'Scarborough Centre'
+		WHEN 'scarborough ctr statio' THEN 'Scarborough Centre'
+		WHEN 'scarborough raoid tran' THEN 'Scarborough Centre'
+		WHEN 'scarborough rapid line' THEN 'Scarborough Centre'
+		WHEN 'scarborough rapid tra' THEN 'Scarborough Centre'
+		WHEN 'scarborough rapid tran' THEN 'Scarborough Centre'
+		WHEN 'scarborough rt' THEN 'Scarborough Centre'
+		WHEN 'scarborough rt line' THEN 'Scarborough Centre'
+		WHEN 'scarborough srt' THEN 'Scarborough Centre'
+		WHEN 'scarborough srt line' THEN 'Scarborough Centre'
+		WHEN 'scarborugh rapid trans' THEN 'Scarborough Centre'
+		WHEN 'scarboruogh rapid tran' THEN 'Scarborough Centre'
+		WHEN 'between sheppard and s' THEN 'Sheppard-Yonge'
+		WHEN 'leaving sheppard stati' THEN 'Sheppard-Yonge'
+		WHEN 'leaving sheppard/yonge' THEN 'Sheppard-Yonge'
+		WHEN 'leaving sheppard-yonge' THEN 'Sheppard-Yonge'
+		WHEN 'leaving yonge/sheppard' THEN 'Sheppard-Yonge'
+		WHEN 'leaving yonge-sheppard' THEN 'Sheppard-Yonge'
+		WHEN 's/o sheppard to davisv' THEN 'Sheppard-Yonge'
+		WHEN 'sehppard station' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard - eglinton st' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard - yonge (line' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard - yonge stati' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard distrubtion' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard hub' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard line' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station - egl' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station (appr' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station (ente' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station to eg' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard station to yo' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard subway line' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard tail' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard tail track #2' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to bayview' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to bloor' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to eglinton s' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to st clair s' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to st. clair' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard to york mills' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard yonge' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard- yonge statio' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard yonge station' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard/yonge station' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge (tail t' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge and don' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge and st' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge line 4' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge station' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge tail' THEN 'Sheppard-Yonge'
+		WHEN 'sheppard-yonge tail tr' THEN 'Sheppard-Yonge'
+		WHEN 'weekend closure sheppa' THEN 'Sheppard-Yonge'
+		WHEN 'yonge' THEN 'Sheppard-Yonge'
+		WHEN 'yonge - sheppard (leav' THEN 'Sheppard-Yonge'
+		WHEN 'yonge and sheppard' THEN 'Sheppard-Yonge'
+		WHEN 'yonge shep station' THEN 'Sheppard-Yonge'
+		WHEN 'yonge sheppard satatio' THEN 'Sheppard-Yonge'
+		WHEN 'yonge sheppard station' THEN 'Sheppard-Yonge'
+		WHEN 'yonge sheppard to egli' THEN 'Sheppard-Yonge'
+		WHEN 'yonge shp station' THEN 'Sheppard-Yonge'
+		WHEN 'yonge shp station (lea' THEN 'Sheppard-Yonge'
+		WHEN 'yonge station' THEN 'Sheppard-Yonge'
+		WHEN 'yonge station (exiting' THEN 'Sheppard-Yonge'
+		WHEN 'yonge/sheppard' THEN 'Sheppard-Yonge'
+		WHEN 'yonge-sheppard (line 4' THEN 'Sheppard-Yonge'
+		WHEN 'yonge-sheppard station' THEN 'Sheppard-Yonge'
+		WHEN 'between sherbourne and' THEN 'Sherbourne'
+		WHEN 'shebourne station' THEN 'Sherbourne'
+		WHEN 'sherbourne and bloor' THEN 'Sherbourne'
+		WHEN 'sherbourne station' THEN 'Sherbourne'
+		WHEN 'sherbourne station (ap' THEN 'Sherbourne'
+		WHEN 'sherbourne station (en' THEN 'Sherbourne'
+		WHEN 'n/end spadina to s/end' THEN 'Spadina'
+		WHEN 'spadina and adelaide' THEN 'Spadina'
+		WHEN 'spadina and dundas' THEN 'Spadina'
+		WHEN 'spadina bd station' THEN 'Spadina'
+		WHEN 'spadina bd staton' THEN 'Spadina'
+		WHEN 'spadina station' THEN 'Spadina'
+		WHEN 'spadina station to kin' THEN 'Spadina'
+		WHEN 'spadina station yus' THEN 'Spadina'
+		WHEN 'spadina to king' THEN 'Spadina'
+		WHEN 'spadina to king statio' THEN 'Spadina'
+		WHEN 'spadina to osgoode' THEN 'Spadina'
+		WHEN 'spadina to st andrew' THEN 'Spadina'
+		WHEN 'spadina to st andrew s' THEN 'Spadina'
+		WHEN 'spadina to union stati' THEN 'Spadina'
+		WHEN 'spadina to wilson stat' THEN 'Spadina'
+		WHEN 'spadina yu station' THEN 'Spadina'
+		WHEN 'spadina yus station' THEN 'Spadina'
+		WHEN 'spadina yus station -' THEN 'Spadina'
+		WHEN 'spadina yus station (l' THEN 'Spadina'
+		WHEN 'yonge university - spa' THEN 'Spadina'
+		WHEN 'yonge- university spad' THEN 'Spadina'
+		WHEN 'yonge university spadi' THEN 'Spadina'
+		WHEN 'yonge/university/spadi' THEN 'Spadina'
+		WHEN 'yonge/university-spadi' THEN 'Spadina'
+		WHEN 'yonge-university spadi' THEN 'Spadina'
+		WHEN 'yonge-university-spadi' THEN 'Spadina'
+		WHEN 'young university spadi' THEN 'Spadina'
+		WHEN 'younge university spad' THEN 'Spadina'
+		WHEN 'younge-university-spad' THEN 'Spadina'
+		WHEN 'st andrew station' THEN 'St. Andrew'
+		WHEN 'st andrew station (lea' THEN 'St. Andrew'
+		WHEN 'st andrew station to o' THEN 'St. Andrew'
+		WHEN 'st andrew station to s' THEN 'St. Andrew'
+		WHEN 'st andrew station to u' THEN 'St. Andrew'
+		WHEN 'st andrew staton' THEN 'St. Andrew'
+		WHEN 'st andrew to bloor st' THEN 'St. Andrew'
+		WHEN 'st andrew to bloor sta' THEN 'St. Andrew'
+		WHEN 'st andrew to spadina' THEN 'St. Andrew'
+		WHEN 'st andrew to st george' THEN 'St. Andrew'
+		WHEN 'st. andrew station' THEN 'St. Andrew'
+		WHEN 'weekend closure- st an' THEN 'St. Andrew'
+		WHEN 'st calir station' THEN 'St. Clair'
+		WHEN 'st clair - finch stati' THEN 'St. Clair'
+		WHEN 'st clair - rosedale' THEN 'St. Clair'
+		WHEN 'st clair - york mills' THEN 'St. Clair'
+		WHEN 'st clair and union sta' THEN 'St. Clair'
+		WHEN 'st clair e of bathurst' THEN 'St. Clair'
+		WHEN 'st clair staiton' THEN 'St. Clair'
+		WHEN 'st clair station' THEN 'St. Clair'
+		WHEN 'st clair station - upp' THEN 'St. Clair'
+		WHEN 'st clair station (appr' THEN 'St. Clair'
+		WHEN 'st clair station (leav' THEN 'St. Clair'
+		WHEN 'st clair station pleas' THEN 'St. Clair'
+		WHEN 'st clair station to sh' THEN 'St. Clair'
+		WHEN 'st clair to bloor stat' THEN 'St. Clair'
+		WHEN 'st clair to davisville' THEN 'St. Clair'
+		WHEN 'st clair to finch stat' THEN 'St. Clair'
+		WHEN 'st clair to lawrence s' THEN 'St. Clair'
+		WHEN 'st clair to sheppard s' THEN 'St. Clair'
+		WHEN 'st clair to union' THEN 'St. Clair'
+		WHEN 'st clair to union stat' THEN 'St. Clair'
+		WHEN 'st clair to york mills' THEN 'St. Clair'
+		WHEN 'st. clair and sheppard' THEN 'St. Clair'
+		WHEN 'st. clair station' THEN 'St. Clair'
+		WHEN 'st. clair station (app' THEN 'St. Clair'
+		WHEN 'st. clair station to s' THEN 'St. Clair'
+		WHEN 'st. clair to college s' THEN 'St. Clair'
+		WHEN 'st. clair to finch sta' THEN 'St. Clair'
+		WHEN 'yu-st clair station to' THEN 'St. Clair'
+		WHEN 'st clair west' THEN 'St. Clair West'
+		WHEN 'st clair west centre t' THEN 'St. Clair West'
+		WHEN 'st clair west station' THEN 'St. Clair West'
+		WHEN 'st clair west to dupon' THEN 'St. Clair West'
+		WHEN 'st clair west to eglin' THEN 'St. Clair West'
+		WHEN 'st clair west to king' THEN 'St. Clair West'
+		WHEN 'st clair west to shepp' THEN 'St. Clair West'
+		WHEN 'st clair west to st an' THEN 'St. Clair West'
+		WHEN 'st clair west to union' THEN 'St. Clair West'
+		WHEN 'st clair west to vmc s' THEN 'St. Clair West'
+		WHEN 'st. clair west' THEN 'St. Clair West'
+		WHEN 'st. clair west - king' THEN 'St. Clair West'
+		WHEN 'st. clair west station' THEN 'St. Clair West'
+		WHEN 'st. clair west to dupo' THEN 'St. Clair West'
+		WHEN 'st. clair west to king' THEN 'St. Clair West'
+		WHEN 'st. clair west to shep' THEN 'St. Clair West'
+		WHEN 'st.clair west to st.a' THEN 'St. Clair West'
+		WHEN 'markdale ee' THEN 'St. Clair West'
+		WHEN 'markdale eeb' THEN 'St. Clair West'
+		WHEN 'markdale emergency exi' THEN 'St. Clair West'
+		WHEN 'russel hill ee - intru' THEN 'St. Clair West'
+		WHEN 'russell hill emergency' THEN 'St. Clair West'
+		WHEN 'st geoge station' THEN 'St. George'
+		WHEN 'st george - lawrence w' THEN 'St. George'
+		WHEN 'st george and bloor' THEN 'St. George'
+		WHEN 'st george and broadvie' THEN 'St. George'
+		WHEN 'st george and woodbine' THEN 'St. George'
+		WHEN 'st george bd station' THEN 'St. George'
+		WHEN 'st george bd station -' THEN 'St. George'
+		WHEN 'st george bd/yu statio' THEN 'St. George'
+		WHEN 'st george bedford' THEN 'St. George'
+		WHEN 'st george signals offi' THEN 'St. George'
+		WHEN 'st george staion - le' THEN 'St. George'
+		WHEN 'st george station' THEN 'St. George'
+		WHEN 'st george station to b' THEN 'St. George'
+		WHEN 'st george station to g' THEN 'St. George'
+		WHEN 'st george station to s' THEN 'St. George'
+		WHEN 'st george station to w' THEN 'St. George'
+		WHEN 'st george stn' THEN 'St. George'
+		WHEN 'st george to bay stati' THEN 'St. George'
+		WHEN 'st george to bloor sta' THEN 'St. George'
+		WHEN 'st george to broadview' THEN 'St. George'
+		WHEN 'st george to finch wes' THEN 'St. George'
+		WHEN 'st george to greenwood' THEN 'St. George'
+		WHEN 'st george to lawrence' THEN 'St. George'
+		WHEN 'st george to pape' THEN 'St. George'
+		WHEN 'st george to queens pa' THEN 'St. George'
+		WHEN 'st george to sheppard' THEN 'St. George'
+		WHEN 'st george to woodbine' THEN 'St. George'
+		WHEN 'st george yu station' THEN 'St. George'
+		WHEN 'st george yus station' THEN 'St. George'
+		WHEN 'st george/bedford' THEN 'St. George'
+		WHEN 'st. george station' THEN 'St. George'
+		WHEN 'st. george to broadvie' THEN 'St. George'
+		WHEN 'st. george to st. andr' THEN 'St. George'
+		WHEN 'st.george station yu' THEN 'St. George'
+		WHEN 'subway closure: st geo' THEN 'St. George'
+		WHEN 'weekend closure- st ge' THEN 'St. George'
+		WHEN 'late opening - st. geo' THEN 'St. George'
+		WHEN 'st patrick station' THEN 'St. Patrick'
+		WHEN 'st. patrick station' THEN 'St. Patrick'
+		WHEN 'n/o summerhill to s/o' THEN 'Summerhill'
+		WHEN 'summer hill station' THEN 'Summerhill'
+		WHEN 'summerhill station' THEN 'Summerhill'
+		WHEN 'summerhill station to' THEN 'Summerhill'
+		WHEN 'summerhill to bloor' THEN 'Summerhill'
+		WHEN 'summerhill to bloor st' THEN 'Summerhill'
+		WHEN 'mac donald cartier ee' THEN 'Union'
+		WHEN 'macdonald cartier emer' THEN 'Union'
+		WHEN 'mcdonald cartier emerg' THEN 'Union'
+		WHEN 'mill street emergency' THEN 'Union'
+		WHEN 'toronto tranist commis' THEN 'Union'
+		WHEN 'toronto transic commis' THEN 'Union'
+		WHEN 'toronto transit commis' THEN 'Union'
+		WHEN 'toronto transit contro' THEN 'Union'
+		WHEN 'transit control' THEN 'Union'
+		WHEN 'transit control centre' THEN 'Union'
+		WHEN 'union' THEN 'Union'
+		WHEN 'union - king' THEN 'Union'
+		WHEN 'union - to st andrew' THEN 'Union'
+		WHEN 'union - university' THEN 'Union'
+		WHEN 'union (to finch' THEN 'Union'
+		WHEN 'union (to st andrew' THEN 'Union'
+		WHEN 'union and downsview' THEN 'Union'
+		WHEN 'union and highway 407' THEN 'Union'
+		WHEN 'union and kennedy stat' THEN 'Union'
+		WHEN 'union and leslie' THEN 'Union'
+		WHEN 'union centre track' THEN 'Union'
+		WHEN 'union hub' THEN 'Union'
+		WHEN 'union station' THEN 'Union'
+		WHEN 'union station - booth' THEN 'Union'
+		WHEN 'union station - finch' THEN 'Union'
+		WHEN 'union station - hub' THEN 'Union'
+		WHEN 'union station - king' THEN 'Union'
+		WHEN 'union station - king s' THEN 'Union'
+		WHEN 'union station - nb to' THEN 'Union'
+		WHEN 'union station - sales' THEN 'Union'
+		WHEN 'union station - st and' THEN 'Union'
+		WHEN 'union station - toward' THEN 'Union'
+		WHEN 'union station ( toward' THEN 'Union'
+		WHEN 'union station (approac' THEN 'Union'
+		WHEN 'union station (downsvi' THEN 'Union'
+		WHEN 'union station (enterin' THEN 'Union'
+		WHEN 'union station (king' THEN 'Union'
+		WHEN 'union station (st andr' THEN 'Union'
+		WHEN 'union station (to king' THEN 'Union'
+		WHEN 'union station (to st a' THEN 'Union'
+		WHEN 'union station (to st.a' THEN 'Union'
+		WHEN 'union station (toward' THEN 'Union'
+		WHEN 'union station (towards' THEN 'Union'
+		WHEN 'union station brookfie' THEN 'Union'
+		WHEN 'union station from kin' THEN 'Union'
+		WHEN 'union station hub' THEN 'Union'
+		WHEN 'union station- st andr' THEN 'Union'
+		WHEN 'union station to finch' THEN 'Union'
+		WHEN 'union station to king' THEN 'Union'
+		WHEN 'union station to st a' THEN 'Union'
+		WHEN 'union station to st an' THEN 'Union'
+		WHEN 'union station to st cl' THEN 'Union'
+		WHEN 'union station to st. a' THEN 'Union'
+		WHEN 'union station to vmc' THEN 'Union'
+		WHEN 'union station toward k' THEN 'Union'
+		WHEN 'union station towards' THEN 'Union'
+		WHEN 'union station(toward k' THEN 'Union'
+		WHEN 'union station-king' THEN 'Union'
+		WHEN 'union station--st andr' THEN 'Union'
+		WHEN 'union to bloor' THEN 'Union'
+		WHEN 'union to bloor station' THEN 'Union'
+		WHEN 'union to finch' THEN 'Union'
+		WHEN 'union to finch station' THEN 'Union'
+		WHEN 'union to king' THEN 'Union'
+		WHEN 'union to king station' THEN 'Union'
+		WHEN 'union to king stations' THEN 'Union'
+		WHEN 'union to main street' THEN 'Union'
+		WHEN 'union to sheppard west' THEN 'Union'
+		WHEN 'union to st andrew' THEN 'Union'
+		WHEN 'union to st andrew sta' THEN 'Union'
+		WHEN 'union to st clair west' THEN 'Union'
+		WHEN 'union to st george' THEN 'Union'
+		WHEN 'union to st. andrew' THEN 'Union'
+		WHEN 'union to st. andrew st' THEN 'Union'
+		WHEN 'union to wilson' THEN 'Union'
+		WHEN 'union, downsview park,' THEN 'Union'
+		WHEN 'union, exhibition, mim' THEN 'Union'
+		WHEN 'union, kipling, royal' THEN 'Union'
+		WHEN 'union, main, kennedy s' THEN 'Union'
+		WHEN 'vaughan mc statio' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc station' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc station (pl' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc station to' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc to finch st' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc to finch we' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vaughan mc to museum s' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc - st clair' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc and finch west sta' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc station' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc station to pioneer' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc station to sheppar' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc to eglinton statio' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc to lawrence' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc to pioneer village' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc to sheppard west' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'vmc to st george stati' THEN 'Vaughan Metropolitan Centre'
+		WHEN 'closure- victoria park' THEN 'Victoria Park'
+		WHEN 'victoria park' THEN 'Victoria Park'
+		WHEN 'victoria park - warden' THEN 'Victoria Park'
+		WHEN 'victoria park station' THEN 'Victoria Park'
+		WHEN 'victoria park station-' THEN 'Victoria Park'
+		WHEN 'victoria park to kenne' THEN 'Victoria Park'
+		WHEN 'victoria park to warde' THEN 'Victoria Park'
+		WHEN 'between warden station' THEN 'Warden'
+		WHEN 'bichmount division' THEN 'Warden'
+		WHEN 'birchmount ee' THEN 'Warden'
+		WHEN 'birchmount emergency e' THEN 'Warden'
+		WHEN 'e/o warden to w/o vict' THEN 'Warden'
+		WHEN 'e/o warden to w/o ward' THEN 'Warden'
+		WHEN 'subway closure: warden' THEN 'Warden'
+		WHEN 'warden and kennedy' THEN 'Warden'
+		WHEN 'warden and st clair' THEN 'Warden'
+		WHEN 'warden station' THEN 'Warden'
+		WHEN 'warden station (appr' THEN 'Warden'
+		WHEN 'warden station (leavin' THEN 'Warden'
+		WHEN 'warden station to kenn' THEN 'Warden'
+		WHEN 'warden to kennedy' THEN 'Warden'
+		WHEN 'warden to kennedy stat' THEN 'Warden'
+		WHEN 'warden to victoria par' THEN 'Warden'
+		WHEN 'wellesley station' THEN 'Wellesley'
+		WHEN 'wellesley station (app' THEN 'Wellesley'
+		WHEN 'wellesley to college' THEN 'Wellesley'
+		WHEN 'wellsley station' THEN 'Wellesley'
+		WHEN 'n/o wilson to s/o shep' THEN 'Wilson'
+		WHEN 'south hostler' THEN 'Wilson'
+		WHEN 'subway closure - wilso' THEN 'Wilson'
+		WHEN 'wilson - st clair west' THEN 'Wilson'
+		WHEN 'wilson capital shop' THEN 'Wilson'
+		WHEN 'wilson car house' THEN 'Wilson'
+		WHEN 'wilson carhouse' THEN 'Wilson'
+		WHEN 'wilson compex training' THEN 'Wilson'
+		WHEN 'wilson division' THEN 'Wilson'
+		WHEN 'wilson division - 2nd' THEN 'Wilson'
+		WHEN 'wilson division traile' THEN 'Wilson'
+		WHEN 'wilson garage' THEN 'Wilson'
+		WHEN 'wilson holser' THEN 'Wilson'
+		WHEN 'wilson hoslter' THEN 'Wilson'
+		WHEN 'wilson hostler' THEN 'Wilson'
+		WHEN 'wilson hostler - 2' THEN 'Wilson'
+		WHEN 'wilson hostler 2' THEN 'Wilson'
+		WHEN 'wilson hostler southbo' THEN 'Wilson'
+		WHEN 'wilson north hostler' THEN 'Wilson'
+		WHEN 'wilson plant t&s' THEN 'Wilson'
+		WHEN 'wilson south hosler' THEN 'Wilson'
+		WHEN 'wilson south hostler' THEN 'Wilson'
+		WHEN 'wilson station' THEN 'Wilson'
+		WHEN 'wilson station (approa' THEN 'Wilson'
+		WHEN 'wilson station (exitin' THEN 'Wilson'
+		WHEN 'wilson station approac' THEN 'Wilson'
+		WHEN 'wilson station- hostle' THEN 'Wilson'
+		WHEN 'wilson station to vmc' THEN 'Wilson'
+		WHEN 'wilson station to york' THEN 'Wilson'
+		WHEN 'wilson structure build' THEN 'Wilson'
+		WHEN 'wilson sub station' THEN 'Wilson'
+		WHEN 'wilson subway yard' THEN 'Wilson'
+		WHEN 'wilson t & s' THEN 'Wilson'
+		WHEN 'wilson to eglinton' THEN 'Wilson'
+		WHEN 'wilson to lawrence wes' THEN 'Wilson'
+		WHEN 'wilson to sheppard wes' THEN 'Wilson'
+		WHEN 'wilson to st clair sta' THEN 'Wilson'
+		WHEN 'wilson to st clair wes' THEN 'Wilson'
+		WHEN 'wilson track & structu' THEN 'Wilson'
+		WHEN 'wilson track and struc' THEN 'Wilson'
+		WHEN 'wilson training buildi' THEN 'Wilson'
+		WHEN 'wilson training center' THEN 'Wilson'
+		WHEN 'wilson yard' THEN 'Wilson'
+		WHEN 'wilson yard - 26 track' THEN 'Wilson'
+		WHEN 'wilson yard - north ho' THEN 'Wilson'
+		WHEN 'wilson yard - walkway' THEN 'Wilson'
+		WHEN 'wilson yard (south tai' THEN 'Wilson'
+		WHEN 'wilson yard (track 43' THEN 'Wilson'
+		WHEN 'wilson yard carhouse' THEN 'Wilson'
+		WHEN 'wilson yard hostler #2' THEN 'Wilson'
+		WHEN 'wilson yard hostler 2' THEN 'Wilson'
+		WHEN 'wilson yard north host' THEN 'Wilson'
+		WHEN 'wilson yard plant buil' THEN 'Wilson'
+		WHEN 'wilson yard track 3' THEN 'Wilson'
+		WHEN 'wilson yard- wilson ga' THEN 'Wilson'
+		WHEN 'wislon station' THEN 'Wilson'
+		WHEN 'subway closure: woodbi' THEN 'Woodbine'
+		WHEN 'weekend closure - wood' THEN 'Woodbine'
+		WHEN 'woodbine - kennedy' THEN 'Woodbine'
+		WHEN 'woodbine station' THEN 'Woodbine'
+		WHEN 'woodbine station (appr' THEN 'Woodbine'
+		WHEN 'woodbine station (exit' THEN 'Woodbine'
+		WHEN 'woodbine station (leav' THEN 'Woodbine'
+		WHEN 'woodbine station leavi' THEN 'Woodbine'
+		WHEN 'woodbine station to co' THEN 'Woodbine'
+		WHEN 'woodbine station to ke' THEN 'Woodbine'
+		WHEN 'woodbine to broadview' THEN 'Woodbine'
+		WHEN 'woodbine to kennedy' THEN 'Woodbine'
+		WHEN 'woodbine to kennedy st' THEN 'Woodbine'
+		WHEN 'woodbine to st.george' THEN 'Woodbine'
+		WHEN 'n/o york mills to davi' THEN 'York Mills'
+		WHEN 'york mills and eglinto' THEN 'York Mills'
+		WHEN 'york mills center trac' THEN 'York Mills'
+		WHEN 'york mills centre' THEN 'York Mills'
+		WHEN 'york mills centre trac' THEN 'York Mills'
+		WHEN 'york mills station' THEN 'York Mills'
+		WHEN 'york mills station - c' THEN 'York Mills'
+		WHEN 'york mills station (a' THEN 'York Mills'
+		WHEN 'york mills station (ap' THEN 'York Mills'
+		WHEN 'york mills station (le' THEN 'York Mills'
+		WHEN 'york mills station [' THEN 'York Mills'
+		WHEN 'york mills station to' THEN 'York Mills'
+		WHEN 'york mills to lawrence' THEN 'York Mills'
+		WHEN 'york mills to st clair' THEN 'York Mills'
+		WHEN 'york mills to st. clai' THEN 'York Mills'
+		WHEN 'york univeristy statio' THEN 'York Universtity'
+		WHEN 'york university' THEN 'York Universtity'
+		WHEN 'york university statio' THEN 'York Universtity'
+		WHEN 'york universtity, down' THEN 'York Universtity'
+		WHEN 'yorkdale station' THEN 'Yorkdale'
+		WHEN 'yorkdale station (exit' THEN 'Yorkdale'
+		WHEN 'yorkdale to dupont sta' THEN 'Yorkdale'
+		WHEN 'yorkdale to finch stat' THEN 'Yorkdale'
+		WHEN 'yorkdale to lawrence w' THEN 'Yorkdale'
+        ELSE NULL
+	END AS cleaned_station
+    FROM updated_time
+),
+updated_code AS (
+	SELECT u.*
+    FROM updated_station u
+    LEFT JOIN code_desc_clean c
+		ON u.code = c.code
+	WHERE c.code IS NOT NULL
+),
+updated_bound AS (
+	SELECT *,
+	CASE bound
+		WHEN 'N' THEN 'Northbound'
+        WHEN 'S' THEN 'Southbound'
+        WHEN 'E' THEN 'Eastbound'
+        WHEN 'W' THEN 'Westbound'
+        ELSE NULL
+	END AS cleaned_bound
+    FROM updated_code
+),
+updated_line AS (
+	SELECT *,
+    CASE line
+		WHEN 'B/D' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BD' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BD/ YU' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BD/ YUS' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BD/YU' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BLOOR - DANFORTH' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BLOOR DANFORTH & YONGE' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'BLOOR-DANFORTH' THEN 'Line 2 Bloor-Danforth'
+		WHEN 'LINE 1' THEN 'Line 1 Yonge-University'
+		WHEN 'LINE 2 SHUTTLE' THEN 'Line 2 Bloor-Danforth'
+        WHEN 'SHEP' THEN 'Line 4 Sheppard'
+		WHEN 'SHEPPARD' THEN 'Line 4 Sheppard'
+		WHEN 'SHP' THEN 'Line 4 Sheppard'
+		WHEN 'SRT' THEN 'Line 3 Scarborough'
+		WHEN 'Y/BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YONGE/UNIVERSITY/BLOOR' THEN 'Line 1 Yonge-University'
+		WHEN 'YU' THEN 'Line 1 Yonge-University'
+		WHEN 'YU - BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YU & BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YU & BD LINES' THEN 'Line 1 Yonge-University'
+		WHEN 'YU / BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YU/ BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YU/BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YU/BD LINE' THEN 'Line 1 Yonge-University'
+		WHEN 'YU/BD LINES' THEN 'Line 1 Yonge-University'
+		WHEN 'YU/SHEP' THEN 'Line 1 Yonge-University'
+		WHEN 'YU-BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS & BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS AND BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS/ BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS/BD' THEN 'Line 1 Yonge-University'
+		WHEN 'YUS/DB' THEN 'Line 1 Yonge-University'
+		ELSE NULL
+	END AS cleaned_line
+    FROM updated_bound
+),
+updated_vehicle AS (
+	SELECT *,
+    CASE vehicle
+		WHEN '0' THEN NULL
+        ELSE vehicle
+	END AS cleaned_vehicle
+    FROM updated_line
+),
+final_table AS (
+	SELECT 
+		row_id,
+        date,
+        time_in_hours,
+        day,
+        cleaned_station,
+        code,
+        min_delay,
+        min_gap,
+        cleaned_bound,
+        cleaned_line,
+        cleaned_vehicle
+	FROM updated_vehicle
+)
+SELECT *
+FROM final_table
+;
+
+-- test
+SELECT DISTINCT min_gap
+FROM ttc_subway_staging 
+
+;
+
+-- code column
+-- created a new table code_descriptions and imported data from a csv file containg the acronym code + their meaning.
+SELECT *
+FROM code_desc;
+
+
+--  create a staging table for code_desc
+
+CREATE TABLE `code_desc_staging` (
+  `row_id` int NOT NULL,
+  `code` text NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`row_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO code_desc_staging
+SELECT *
+FROM code_desc;
+
+SELECT *
+FROM code_desc_staging;
+
+#trim trailing white spaces
+UPDATE code_desc_staging
+SET row_id = TRIM(row_id),
+	code = TRIM(code),
+    description = TRIM(description)
+;
+
+-- #delete dupes. when tying the code desc table to the ttc subway table, find and delete any non sensical values (codes in ttc subway table that cant be found in the code table)
+-- CREATE TABLE code_desc_clean AS
+-- WITH dupe_rows AS (
+-- 	SELECT *,
+-- 	ROW_NUMBER() OVER(
+-- 		PARTITION BY code
+-- 		ORDER BY row_id ASC
+-- 		) AS dupe_row_num
+-- 	FROM code_desc_staging
+-- ),
+-- dupes_to_delete AS (
+-- 	SELECT *
+--     FROM dupe_rows
+--     WHERE dupe_row_num > 1
+-- ),
+-- unique_rows AS (
+-- 	SELECT c.*
+--     FROM code_desc_staging c
+--     LEFT JOIN dupes_to_delete d
+-- 		ON c.row_id = d.row_id
+-- 	WHERE d.row_id IS NULL
+-- )
+-- SELECT *
+-- FROM unique_rows
+-- ; ## could've used a DELETE statement instead of creating a new table
+
+-- unable to export code_desc_clean & delay_control_mapping database as csv due to special characters in the dataset
+
+SELECT *
+FROM code_desc_clean;
+
+
+
+SELECT description
+FROM code_desc_clean
+WHERE description REGEXP '[^ -~]';
+
+UPDATE code_desc_clean
+SET description =
+    REGEXP_REPLACE(description, '[\x00-\x1F\x7F-\x9FÂ€]', '');
+## ABOVE QUERY WIPED OUT MY DATA UNDER DESCRIPTION ...
+
+DROP TABLE code_desc_clean;
+
+CREATE TABLE code_desc_clean AS
+WITH dupe_rows AS (
+	SELECT *,
+	ROW_NUMBER() OVER(
+		PARTITION BY code
+		ORDER BY row_id ASC
+		) AS dupe_row_num
+	FROM code_desc_staging
+),
+dupes_to_delete AS (
+	SELECT *
+    FROM dupe_rows
+    WHERE dupe_row_num > 1
+),
+unique_rows AS (
+	SELECT c.*
+    FROM code_desc_staging c
+    LEFT JOIN dupes_to_delete d
+		ON c.row_id = d.row_id
+	WHERE d.row_id IS NULL
+)
+SELECT *
+FROM unique_rows
+; 
+
+CREATE TABLE code_desc_clean_test AS
+SELECT * FROM code_desc_clean;
+
+SELECT *
+FROM code_desc_clean_test
+WHERE description LIKE '%Â%';
+
+SELECT description, HEX(description)
+FROM code_desc_clean_test
+WHERE description REGEXP '[^ -~]'
+LIMIT 10;
+
+
+ALTER TABLE code_desc_clean_test CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- THESE 3 QUERIES ARE THE ONLY ONES THAT WORKED!!
+
+UPDATE code_desc_clean_test
+SET description = REPLACE(description, '', '-')
+WHERE description LIKE '%%';
+
+UPDATE code_desc_clean_test
+SET description = REPLACE(description, '', '"')
+WHERE description LIKE '%%';
+
+UPDATE code_desc_clean_test
+SET description = REPLACE(description, '', '"')
+WHERE description LIKE '%%';
+
+SELECT *
+FROM code_desc_clean_test
+WHERE description REGEXP '[^ -~]';
+
+DROP TABLE code_desc_clean_test;
+-- -----------------------------------------
+
+UPDATE code_desc_clean
+SET description = REPLACE(description, '', '-')
+WHERE description LIKE '%%';
+
+UPDATE code_desc_clean
+SET description = REPLACE(description, '', '"')
+WHERE description LIKE '%%';
+
+UPDATE code_desc_clean
+SET description = REPLACE(description, '', '"')
+WHERE description LIKE '%%';
+
+SELECT COUNT(*) AS remaining_bad_chars
+FROM code_desc_clean
+WHERE description REGEXP '[^ -~]';
+
+SELECT *
+FROM code_desc_clean;
+
+
+-- ----------------------------------------------------------------
+
+CREATE TABLE `delay_control_mapping_test` (
+  `description` varchar(255) DEFAULT NULL,
+  `control_level` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO delay_control_mapping_test
+SELECT *
+FROM delay_control_mapping;
+
+SELECT COUNT(*)
+FROM delay_control_mapping_test
+WHERE description REGEXP '[^ -~]';
+
+SELECT description, HEX(description)
+FROM delay_control_mapping_test
+WHERE description REGEXP '[^ -~]'
+LIMIT 10;
+
+
+-- UPDATE delay_control_mapping_test
+-- SET description = REPLACE(description, 'Â€Â–', '-')
+-- WHERE description LIKE '%Â€Â–%';
+
+
+-- UPDATE delay_control_mapping_test
+-- SET description = REPLACE(description, 'Â€œ', '"')
+-- WHERE description LIKE '%Â€œ%';
+
+-- UPDATE delay_control_mapping_test
+-- SET description = REPLACE(description, 'Â€', '"')
+-- WHERE description LIKE '%Â€%';
+
+UPDATE delay_control_mapping_test
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382E2809C') USING utf8mb4),
+  '-'
+)
+WHERE description LIKE '%Â%';
+
+UPDATE delay_control_mapping_test
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382C29D') USING utf8mb4),
+  '"'
+)
+WHERE description LIKE '%Â%';
+
+UPDATE delay_control_mapping_test
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382C593') USING utf8mb4),
+  '"'
+)
+WHERE HEX(description) LIKE '%C382E282ACC382C593%';
+
+UPDATE delay_control_mapping_test
+SET description = REPLACE(description, '\\"', '"')
+WHERE description LIKE '%\\"%';
+
+DROP TABLE delay_control_mapping_test;
+-----------------
+
+SELECT COUNT(*)
+FROM delay_control_mapping
+-- WHERE description REGEXP '[^ -~]'
+;
+
+SELECT description, HEX(description)
+FROM delay_control_mapping
+WHERE description REGEXP '[^ -~]'
+LIMIT 10;
+
+UPDATE delay_control_mapping
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382E2809C') USING utf8mb4),
+  '-'
+)
+WHERE description LIKE '%Â%';
+
+UPDATE delay_control_mapping
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382C29D') USING utf8mb4),
+  '"'
+)
+WHERE description LIKE '%Â%';
+
+UPDATE delay_control_mapping
+SET description =
+REPLACE(
+  description,
+  CONVERT(UNHEX('C382E282ACC382C593') USING utf8mb4),
+  '"'
+)
+WHERE HEX(description) LIKE '%C382E282ACC382C593%';
+
+UPDATE delay_control_mapping
+SET description = REPLACE(description, '\\"', '"')
+WHERE description LIKE '%\\"%';
+
+-- -----------------------------
+-- realized that the time column needs to be permanently updated to TIME instead of a VARCHAR to be able to analyzed properly throught the SQL queries, as well as through Tableau dashboards.
+-- CREATE A NEW TIME COLUMN
+
+ALTER TABLE ttc_subway_cleaned
+ADD COLUMN time_military_hour TIME;
+
+UPDATE ttc_subway_cleaned
+SET time_military_hour = 
+    MAKETIME(
+        CASE 
+            WHEN RIGHT(time_in_hours, 2) = 'AM' 
+                THEN CAST(REPLACE(time_in_hours, 'AM', '') AS UNSIGNED) % 12
+            ELSE CAST(REPLACE(time_in_hours, 'PM', '') AS UNSIGNED) % 12 + 12
+        END,
+        0,
+        0
+    );
+    
+SELECT *
+FROM ttc_subway_cleaned;
+
+ALTER TABLE ttc_subway_cleaned
+DROP COLUMN time_in_hours;
+
+-- ---------
+SHOW CREATE VIEW ttc_delay_tagged;
+DROP VIEW ttc_delay_tagged;
+
+-- --------------------
+-- delay control mapping table wasnt created properly. there are multiple delay reasons that have different codes but the same delay reasoning (due to the delay code being specific to the train line), causing 
+-- duplicates in the table when creating the VIEW ttc_delay_tagged.
+-- created another table duplicating code_desc table and added another column that contains the control level of the delays 
+
+SELECT *
+FROM delay_control_mapping;
+
+-- ---------------
+CREATE TABLE `code_desc_clean_v2` (
+  `row_id` int NOT NULL,
+  `code` text NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+SELECT *
+FROM code_desc_clean_v2;
+
+INSERT INTO code_desc_clean_v2
+SELECT *
+FROM code_desc_clean;
+
+ALTER TABLE code_desc_clean_v2
+ADD control_level VARCHAR(50) NOT NULL ;
+
+UPDATE code_desc_clean_v2
+SET control_level = 
+	CASE
+		WHEN code = 'EUAC' THEN 'within_control'
+		WHEN code = 'EUAL' THEN 'within_control'
+		WHEN code = 'EUATC' THEN 'within_control'
+		WHEN code = 'EUBK' THEN 'within_control'
+		WHEN code = 'EUBO' THEN 'within_control'
+		WHEN code = 'EUCA' THEN 'within_control'
+		WHEN code = 'EUCC' THEN 'within_control'
+		WHEN code = 'EUCD' THEN 'partial_control'
+		WHEN code = 'EUCH' THEN 'within_control'
+		WHEN code = 'EUCO' THEN 'within_control'
+		WHEN code = 'EUDO' THEN 'partial_control'
+		WHEN code = 'EUECD' THEN 'within_control'
+		WHEN code = 'EUHV' THEN 'within_control'
+		WHEN code = 'EULT' THEN 'within_control'
+		WHEN code = 'EULV' THEN 'within_control'
+		WHEN code = 'EUME' THEN 'within_control'
+		WHEN code = 'EUNEA' THEN 'within_control'
+		WHEN code = 'EUNT' THEN 'within_control'
+		WHEN code = 'EUO' THEN 'partial_control'
+		WHEN code = 'EUOE' THEN 'within_control'
+		WHEN code = 'EUOPO' THEN 'partial_control'
+		WHEN code = 'EUPI' THEN 'within_control'
+		WHEN code = 'EUSC' THEN 'within_control'
+		WHEN code = 'EUTL' THEN 'within_control'
+		WHEN code = 'EUTM' THEN 'within_control'
+		WHEN code = 'EUTR' THEN 'within_control'
+		WHEN code = 'EUTRD' THEN 'partial_control'
+		WHEN code = 'EUVA' THEN 'outside_control'
+		WHEN code = 'EUVE' THEN 'within_control'
+		WHEN code = 'EUYRD' THEN 'within_control'
+		WHEN code = 'MUATC' THEN 'within_control'
+		WHEN code = 'MUCL' THEN 'within_control'
+		WHEN code = 'MUCP' THEN 'within_control'
+		WHEN code = 'MUCSA' THEN 'within_control'
+		WHEN code = 'MUCU' THEN 'outside_control'
+		WHEN code = 'MUD' THEN 'outside_control'
+		WHEN code = 'MUDD' THEN 'partial_control'
+		WHEN code = 'MUEC' THEN 'within_control'
+		WHEN code = 'MUESA' THEN 'within_control'
+		WHEN code = 'MUFM' THEN 'outside_control'
+		WHEN code = 'MUFS' THEN 'outside_control'
+		WHEN code = 'MUGD' THEN 'outside_control'
+		WHEN code = 'MUI' THEN 'outside_control'
+		WHEN code = 'MUIE' THEN 'outside_control'
+		WHEN code = 'MUIR' THEN 'outside_control'
+		WHEN code = 'MUIRS' THEN 'outside_control'
+		WHEN code = 'MUIS' THEN 'outside_control'
+		WHEN code = 'MULD' THEN 'outside_control'
+		WHEN code = 'MUNCA' THEN 'within_control'
+		WHEN code = 'MUNOA' THEN 'within_control'
+		WHEN code = 'MUO' THEN 'outside_control'
+		WHEN code = 'MUODC' THEN 'outside_control'
+		WHEN code = 'MUPAA' THEN 'outside_control'
+		WHEN code = 'MUPF' THEN 'outside_control'
+		WHEN code = 'MUPLA' THEN 'outside_control'
+		WHEN code = 'MUPLB' THEN 'outside_control'
+		WHEN code = 'MUPLC' THEN 'outside_control'
+		WHEN code = 'MUPR1' THEN 'outside_control'
+		WHEN code = 'MUSAN' THEN 'partial_control'
+		WHEN code = 'MUSC' THEN 'within_control'
+		WHEN code = 'MUTD' THEN 'within_control'
+		WHEN code = 'MUTO' THEN 'partial_control'
+		WHEN code = 'MUWEA' THEN 'outside_control'
+		WHEN code = 'MUWR' THEN 'outside_control'
+		WHEN code = 'PUATC' THEN 'within_control'
+		WHEN code = 'PUCBI' THEN 'within_control'
+		WHEN code = 'PUCSC' THEN 'within_control'
+		WHEN code = 'PUCSS' THEN 'within_control'
+		WHEN code = 'PUDCS' THEN 'within_control'
+		WHEN code = 'PUEME' THEN 'within_control'
+		WHEN code = 'PUEO' THEN 'within_control'
+		WHEN code = 'PUEWZ' THEN 'within_control'
+		WHEN code = 'PUMEL' THEN 'outside_control'
+		WHEN code = 'PUMO' THEN 'within_control'
+		WHEN code = 'PUMST' THEN 'outside_control'
+		WHEN code = 'PUOPO' THEN 'partial_control'
+		WHEN code = 'PUSAC' THEN 'within_control'
+		WHEN code = 'PUSBE' THEN 'within_control'
+		WHEN code = 'PUSCA' THEN 'within_control'
+		WHEN code = 'PUSCR' THEN 'within_control'
+		WHEN code = 'PUSEA' THEN 'outside_control'
+		WHEN code = 'PUSI' THEN 'within_control'
+		WHEN code = 'PUSIO' THEN 'within_control'
+		WHEN code = 'PUSIS' THEN 'outside_control'
+		WHEN code = 'PUSLC' THEN 'within_control'
+		WHEN code = 'PUSNT' THEN 'within_control'
+		WHEN code = 'PUSO' THEN 'within_control'
+		WHEN code = 'PUSRA' THEN 'within_control'
+		WHEN code = 'PUSSW' THEN 'within_control'
+		WHEN code = 'PUSTC' THEN 'within_control'
+		WHEN code = 'PUSTP' THEN 'within_control'
+		WHEN code = 'PUSTS' THEN 'within_control'
+		WHEN code = 'PUSWZ' THEN 'within_control'
+		WHEN code = 'PUSZC' THEN 'within_control'
+		WHEN code = 'PUT0' THEN 'partial_control'
+		WHEN code = 'PUTCD' THEN 'within_control'
+		WHEN code = 'PUTD' THEN 'partial_control'
+		WHEN code = 'PUTDN' THEN 'partial_control'
+		WHEN code = 'PUTIJ' THEN 'within_control'
+		WHEN code = 'PUTIS' THEN 'partial_control'
+		WHEN code = 'PUTNT' THEN 'partial_control'
+		WHEN code = 'PUTOE' THEN 'within_control'
+		WHEN code = 'PUTR' THEN 'within_control'
+		WHEN code = 'PUTS' THEN 'within_control'
+		WHEN code = 'PUTSC' THEN 'within_control'
+		WHEN code = 'PUTSM' THEN 'within_control'
+		WHEN code = 'PUTTC' THEN 'within_control'
+		WHEN code = 'PUTTP' THEN 'within_control'
+		WHEN code = 'PUTWZ' THEN 'within_control'
+		WHEN code = 'SUAE' THEN 'outside_control'
+		WHEN code = 'SUAP' THEN 'outside_control'
+		WHEN code = 'SUBT' THEN 'outside_control'
+		WHEN code = 'SUCOL' THEN 'outside_control'
+		WHEN code = 'SUDP' THEN 'outside_control'
+		WHEN code = 'SUEAS' THEN 'outside_control'
+		WHEN code = 'SUG' THEN 'outside_control'
+		WHEN code = 'SUO' THEN 'outside_control'
+		WHEN code = 'SUPOL' THEN 'outside_control'
+		WHEN code = 'SUROB' THEN 'outside_control'
+		WHEN code = 'SUSA' THEN 'outside_control'
+		WHEN code = 'SUSP' THEN 'outside_control'
+		WHEN code = 'SUUT' THEN 'outside_control'
+		WHEN code = 'TUATC' THEN 'within_control'
+		WHEN code = 'TUCC' THEN 'within_control'
+		WHEN code = 'TUDOE' THEN 'partial_control'
+		WHEN code = 'TUKEY' THEN 'within_control'
+		WHEN code = 'TUML' THEN 'within_control'
+		WHEN code = 'TUMVS' THEN 'within_control'
+		WHEN code = 'TUNCA' THEN 'within_control'
+		WHEN code = 'TUNIP' THEN 'within_control'
+		WHEN code = 'TUNOA' THEN 'within_control'
+		WHEN code = 'TUO' THEN 'partial_control'
+		WHEN code = 'TUOPO' THEN 'within_control'
+		WHEN code = 'TUOS' THEN 'within_control'
+		WHEN code = 'TUS' THEN 'within_control'
+		WHEN code = 'TUSC' THEN 'within_control'
+		WHEN code = 'TUSET' THEN 'within_control'
+		WHEN code = 'TUST' THEN 'partial_control'
+		WHEN code = 'TUSUP' THEN 'within_control'
+		WHEN code = 'TUUR' THEN 'within_control'
+		WHEN code = 'PUTO' THEN 'partial_control'
+		WHEN code = 'ERAC' THEN 'within_control'
+		WHEN code = 'ERBO' THEN 'within_control'
+		WHEN code = 'ERCD' THEN 'partial_control'
+		WHEN code = 'ERCO' THEN 'within_control'
+		WHEN code = 'ERDB' THEN 'within_control'
+		WHEN code = 'ERDO' THEN 'within_control'
+		WHEN code = 'ERHV' THEN 'within_control'
+		WHEN code = 'ERLT' THEN 'within_control'
+		WHEN code = 'ERLV' THEN 'within_control'
+		WHEN code = 'ERME' THEN 'within_control'
+		WHEN code = 'ERNEA' THEN 'within_control'
+		WHEN code = 'ERNT' THEN 'within_control'
+		WHEN code = 'ERO' THEN 'partial_control'
+		WHEN code = 'ERPR' THEN 'within_control'
+		WHEN code = 'ERRA' THEN 'within_control'
+		WHEN code = 'ERTB' THEN 'within_control'
+		WHEN code = 'ERTC' THEN 'within_control'
+		WHEN code = 'ERTL' THEN 'within_control'
+		WHEN code = 'ERTR' THEN 'within_control'
+		WHEN code = 'ERVE' THEN 'within_control'
+		WHEN code = 'ERWA' THEN 'within_control'
+		WHEN code = 'ERWS' THEN 'within_control'
+		WHEN code = 'MRCL' THEN 'within_control'
+		WHEN code = 'MRD' THEN 'outside_control'
+		WHEN code = 'MRDD' THEN 'partial_control'
+		WHEN code = 'MREC' THEN 'within_control'
+		WHEN code = 'MRESA' THEN 'within_control'
+		WHEN code = 'MRFS' THEN 'outside_control'
+		WHEN code = 'MRIE' THEN 'outside_control'
+		WHEN code = 'MRLD' THEN 'within_control'
+		WHEN code = 'MRNOA' THEN 'within_control'
+		WHEN code = 'MRO' THEN 'outside_control'
+		WHEN code = 'MRPAA' THEN 'outside_control'
+		WHEN code = 'MRPLA' THEN 'outside_control'
+		WHEN code = 'MRPLB' THEN 'outside_control'
+		WHEN code = 'MRPLC' THEN 'outside_control'
+		WHEN code = 'MRPR1' THEN 'outside_control'
+		WHEN code = 'MRSAN' THEN 'partial_control'
+		WHEN code = 'MRSTM' THEN 'within_control'
+		WHEN code = 'MRTO' THEN 'partial_control'
+		WHEN code = 'MRUI' THEN 'outside_control'
+		WHEN code = 'MRUIR' THEN 'outside_control'
+		WHEN code = 'MRWEA' THEN 'outside_control'
+		WHEN code = 'PREL' THEN 'outside_control'
+		WHEN code = 'PRO' THEN 'outside_control'
+		WHEN code = 'PRS' THEN 'within_control'
+		WHEN code = 'PRSA' THEN 'within_control'
+		WHEN code = 'PRSL' THEN 'within_control'
+		WHEN code = 'PRSO' THEN 'within_control'
+		WHEN code = 'PRSP' THEN 'within_control'
+		WHEN code = 'PRST' THEN 'outside_control'
+		WHEN code = 'PRSW' THEN 'within_control'
+		WHEN code = 'PRTST' THEN 'within_control'
+		WHEN code = 'PRW' THEN 'within_control'
+		WHEN code = 'SRAE' THEN 'outside_control'
+		WHEN code = 'SRAP' THEN 'outside_control'
+		WHEN code = 'SRBT' THEN 'outside_control'
+		WHEN code = 'SRCOL' THEN 'outside_control'
+		WHEN code = 'SRDP' THEN 'outside_control'
+		WHEN code = 'SREAS' THEN 'outside_control'
+		WHEN code = 'SRO' THEN 'outside_control'
+		WHEN code = 'SRSA' THEN 'outside_control'
+		WHEN code = 'SRSP' THEN 'outside_control'
+		WHEN code = 'SRUT' THEN 'outside_control'
+		WHEN code = 'TRDOE' THEN 'partial_control'
+		WHEN code = 'TRNIP' THEN 'within_control'
+		WHEN code = 'TRNOA' THEN 'within_control'
+		WHEN code = 'TRO' THEN 'partial_control'
+		WHEN code = 'TRSET' THEN 'within_control'
+		WHEN code = 'TRST' THEN 'partial_control'
+		WHEN code = 'TRTC' THEN 'within_control'
+		ELSE 'unknown'
+    END
+;
+
+
+DROP VIEW ttc_delay_tagged;
+DROP VIEW ttc_delay_tagged_2;
+
+
+CREATE VIEW ttc_delay_tagged AS
+SELECT  
+	t.*,
+    c.description AS delay_reason,
+    COALESCE(c.control_level, 'unknown') AS control_level
+FROM ttc_subway_cleaned t
+LEFT JOIN code_desc_clean_v2 c
+	ON t.code = c.code
+;
+
+SELECT *
+FROM ttc_delay_tagged;
+
+DROP TABLE delay_control_mapping;
+
+-- assigning primary keys --
+ALTER TABLE code_desc_clean_v2
+MODIFY code VARCHAR(10) NOT NULL;
+
+ALTER TABLE code_desc_clean_v2
+ADD PRIMARY KEY (code);
+
+ALTER TABLE ttc_subway_cleaned 
+ADD PRIMARY KEY (row_id);
