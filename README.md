@@ -287,21 +287,6 @@ Note: Priority reflects both delay severity and operational controllability — 
 
 ## 11. Assumptions & Limitations
 
-<!--
-  WHAT GOOD LOOKS LIKE:
-  Assumption: "Transaction records were assumed to be complete for all five regions.
-               No validation was performed against source system record counts."
-  Limitation: "The analysis cannot distinguish between returns initiated by
-               the customer vs. returns initiated by the business (e.g., recalls).
-               If business-initiated returns are concentrated in Region A, the
-               return rate finding may reflect a policy decision, not a quality issue."
-
-  WHAT TO AVOID:
-  ❌ Leaving this section blank or writing "None known."
-     Every project has limitations. Documenting them is a sign of
-     analytical maturity - not a confession of failure.
--->
-
 ### Assumptions
 - **`min_delay = 0` records were treated as non-events** — records where min_delay = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
 
@@ -336,19 +321,6 @@ the 8-minute gap threshold was derived from a standard headway assumption and ma
 ---
 
 ## 12. Future Enhancements
-
-<!--
-  WHAT GOOD LOOKS LIKE:
-  ✅ "Automate the monthly data pull from the POS export folder using
-      a scheduled Python script, replacing the current manual process."
-  ✅ "Expand the return rate analysis to include carrier-level data,
-      which was unavailable in this dataset but exists in the logistics system."
-
-  WHAT TO AVOID:
-  ❌ "Add a machine learning model."
-     (Vague, and disconnected from the actual findings of this project.)
-  ❌ Listing aspirational features that don't follow logically from the work.
--->
 
 - **Incorporate ridership volume data** — delay impact is currently 
 measured by duration and frequency, but not by how many passengers were 
