@@ -33,7 +33,60 @@ SET date = TRIM(date),
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* create a new table using CTE to save the final output from data cleaning - specify the data cleaning method?? */
+/* create a staging table for code_desc */
+
+CREATE TABLE `code_desc_staging` (
+  `row_id` int NOT NULL,
+  `code` text NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`row_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO code_desc_staging
+SELECT *
+FROM code_desc;
+
+-- --------------------------------------------------------------------------------------------------------------
+
+/* trim trailing white spaces */
+
+UPDATE code_desc_staging
+SET row_id = TRIM(row_id),
+	code = TRIM(code),
+    description = TRIM(description);
+
+-- --------------------------------------------------------------------------------------------------------------
+
+/* create a new table using CTE to save the final output from data cleaning for code_desc_staging table*/
+
+CREATE TABLE code_desc_clean AS
+WITH dupe_rows AS (
+	SELECT *,
+	ROW_NUMBER() OVER(
+		PARTITION BY code
+		ORDER BY row_id ASC
+		) AS dupe_row_num
+	FROM code_desc_staging
+),
+dupes_to_delete AS (
+	SELECT *
+    FROM dupe_rows
+    WHERE dupe_row_num > 1
+),
+unique_rows AS (
+	SELECT c.*
+    FROM code_desc_staging c
+    LEFT JOIN dupes_to_delete d
+		ON c.row_id = d.row_id
+	WHERE d.row_id IS NULL
+)
+SELECT *
+FROM unique_rows
+; 
+
+-- --------------------------------------------------------------------------------------------------------------
+
+/* create a new table using CTE to save the final output from data cleaning for ttc_subway_staging table */
 
 CREATE TABLE ttc_subway_cleaned AS
 WITH duplicate_rows AS (
@@ -1308,60 +1361,7 @@ FROM final_table
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* create a staging table for code_desc */
-
-CREATE TABLE `code_desc_staging` (
-  `row_id` int NOT NULL,
-  `code` text NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`row_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO code_desc_staging
-SELECT *
-FROM code_desc;
-
--- --------------------------------------------------------------------------------------------------------------
-
-/* trim trailing white spaces */
-
-UPDATE code_desc_staging
-SET row_id = TRIM(row_id),
-	code = TRIM(code),
-    description = TRIM(description);
-
--- --------------------------------------------------------------------------------------------------------------
-
-/* create a new table using CTE to save the final output from data cleaning - specify the data cleaning method?? */
-
-CREATE TABLE code_desc_clean AS
-WITH dupe_rows AS (
-	SELECT *,
-	ROW_NUMBER() OVER(
-		PARTITION BY code
-		ORDER BY row_id ASC
-		) AS dupe_row_num
-	FROM code_desc_staging
-),
-dupes_to_delete AS (
-	SELECT *
-    FROM dupe_rows
-    WHERE dupe_row_num > 1
-),
-unique_rows AS (
-	SELECT c.*
-    FROM code_desc_staging c
-    LEFT JOIN dupes_to_delete d
-		ON c.row_id = d.row_id
-	WHERE d.row_id IS NULL
-)
-SELECT *
-FROM unique_rows
-; 
-
--- --------------------------------------------------------------------------------------------------------------
-
--- unable to export code_desc_clean database as csv due to special characters in the dataset
+/* unable to export code_desc_clean database as CSV file due to special characters in the dataset — exporting is needed to import the data in Tableau */
 
 UPDATE code_desc_clean
 SET description = REPLACE(description, '', '-')
