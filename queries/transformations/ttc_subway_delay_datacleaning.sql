@@ -33,7 +33,7 @@ SET date = TRIM(date),
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* creating a new table using CTE to save the final output */
+/* create a new table using CTE to save the final output from data cleaning - specify the data cleaning method?? */
 
 CREATE TABLE ttc_subway_cleaned AS
 WITH duplicate_rows AS (
@@ -1308,13 +1308,7 @@ FROM final_table
 
 -- --------------------------------------------------------------------------------------------------------------
 
--- code column
--- created a new table code_descriptions and imported data from a csv file containg the acronym code + their meaning.
-SELECT *
-FROM code_desc;
-
-
---  create a staging table for code_desc
+/* create a staging table for code_desc */
 
 CREATE TABLE `code_desc_staging` (
   `row_id` int NOT NULL,
@@ -1327,59 +1321,18 @@ INSERT INTO code_desc_staging
 SELECT *
 FROM code_desc;
 
-SELECT *
-FROM code_desc_staging;
+-- --------------------------------------------------------------------------------------------------------------
 
-#trim trailing white spaces
+/* trim trailing white spaces */
+
 UPDATE code_desc_staging
 SET row_id = TRIM(row_id),
 	code = TRIM(code),
-    description = TRIM(description)
-;
+    description = TRIM(description);
 
--- #delete dupes. when tying the code desc table to the ttc subway table, find and delete any non sensical values (codes in ttc subway table that cant be found in the code table)
--- CREATE TABLE code_desc_clean AS
--- WITH dupe_rows AS (
--- 	SELECT *,
--- 	ROW_NUMBER() OVER(
--- 		PARTITION BY code
--- 		ORDER BY row_id ASC
--- 		) AS dupe_row_num
--- 	FROM code_desc_staging
--- ),
--- dupes_to_delete AS (
--- 	SELECT *
---     FROM dupe_rows
---     WHERE dupe_row_num > 1
--- ),
--- unique_rows AS (
--- 	SELECT c.*
---     FROM code_desc_staging c
---     LEFT JOIN dupes_to_delete d
--- 		ON c.row_id = d.row_id
--- 	WHERE d.row_id IS NULL
--- )
--- SELECT *
--- FROM unique_rows
--- ; ## could've used a DELETE statement instead of creating a new table
+-- --------------------------------------------------------------------------------------------------------------
 
--- unable to export code_desc_clean & delay_control_mapping database as csv due to special characters in the dataset
-
-SELECT *
-FROM code_desc_clean;
-
-
-
-SELECT description
-FROM code_desc_clean
-WHERE description REGEXP '[^ -~]';
-
-UPDATE code_desc_clean
-SET description =
-    REGEXP_REPLACE(description, '[\x00-\x1F\x7F-\x9FÂ€]', '');
-## ABOVE QUERY WIPED OUT MY DATA UNDER DESCRIPTION ...
-
-DROP TABLE code_desc_clean;
+/* create a new table using CTE to save the final output from data cleaning - specify the data cleaning method?? */
 
 CREATE TABLE code_desc_clean AS
 WITH dupe_rows AS (
@@ -1406,41 +1359,9 @@ SELECT *
 FROM unique_rows
 ; 
 
-CREATE TABLE code_desc_clean_test AS
-SELECT * FROM code_desc_clean;
+-- --------------------------------------------------------------------------------------------------------------
 
-SELECT *
-FROM code_desc_clean_test
-WHERE description LIKE '%Â%';
-
-SELECT description, HEX(description)
-FROM code_desc_clean_test
-WHERE description REGEXP '[^ -~]'
-LIMIT 10;
-
-
-ALTER TABLE code_desc_clean_test CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- THESE 3 QUERIES ARE THE ONLY ONES THAT WORKED!!
-
-UPDATE code_desc_clean_test
-SET description = REPLACE(description, '', '-')
-WHERE description LIKE '%%';
-
-UPDATE code_desc_clean_test
-SET description = REPLACE(description, '', '"')
-WHERE description LIKE '%%';
-
-UPDATE code_desc_clean_test
-SET description = REPLACE(description, '', '"')
-WHERE description LIKE '%%';
-
-SELECT *
-FROM code_desc_clean_test
-WHERE description REGEXP '[^ -~]';
-
-DROP TABLE code_desc_clean_test;
--- -----------------------------------------
+-- unable to export code_desc_clean database as csv due to special characters in the dataset
 
 UPDATE code_desc_clean
 SET description = REPLACE(description, '', '-')
@@ -1458,122 +1379,9 @@ SELECT COUNT(*) AS remaining_bad_chars
 FROM code_desc_clean
 WHERE description REGEXP '[^ -~]';
 
-SELECT *
-FROM code_desc_clean;
+-- --------------------------------------------------------------------------------------------------------------
 
-
--- ----------------------------------------------------------------
-
-CREATE TABLE `delay_control_mapping_test` (
-  `description` varchar(255) DEFAULT NULL,
-  `control_level` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO delay_control_mapping_test
-SELECT *
-FROM delay_control_mapping;
-
-SELECT COUNT(*)
-FROM delay_control_mapping_test
-WHERE description REGEXP '[^ -~]';
-
-SELECT description, HEX(description)
-FROM delay_control_mapping_test
-WHERE description REGEXP '[^ -~]'
-LIMIT 10;
-
-
--- UPDATE delay_control_mapping_test
--- SET description = REPLACE(description, 'Â€Â–', '-')
--- WHERE description LIKE '%Â€Â–%';
-
-
--- UPDATE delay_control_mapping_test
--- SET description = REPLACE(description, 'Â€œ', '"')
--- WHERE description LIKE '%Â€œ%';
-
--- UPDATE delay_control_mapping_test
--- SET description = REPLACE(description, 'Â€', '"')
--- WHERE description LIKE '%Â€%';
-
-UPDATE delay_control_mapping_test
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382E2809C') USING utf8mb4),
-  '-'
-)
-WHERE description LIKE '%Â%';
-
-UPDATE delay_control_mapping_test
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382C29D') USING utf8mb4),
-  '"'
-)
-WHERE description LIKE '%Â%';
-
-UPDATE delay_control_mapping_test
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382C593') USING utf8mb4),
-  '"'
-)
-WHERE HEX(description) LIKE '%C382E282ACC382C593%';
-
-UPDATE delay_control_mapping_test
-SET description = REPLACE(description, '\\"', '"')
-WHERE description LIKE '%\\"%';
-
-DROP TABLE delay_control_mapping_test;
------------------
-
-SELECT COUNT(*)
-FROM delay_control_mapping
--- WHERE description REGEXP '[^ -~]'
-;
-
-SELECT description, HEX(description)
-FROM delay_control_mapping
-WHERE description REGEXP '[^ -~]'
-LIMIT 10;
-
-UPDATE delay_control_mapping
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382E2809C') USING utf8mb4),
-  '-'
-)
-WHERE description LIKE '%Â%';
-
-UPDATE delay_control_mapping
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382C29D') USING utf8mb4),
-  '"'
-)
-WHERE description LIKE '%Â%';
-
-UPDATE delay_control_mapping
-SET description =
-REPLACE(
-  description,
-  CONVERT(UNHEX('C382E282ACC382C593') USING utf8mb4),
-  '"'
-)
-WHERE HEX(description) LIKE '%C382E282ACC382C593%';
-
-UPDATE delay_control_mapping
-SET description = REPLACE(description, '\\"', '"')
-WHERE description LIKE '%\\"%';
-
--- -----------------------------
--- realized that the time column needs to be permanently updated to TIME instead of a VARCHAR to be able to analyzed properly throught the SQL queries, as well as through Tableau dashboards.
--- CREATE A NEW TIME COLUMN
+/* create a new time column to update its datatype from VARCHAR to TIME to be analyzed properly through the SQL queries and Tableau dashboards */
 
 ALTER TABLE ttc_subway_cleaned
 ADD COLUMN time_military_hour TIME;
@@ -1596,7 +1404,8 @@ FROM ttc_subway_cleaned;
 ALTER TABLE ttc_subway_cleaned
 DROP COLUMN time_in_hours;
 
--- ---------
+-- --------------------------------------------------------------------------------------------------------------
+
 SHOW CREATE VIEW ttc_delay_tagged;
 DROP VIEW ttc_delay_tagged;
 
@@ -1604,9 +1413,6 @@ DROP VIEW ttc_delay_tagged;
 -- delay control mapping table wasnt created properly. there are multiple delay reasons that have different codes but the same delay reasoning (due to the delay code being specific to the train line), causing 
 -- duplicates in the table when creating the VIEW ttc_delay_tagged.
 -- created another table duplicating code_desc table and added another column that contains the control level of the delays 
-
-SELECT *
-FROM delay_control_mapping;
 
 -- ---------------
 CREATE TABLE `code_desc_clean_v2` (
@@ -1843,10 +1649,6 @@ SET control_level =
 		ELSE 'unknown'
     END
 ;
-
-
-DROP VIEW ttc_delay_tagged;
-DROP VIEW ttc_delay_tagged_2;
 
 
 CREATE VIEW ttc_delay_tagged AS
