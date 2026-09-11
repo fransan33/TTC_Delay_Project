@@ -1,5 +1,5 @@
 
-/* create a staging table */
+/* create a staging table for ttc_subway*/
 
 CREATE TABLE ttc_subway_staging
 LIKE ttc_subway;
@@ -1362,6 +1362,7 @@ FROM final_table
 -- --------------------------------------------------------------------------------------------------------------
 
 /* unable to export code_desc_clean database as CSV file due to special characters in the dataset — exporting is needed to import the data in Tableau */
+/* table is updated to replace the special characters */
 
 UPDATE code_desc_clean
 SET description = REPLACE(description, '', '-')
@@ -1381,7 +1382,8 @@ WHERE description REGEXP '[^ -~]';
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* create a new time column to update its datatype from VARCHAR to TIME to be analyzed properly through the SQL queries and Tableau dashboards */
+/* create a new time column to update its datatype from VARCHAR to TIME, and to keep the values numerical to be analyzed properly through the SQL queries and Tableau 
+dashboards */
 
 ALTER TABLE ttc_subway_cleaned
 ADD COLUMN time_military_hour TIME;
@@ -1406,15 +1408,8 @@ DROP COLUMN time_in_hours;
 
 -- --------------------------------------------------------------------------------------------------------------
 
-SHOW CREATE VIEW ttc_delay_tagged;
-DROP VIEW ttc_delay_tagged;
+/* created another table duplicating code_desc_clean table and added another column that contains the control level of the delays */
 
--- --------------------
--- delay control mapping table wasnt created properly. there are multiple delay reasons that have different codes but the same delay reasoning (due to the delay code being specific to the train line), causing 
--- duplicates in the table when creating the VIEW ttc_delay_tagged.
--- created another table duplicating code_desc table and added another column that contains the control level of the delays 
-
--- ---------------
 CREATE TABLE `code_desc_clean_v2` (
   `row_id` int NOT NULL,
   `code` text NOT NULL,
@@ -1647,9 +1642,11 @@ SET control_level =
 		WHEN code = 'TRST' THEN 'partial_control'
 		WHEN code = 'TRTC' THEN 'within_control'
 		ELSE 'unknown'
-    END
-;
+    END;
 
+-- --------------------------------------------------------------------------------------------------------------
+
+/* CREATE VIEW */
 
 CREATE VIEW ttc_delay_tagged AS
 SELECT  
