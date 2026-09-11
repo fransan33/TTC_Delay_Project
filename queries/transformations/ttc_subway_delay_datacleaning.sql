@@ -1412,7 +1412,7 @@ DROP COLUMN time_in_hours;
 
 CREATE TABLE `code_desc_clean_v2` (
   `row_id` int NOT NULL,
-  `code` text NOT NULL,
+  `code` VARCHAR(10) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1646,7 +1646,7 @@ SET control_level =
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* CREATE VIEW */
+/* CREATE VIEW ttc_delay_tagged created to capture the LEFT JOIN between the delay records and the code description reference table */
 
 CREATE VIEW ttc_delay_tagged AS
 SELECT  
@@ -1655,17 +1655,11 @@ SELECT
     COALESCE(c.control_level, 'unknown') AS control_level
 FROM ttc_subway_cleaned t
 LEFT JOIN code_desc_clean_v2 c
-	ON t.code = c.code
-;
+	ON t.code = c.code;
 
-SELECT *
-FROM ttc_delay_tagged;
+-- --------------------------------------------------------------------------------------------------------------
 
-DROP TABLE delay_control_mapping;
-
--- assigning primary keys --
-ALTER TABLE code_desc_clean_v2
-MODIFY code VARCHAR(10) NOT NULL;
+/* assigning primary keys */
 
 ALTER TABLE code_desc_clean_v2
 ADD PRIMARY KEY (code);
