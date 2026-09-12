@@ -1,7 +1,5 @@
-/*
-TTC Subway Delay 
-Skills used: Creating Views, Joins, CTE's, Aggregate Functions, Window Functions 
-*/
+/* TTC Subway Delay */
+/* Skills used: Creating Views, Joins, CTE's, Aggregate Functions, Window Functions */
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 SELECT *
