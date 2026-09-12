@@ -1,4 +1,5 @@
-/* TTC Subway Delay */
+/* Production-ready or presentation queries */
+
 /* Skills used: Creating VIEWs, JOINs and CTEs; Aggregate and Window Functions */
 
 -- --------------------------------------------------------------------------------------------------------------------------------
