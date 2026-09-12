@@ -398,7 +398,7 @@ ORDER BY total_disruptive_gap DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-/* 3. What is our system-wide on-time performance, and how does it compare to strategic KPIs (or other transit authorities)? */
+/* 3. What is our system-wide on-time performance, and how does it compare to strategic KPIs? */
 
 SELECT 
 	cleaned_line AS ttc_line,
@@ -540,7 +540,7 @@ hourly_summary AS (
     SELECT
         time_of_delay,
         AVG(avg_delay_min) AS avg_severity,
-        STDDEV(avg_delay_min) AS severity_stddev,  -- lower = more consistent delays
+        STDDEV(avg_delay_min) AS severity_stddev,
         SUM(num_delays) AS total_delays,
         COUNT(DISTINCT day_of_delay) AS days_observed
     FROM daily_trends
