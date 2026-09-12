@@ -278,7 +278,7 @@ ORDER BY total_delay_min DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
--- 3. Are there peak periods or specific combinations of line and bound direction where delays spike, requiring contingency planning?
+/* 3. Are there peak periods or specific combinations of line and bound direction where delays spike, requiring contingency planning? */
 
 -- LINE & BOUND COMBO
 
@@ -455,7 +455,7 @@ ORDER  BY pct_station_delays DESC;
 
 SELECT 
 	cleaned_line AS ttc_line,
-    COUNT(*) AS num_delay, -- total delay per line
+    COUNT(*) AS num_delay, 
     ROUND(COUNT(*) * 100 / SUM(COUNT(*)) OVER(), 2) AS pct_line_delays
 FROM ttc_subway_cleaned
 WHERE min_delay > 0
