@@ -81,8 +81,7 @@ unique_rows AS (
 	WHERE d.row_id IS NULL
 )
 SELECT *
-FROM unique_rows
-; 
+FROM unique_rows; 
 
 -- --------------------------------------------------------------------------------------------------------------
 
@@ -1356,8 +1355,7 @@ final_table AS (
 	FROM updated_vehicle
 )
 SELECT *
-FROM final_table
-;
+FROM final_table;
 
 -- --------------------------------------------------------------------------------------------------------------
 
@@ -1375,10 +1373,6 @@ WHERE description LIKE '%%';
 UPDATE code_desc_clean
 SET description = REPLACE(description, '', '"')
 WHERE description LIKE '%%';
-
-SELECT COUNT(*) AS remaining_bad_chars
-FROM code_desc_clean
-WHERE description REGEXP '[^ -~]';
 
 -- --------------------------------------------------------------------------------------------------------------
 
@@ -1400,9 +1394,6 @@ SET time_military_hour =
         0
     );
     
-SELECT *
-FROM ttc_subway_cleaned;
-
 ALTER TABLE ttc_subway_cleaned
 DROP COLUMN time_in_hours;
 
@@ -1416,15 +1407,12 @@ CREATE TABLE `code_desc_clean_v2` (
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-SELECT *
-FROM code_desc_clean_v2;
-
 INSERT INTO code_desc_clean_v2
 SELECT *
 FROM code_desc_clean;
 
 ALTER TABLE code_desc_clean_v2
-ADD control_level VARCHAR(50) NOT NULL ;
+ADD control_level VARCHAR(50) NOT NULL;
 
 UPDATE code_desc_clean_v2
 SET control_level = 
