@@ -1,4 +1,4 @@
-/* Final Queries — queries used for the analyses and dashboards */
+/* Final Queries — SQL Queries used for the analyses and dashboards */
 
 /* Skills used: Creating VIEWs, JOINs and CTEs; Aggregate and Window Functions */
 
