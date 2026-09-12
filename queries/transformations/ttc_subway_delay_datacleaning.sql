@@ -1,3 +1,5 @@
+/* Transformation Queries — SQL queries that clean, reshape, or join data */
+
 /* create a staging table for ttc_subway */
 
 CREATE TABLE ttc_subway_staging
