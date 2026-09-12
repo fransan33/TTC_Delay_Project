@@ -1,4 +1,3 @@
-
 /* create a staging table for ttc_subway*/
 
 CREATE TABLE ttc_subway_staging
