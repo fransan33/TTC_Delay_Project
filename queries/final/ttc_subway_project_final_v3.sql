@@ -467,7 +467,7 @@ ORDER  BY pct_line_delays DESC;
 -- --------------------------------------------------------------------------------------------------------------------------------
 
 /* 2. Are there specific times or days when service reliability drops and should be addressed in customer communication or loyalty campaigns? */
-++++
+
 SELECT 
     day AS day_of_delay,
     time_military_hour AS time_of_delay,
