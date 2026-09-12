@@ -10,7 +10,7 @@ FROM ttc_subway;
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* add a unique row_id for all rows */
+/* add a unique id (row_id) for all rows */
 
 ALTER TABLE ttc_subway_staging
 ADD row_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
@@ -1382,8 +1382,8 @@ WHERE description REGEXP '[^ -~]';
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* create a new time column to update its datatype from VARCHAR to TIME, and to keep the values numerical to be analyzed properly through the SQL queries and Tableau 
-dashboards */
+/* create a new time column to update its datatype from VARCHAR to TIME, and to keep the values numerical to be analyzed properly through the SQL queries and 
+Tableau dashboards */
 
 ALTER TABLE ttc_subway_cleaned
 ADD COLUMN time_military_hour TIME;
@@ -1408,7 +1408,7 @@ DROP COLUMN time_in_hours;
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* created another table duplicating code_desc_clean table and added another column that contains the control level of the delays */
+/* create another table duplicating code_desc_clean table and add another column that contains the control level of the delays */
 
 CREATE TABLE `code_desc_clean_v2` (
   `row_id` int NOT NULL,
@@ -1646,7 +1646,7 @@ SET control_level =
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* CREATE VIEW ttc_delay_tagged created to capture the LEFT JOIN between the delay records and the code description reference table */
+/* create VIEW ttc_delay_tagged to capture the LEFT JOIN between the delay records and the code description reference table */
 
 CREATE VIEW ttc_delay_tagged AS
 SELECT  
