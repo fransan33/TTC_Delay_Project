@@ -1,4 +1,4 @@
-/* Production-ready or presentation queries */
+/* Final Queries — Production-ready or presentation queries */
 
 /* Skills used: Creating VIEWs, JOINs and CTEs; Aggregate and Window Functions */
 
