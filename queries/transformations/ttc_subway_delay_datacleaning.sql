@@ -1,4 +1,4 @@
-/* create a staging table for ttc_subway*/
+/* create a staging table for ttc_subway */
 
 CREATE TABLE ttc_subway_staging
 LIKE ttc_subway;
@@ -56,7 +56,7 @@ SET row_id = TRIM(row_id),
 
 -- --------------------------------------------------------------------------------------------------------------
 
-/* create a new table using CTE to save the final output from data cleaning for code_desc_staging table*/
+/* create a new table using CTE to save the final output from data cleaning for code_desc_staging table */
 
 CREATE TABLE code_desc_clean AS
 WITH dupe_rows AS (
