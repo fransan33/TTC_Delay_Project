@@ -1,3 +1,6 @@
+#Exploratory Queries
+Ad-hoc SQL queries used during initial data exploration.
+ 
 /* count the total number of rows */
 
 SELECT 
