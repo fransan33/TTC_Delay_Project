@@ -556,3 +556,5 @@ FROM hourly_summary
 WHERE total_delays >= 20 
   AND days_observed >= 3
 ORDER BY severity_consistency_ratio DESC, avg_severity DESC;
+
+-- --------------------------------------------------------------------------------------------------------------------------------
