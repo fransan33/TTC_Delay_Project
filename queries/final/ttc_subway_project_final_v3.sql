@@ -2,29 +2,10 @@
 /* Skills used: Creating Views, Joins, CTE's, Aggregate Functions, Window Functions */
 
 -- --------------------------------------------------------------------------------------------------------------------------------
-SELECT *
-FROM ttc_subway_cleaned;
-
-/* Creating View for efficiency in writing queries involving delay reason and its control level */
-
-CREATE VIEW ttc_delay_tagged AS
-SELECT  
-	t.*,
-    c.description AS delay_reason,
-    COALESCE(c.control_level, 'unknown') AS control_level
-FROM ttc_subway_cleaned t
-LEFT JOIN code_desc_clean_v2 c
-	ON t.code = c.code
-;
-
--- --------------------------------------------------------------------------------------------------------------------------------
-
 
 /* HEAD OF TRANSIT PLANNING */
 
-/* 1.	What are the most common causes of train delays by station, time of day, or day of week? */
-
--- making the assumption that min_delay = 0 are not "real" delays, thus, is filtered out in the below queries
+/* 1. What are the most common causes of train delays by station, time of day, or day of week? */
 
 -- BY STATION
 
@@ -66,8 +47,7 @@ SELECT
     num_stations_affected,
     ROUND(num_stations_affected * 100.0 / 75, 2) AS pct_stations_affected
 FROM station_counts
-ORDER BY num_stations_affected DESC
-;
+ORDER BY num_stations_affected DESC;
 
 -- TIME OF DAY
 
@@ -107,8 +87,7 @@ SELECT
     num_hours_affected,
     ROUND(num_hours_affected * 100.0 / 24, 2) AS pct_hours_affected
 FROM hour_counts
-ORDER BY num_hours_affected DESC
-;
+ORDER BY num_hours_affected DESC;
 
 -- DAY OF THE WEEK
 
@@ -148,13 +127,11 @@ SELECT
     num_days_affected,
     ROUND(num_days_affected * 100.0 / 7, 2) AS pct_days_affected
 FROM day_counts
-ORDER BY num_days_affected DESC
-;
+ORDER BY num_days_affected DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 2.	Which stations or routes experience the highest average delay times, and how can scheduling be adjusted to reduce them? */
+/* 2. Which stations or routes experience the highest average delay times, and how can scheduling be adjusted to reduce them? */
 
 -- STATION
 
@@ -164,8 +141,7 @@ SELECT
 FROM ttc_subway_cleaned
 WHERE min_delay > 0 
 GROUP BY cleaned_station
-ORDER BY avg_delay_time DESC
-; 
+ORDER BY avg_delay_time DESC; 
 
 -- LINE
 
@@ -177,15 +153,11 @@ WHERE
 	min_delay > 0
 	AND cleaned_line IS NOT NULL
 GROUP BY cleaned_line
-ORDER BY avg_delay_time DESC
-; 
+ORDER BY avg_delay_time DESC; 
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 3.	Is there a correlation between delay frequency and specific train lines or directions (e.g., northbound vs. southbound)? */
-
--- Train Lines / Directions
+/* 3. Is there a correlation between delay frequency and specific train lines or directions (e.g., northbound vs. southbound)? */
 
 SELECT 
 	cleaned_line AS train_line,
@@ -200,13 +172,11 @@ WHERE
 	AND cleaned_line IS NOT NULL
 	AND cleaned_bound IS NOT NULL
 GROUP BY cleaned_line, cleaned_bound
-ORDER BY cleaned_line, pct_line_delays DESC
-;
+ORDER BY cleaned_line, pct_line_delays DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 4.	Can we identify operational bottlenecks that occur consistently across specific days or time periods? */
+/* 4. Can we identify operational bottlenecks that occur consistently across specific days or time periods? */
 
 -- DAY
 
@@ -277,10 +247,9 @@ FROM consistency_delay_time;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
 /* HEAD OF OPERATIONS */
 
-/* 1.  Which reasons for delays are within our operational control (e.g., vehicle issues, crew availability), and how often do they occur? */
+/* 1. Which reasons for delays are within our operational control (e.g., vehicle issues, crew availability), and how often do they occur? */
 
 SELECT 
     delay_reason,
@@ -290,13 +259,11 @@ WHERE control_level = 'within_control'
 	OR control_level = 'partial_control'
 	AND min_delay > 0 
 GROUP BY delay_reason
-ORDER BY num_occurence DESC
-;
+ORDER BY num_occurence DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 2.	How does delay time vary by vehicle number—are there specific trains that contribute disproportionately to system delays? */
+/* 2. How does delay time vary by vehicle number — are there specific trains that contribute disproportionately to system delays? */
 
 SELECT 
 	    cleaned_vehicle AS vehicle_num,
@@ -307,13 +274,11 @@ FROM ttc_subway_cleaned
 WHERE min_delay > 0
 	AND cleaned_vehicle IS NOT NULL
 GROUP BY cleaned_vehicle
-ORDER BY total_delay_min DESC
-; 
+ORDER BY total_delay_min DESC; 
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
--- 3.	Are there peak periods or specific combinations of line and bound direction where delays spike, requiring contingency planning?
+-- 3. Are there peak periods or specific combinations of line and bound direction where delays spike, requiring contingency planning?
 
 -- LINE & BOUND COMBO
 
@@ -328,8 +293,7 @@ WHERE min_delay > 0
 	AND cleaned_bound IS NOT NULL
     AND cleaned_line IS NOT NULL
 GROUP BY line, bound_direction
-ORDER BY min_delay DESC
-;
+ORDER BY min_delay DESC;
 
 -- PEAK HOURS 
 
@@ -351,25 +315,7 @@ ORDER BY total_delay_min DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 4.	What impact do frequent delays have on downstream operations and overall network reliability? */
-
--- min_gap resulting eight-minute service gap indicates a significant disruption to scheduled train spacing, effectively reducing service frequency and increasing passenger wait times
-
-SELECT 
-    delay_reason,
-    control_level,
-    COUNT(*) AS num_delays,
-    AVG(CASE WHEN min_gap > 8 THEN min_gap END) AS avg_disruptive_service_gap, 
-    SUM(CASE WHEN min_gap > 8 THEN min_gap ELSE 0 END) AS total_disruptive_service_gap, 
-    ROUND(SUM(CASE WHEN min_gap > 8 THEN 1 ELSE 0 END) * 100 / COUNT(*), 2) AS disruption_rate
-FROM ttc_delay_tagged
-WHERE min_delay > 0
-GROUP BY delay_reason, control_level
-ORDER BY num_delays DESC
-; 
-
--- below query breaks down the delays occurring in different peak periods 
+/* 4. What impact do frequent delays have on downstream operations and overall network reliability? */
 
 SELECT 
     delay_reason,
@@ -388,16 +334,15 @@ FROM ttc_delay_tagged
 WHERE min_delay > 0
 	AND min_gap > 0
 GROUP BY delay_reason, control_level, peak_period
-ORDER BY num_delays DESC
-;
+ORDER BY num_delays DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
+/* SENIOR MANAGEMENT */
 
-/* Senior Management / Executive Team */
+/* 1. How have average delay times trended over the current year and the past year? What are the key drivers? */
 
-/* 1.	How have average delay times trended over the current year and the past year? What are the key drivers? */
--- will exclude year 2025 for simplicity 
+/* analyzed the year 2023-2024 */
 
 -- TREND
 
@@ -409,8 +354,7 @@ FROM ttc_subway_cleaned
 WHERE min_delay > 0
 	AND date BETWEEN '2023-01-01' AND '2024-12-31'
 GROUP BY Month_Year
-ORDER BY Month_Year ASC
-; 
+ORDER BY Month_Year ASC; 
 
 -- KEY DRIVERS
    
@@ -436,13 +380,11 @@ FROM delay_trend
 )
 SELECT *
 FROM key_driver
-WHERE ranked_delays <=2 
-;
+WHERE ranked_delays <=2;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 2.	Which delay causes result in the largest cumulative service gaps and therefore pose the greatest risk to passenger experience and reliability? */
+/* 2. Which delay causes result in the largest cumulative service gaps and therefore pose the greatest risk to passenger experience and reliability? */
 
 SELECT 
     delay_reason,
@@ -457,12 +399,7 @@ ORDER BY total_disruptive_gap DESC
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 3.	What is our system-wide on-time performance, and how does it compare to strategic KPIs (or other transit authorities)? */
-
--- To be on time, a train must be within 1.5 times of scheduled headway. The typical standard of OTP is <= 5 mins; on-time threshold = 1.5 × 5 = 7.5 minutes 
--- Any actual gap ≤ 8 minutes = on time; Any gap > 8 minutes = not on time
--- TTC Corporate Plan 2025 Mid-Year Progress Report: On-time Performance Target = 90%
+/* 3. What is our system-wide on-time performance, and how does it compare to strategic KPIs (or other transit authorities)? */
 
 SELECT 
 	cleaned_line AS ttc_line,
@@ -476,13 +413,11 @@ WHERE cleaned_line IS NOT NULL
 	AND day NOT IN('Saturday', 'Sunday')
     AND date BETWEEN '2025-01-01' AND '2025-04-30'
 GROUP BY cleaned_line
-ORDER BY on_time_service_pct DESC
-; 
+ORDER BY on_time_service_pct DESC; 
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 4.	Which improvement initiatives should be prioritized based on delay root causes and operational impact? */
+/* 4. Which improvement initiatives should be prioritized based on delay root causes and operational impact? */
 
 SELECT 
     delay_reason,
@@ -496,15 +431,13 @@ FROM ttc_delay_tagged
 WHERE min_delay > 0
 	AND control_level IN ('within_control', 'partial_control')
 GROUP BY delay_reason, control_level
-ORDER BY total_delay_min DESC
-;
+ORDER BY total_delay_min DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
+/* HEAD OF MARKETING */
 
-/* HEAD OF MARKETING / CUSTOMER ENGAGEMENT */
-
-/* 1.	Which stations or lines experience frequent delays that may be impacting customer satisfaction or brand perception? */
+/* 1. Which stations or lines experience frequent delays that may be impacting customer satisfaction or brand perception? */
 
 -- STATION
 
@@ -517,8 +450,7 @@ WHERE min_delay > 0
 	AND cleaned_station IS NOT NULL
     AND cleaned_bound IS NOT NULL
 GROUP BY cleaned_station
-ORDER  BY pct_station_delays DESC
-;
+ORDER  BY pct_station_delays DESC;
 
 -- LINE
 
@@ -530,17 +462,12 @@ FROM ttc_subway_cleaned
 WHERE min_delay > 0
 	AND cleaned_line IS NOT NULL
 GROUP BY cleaned_line
-ORDER  BY pct_line_delays DESC
-;
+ORDER  BY pct_line_delays DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 2.	Are there specific times or days when service reliability drops and should be addressed in customer communication or loyalty campaigns? */
-
--- will use the assumption that the min gap of > 8 is not on time 
--- using the judgement that having 100 or more incidents per day/time is highly repetitive 
-
+/* 2. Are there specific times or days when service reliability drops and should be addressed in customer communication or loyalty campaigns? */
+++++
 SELECT 
     day AS day_of_delay,
     time_military_hour AS time_of_delay,
@@ -553,13 +480,11 @@ FROM ttc_subway_cleaned
 WHERE min_delay > 0 
 GROUP BY day_of_delay, time_of_delay
 HAVING COUNT(*) >= 100
-ORDER BY disruption_rate DESC
-;
+ORDER BY disruption_rate DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
-
-/* 3.	Can we develop targeted messaging for routes or time slots most affected by delays to manage rider expectations? */
+/* 3. Can we develop targeted messaging for routes or time slots most affected by delays to manage rider expectations? */
 
 WITH affected_routes AS (
     SELECT 
@@ -595,11 +520,9 @@ affected_routes_rank AS (
 SELECT *
 FROM affected_routes_rank
 WHERE delay_ranking = 1
-ORDER BY disruption_rate DESC
-;
+ORDER BY disruption_rate DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
-
 
 /* 4. Which weekday time periods experience consistent delay severity that could plausibly influence riders to adjust travel times or seek alternative modes? */
 
@@ -633,5 +556,4 @@ SELECT
 FROM hourly_summary
 WHERE total_delays >= 20 
   AND days_observed >= 3
-ORDER BY severity_consistency_ratio DESC, avg_severity DESC
-;
+ORDER BY severity_consistency_ratio DESC, avg_severity DESC;
