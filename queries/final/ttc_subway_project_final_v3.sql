@@ -394,8 +394,7 @@ SELECT
 FROM ttc_delay_tagged
 WHERE min_delay > 0 
 GROUP BY delay_reason
-ORDER BY total_disruptive_gap DESC
-;
+ORDER BY total_disruptive_gap DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------
 
