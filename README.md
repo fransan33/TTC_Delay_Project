@@ -32,13 +32,13 @@ Four interactive Tableau Public dashboards were developed to analyze TTC
 subway delay patterns from operational, reliability, management, and
 rider-facing perspectives.
 
-### Dashboard 1 — [Dashboard Name]
+### Dashboard 1 — [D1]
 
 [![Dashboard 1](./visuals/dashboard_1.png)](TABLEAU_LINK)
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
 
-### Dashboard 2 — [Dashboard Name]
+### Dashboard 2 — [D2]
 
 [![Dashboard 2](./visuals/dashboard_2.png)](TABLEAU_LINK)
 
