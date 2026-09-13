@@ -5,19 +5,20 @@
 
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
-2. [Objectives](#2-objectives)
-3. [Project Scope & Tools](#3-project-scope--tools)
-4. [Repository Structure](#4-repository-structure)
-5. [Data Workflow](#5-data-workflow)
-6. [Data Model & Schema](#6-data-model--schema)
-7. [ERD - Entity Relationship Diagram](#7-erd--entity-relationship-diagram)
-8. [Analysis & Metrics](#8-analysis--metrics)
-9. [Key Insights](#9-key-insights)
-10. [Recommendations](#10-recommendations)
-11. [Assumptions & Limitations](#11-assumptions--limitations)
-12. [Future Enhancements](#12-future-enhancements)
-13. [Deliverables](#13-deliverables)
-14. [Author](#14-author)
+2. [Tableau Dashboards](#2-tableau-dahsboards)
+3. [Objectives](#2-objectives)
+4. [Project Scope & Tools](#3-project-scope--tools)
+5. [Repository Structure](#4-repository-structure)
+6. [Data Workflow](#5-data-workflow)
+7. [Data Model & Schema](#6-data-model--schema)
+8. [ERD - Entity Relationship Diagram](#7-erd--entity-relationship-diagram)
+9. [Analysis & Metrics](#8-analysis--metrics)
+10. [Key Insights](#9-key-insights)
+11. [Recommendations](#10-recommendations)
+12. [Assumptions & Limitations](#11-assumptions--limitations)
+13. [Future Enhancements](#12-future-enhancements)
+14. [Deliverables](#13-deliverables)
+15. [Author](#14-author)
 
 ---
 
@@ -25,7 +26,37 @@
 
 The TTC Subway system has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question — what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of data across the TTC Subway system to determine whether underperformance was driven by factors that are within or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
 
-## 2. Objectives
+## 2. Tableau Dashboards
+
+Four interactive Tableau Public dashboards were developed to analyze TTC
+subway delay patterns from operational, reliability, management, and
+rider-facing perspectives.
+
+### Dashboard 1 — [Dashboard Name]
+
+[![Dashboard 1](./visuals/dashboard_1.png)](TABLEAU_LINK)
+
+**[View Interactive Dashboard →](TABLEAU_LINK)**
+
+### Dashboard 2 — [Dashboard Name]
+
+[![Dashboard 2](./visuals/dashboard_2.png)](TABLEAU_LINK)
+
+**[View Interactive Dashboard →](TABLEAU_LINK)**
+
+### Dashboard 3 — [Dashboard Name]
+
+[![Dashboard 1](./visuals/dashboard_1.png)](TABLEAU_LINK)
+
+**[View Interactive Dashboard →](TABLEAU_LINK)**
+
+### Dashboard 4 — [Dashboard Name]
+
+[![Dashboard 2](./visuals/dashboard_2.png)](TABLEAU_LINK)
+
+**[View Interactive Dashboard →](TABLEAU_LINK)**
+
+## 3. Objectives
 
 - **Primary Objective:** Determine whether the frequent delays in TTC Subway system are caused by factors that are controllable (i.e. vehicle issues & crew availability)
 - **Secondary Objective 1:** Identify the specific times or days when service reliability drops 
@@ -34,7 +65,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ---
 
-## 3. Project Scope & Tools
+## 4. Project Scope & Tools
 
 ### Scope
 
@@ -58,7 +89,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ---
 
-## 4. Repository Structure
+## 5. Repository Structure
 
 ```
 [project-root]/
@@ -92,7 +123,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ---
 
-## 5. Data Workflow
+## 6. Data Workflow
 
 ```
 [Data Source(s)]
@@ -157,7 +188,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ---
 
-## 6. Data Model & Schema
+## 7. Data Model & Schema
 
 ### Dataset / Table: `ttc_subway_cleaned`
 
@@ -192,7 +223,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 > **Key join / relationship:** [`code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
 ---
 
-## 7. ERD - Entity Relationship Diagram
+## 8. ERD - Entity Relationship Diagram
 
 ### Embedded Image
 [ERD Diagram](TTC_Subway_Delay_ERD.png)
@@ -208,7 +239,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 
 ---
 
-## 8. Analysis & Metrics
+## 9. Analysis & Metrics
 
 ### Analytical Approach
 
@@ -254,7 +285,7 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
 
 ---
 
-## 9. Key Insights
+## 10. Key Insights
 
 **Insight 1: Disorderly patron explains TTC's frequent delays** <br>
 Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and in 75% of hourly intervals daily. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
@@ -273,7 +304,7 @@ Disruption rate in these specific times and days range from 50% to 82%, which su
 
 ---
 
-## 10. Recommendations
+## 11. Recommendations
 
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
@@ -285,7 +316,7 @@ Note: Priority reflects both delay severity and operational controllability — 
 
 ---
 
-## 11. Assumptions & Limitations
+## 12. Assumptions & Limitations
 
 ### Assumptions
 - **`min_delay = 0` records were treated as non-events** — records where min_delay = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
@@ -320,7 +351,7 @@ the 8-minute gap threshold was derived from a standard headway assumption and ma
 
 ---
 
-## 12. Future Enhancements
+## 13. Future Enhancements
 
 - **Incorporate ridership volume data** — delay impact is currently 
 measured by duration and frequency, but not by how many passengers were 
@@ -371,7 +402,7 @@ analysis.
 
 ---
 
-## 13. Deliverables
+## 14. Deliverables
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
@@ -381,7 +412,7 @@ analysis.
 
 ---
 
-## 14. Author
+## 15. Author
 
 **Francine Sangil** <br> **Current Role:** Team Leader, Fund Accounting at CIBC Mellon <br> **Target Role:** Data Analyst
 
