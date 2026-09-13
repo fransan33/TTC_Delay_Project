@@ -1,0 +1,213 @@
+row_id,code,description,control_level
+270,ERAC,"air conditioning",within_control
+271,ERBO,body,within_control
+272,ERCD,"consequential delay (2nd delay same fault)",partial_control
+273,ERCO,couplers,within_control
+274,ERDB,"disc brakes",within_control
+275,ERDO,"door problems - faulty equipment",within_control
+276,ERHV,"high voltage",within_control
+277,ERLT,"lighting system",within_control
+278,ERLV,"low voltage",within_control
+279,ERME,"rc&s maintenance error - (human)",within_control
+280,ERNEA,"no equipment available",within_control
+281,ERNT,"equipment - no trouble found",within_control
+282,ERO,"rc&s other",partial_control
+283,ERPR,"propulsion system",within_control
+284,ERRA,radio,within_control
+285,ERTB,"track brakes",within_control
+286,ERTC,"train control - vobc",within_control
+287,ERTL,"trainline system",within_control
+288,ERTR,trucks,within_control
+289,ERVE,vehicle,within_control
+290,ERWA,"warning alarm systems",within_control
+291,ERWS,"wind shield",within_control
+1,EUAC,"air conditioning",within_control
+2,EUAL,"alternating current",within_control
+3,EUATC,"atc rc&s equipment",within_control
+4,EUBK,brakes,within_control
+5,EUBO,body,within_control
+6,EUCA,"compressed air",within_control
+7,EUCC,"cam control",within_control
+8,EUCD,"rc&s consequential delay (second delay same fault - no intervention)",partial_control
+9,EUCH,"chopper control",within_control
+10,EUCO,couplers,within_control
+11,EUDO,"door problems re:faulty equipment",partial_control
+12,EUECD,"ecd/line mechanic related",within_control
+13,EUHV,"high voltage",within_control
+14,EULT,"lighting systems",within_control
+15,EULV,"low voltage",within_control
+16,EUME,"rc&s maintenance error (human error - no equip.fault)",within_control
+17,EUNEA,"no equipment available",within_control
+18,EUNT,"equipment - no trouble found",within_control
+19,EUO,"rc&s other",partial_control
+20,EUOE,"rc&s operator error (signal violation, platform overshoot, etc)",within_control
+21,EUOPO,"opto (rc&s) non-train door monitoring",partial_control
+22,EUPI,"t-1 propulsion system",within_control
+23,EUSC,"speed control equipment",within_control
+24,EUTL,"trainline system",within_control
+25,EUTM,"traction motors",within_control
+26,EUTR,trucks,within_control
+27,EUTRD,"toronto rocket cab doors",partial_control
+28,EUVA,"warning/alarm system/passenger security system",outside_control
+29,EUVE,"work vehicle",within_control
+30,EUYRD,"yard/carhouse related problems",within_control
+292,MRCL,"divisional clerk related",within_control
+293,MRD,"door problems - passenger related",outside_control
+294,MRDD,"door problems - debris related",partial_control
+295,MREC,"misc. engineering & construction related problems",within_control
+296,MRESA,"no operator immediately available",within_control
+297,MRFS,"fire/smoke plan b - source external to ttc",outside_control
+298,MRIE,"injured employee",outside_control
+299,MRLD,"labour dispute - subway",within_control
+300,MRNOA,"no operator immediately available - not e.s.a. related",within_control
+301,MRO,"miscellaneous other",outside_control
+302,MRPAA,"passenger assistance alarm activated - no trouble found",outside_control
+303,MRPLA,"fire/smoke plan a",outside_control
+304,MRPLB,"fire/smoke plan b",outside_control
+305,MRPLC,"fire/smoke plan c",outside_control
+306,MRPR1,"priority one - train in contact with person",outside_control
+307,MRSAN,"unsanitary vehicle",partial_control
+308,MRSTM,"scheduled track maintenance",within_control
+309,MRTO,timeout,partial_control
+310,MRUI,"injured or ill customer (on train) - transported",outside_control
+311,MRUIR,"injured or ill customer (on train) - medical aid refused",outside_control
+312,MRWEA,"weather reports / related delays",outside_control
+31,MUATC,"atc project",within_control
+32,MUCL,"divisional clerk related",within_control
+33,MUCP,"closures - planned",within_control
+34,MUCSA,"no collector available- e.s.a. related",within_control
+35,MUCU,"closures - unplanned",outside_control
+36,MUD,"door problems - passenger related",outside_control
+37,MUDD,"door problems - debris related",partial_control
+38,MUEC,"engineeering & construction related",within_control
+39,MUESA,"no operator/crew available - e.s.a. related",within_control
+40,MUFM,""force majeure" - delay over 90 min. re: weather or major event",outside_control
+41,MUFS,"fire/smoke plan b - source external to ttc",outside_control
+42,MUGD,"miscellaneous general subway line delays -",outside_control
+43,MUI,"injured/ill customer on train - transported",outside_control
+44,MUIE,"injured employees",outside_control
+45,MUIR,"injured/ill customer on train - medical aid refused",outside_control
+46,MUIRS,"injured/ill customer in station - medical aid refused",outside_control
+47,MUIS,"injured/ill customer in station - transported",outside_control
+48,MULD,"labour dispute related - subway",outside_control
+49,MUNCA,"no collector available - non esa related",within_control
+50,MUNOA,"no operator available - non esa related",within_control
+51,MUO,"miscellaneous other",outside_control
+52,MUODC,"overhead door contacted",outside_control
+53,MUPAA,"paa - no trouble found",outside_control
+54,MUPF,"external power failure",outside_control
+55,MUPLA,"fire/smoke plan a",outside_control
+56,MUPLB,"fire/smoke plan b - source ttc (track level)",outside_control
+57,MUPLC,"fire smoke plan c",outside_control
+58,MUPR1,"priority one - train in contact with person",outside_control
+59,MUSAN,"unsanitary vehicle",partial_control
+60,MUSC,"si speed control",within_control
+61,MUTD,"training dept. related delays",within_control
+62,MUTO,"miscellaneous transportation other (employee non-chargeable)",partial_control
+63,MUWEA,"weather reports / related problems",outside_control
+64,MUWR,"work refusal",outside_control
+313,PREL,"escalator/elevator incident",outside_control
+314,PRO,other,outside_control
+315,PRS,vcc/rciu/ccr,within_control
+316,PRSA,"axle counter related",within_control
+317,PRSL,"loop related failures",within_control
+318,PRSO,"signals other",within_control
+319,PRSP,"signals power supply related",within_control
+320,PRST,"station stairway incident",outside_control
+321,PRSW,"switch related",within_control
+322,PRTST,"signals - train stops",within_control
+323,PRW,"rail defect/fastenings/power rail",within_control
+65,PUATC,"atc signals other",within_control
+66,PUCBI,"central logic controller failure",within_control
+67,PUCSC,"signal control",within_control
+68,PUCSS,"central office signalling system (css)",within_control
+69,PUDCS,"data communications system failure",within_control
+70,PUEME,"electrical - maintenance error",within_control
+71,PUEO,"electrical - other",within_control
+72,PUEWZ,"electrical - work zone problems",within_control
+73,PUMEL,"any escl. or elev. incident - transported or medical aid declined",outside_control
+74,PUMO,"plant maintenance - other",within_control
+75,PUMST,"any stairway incident - transported or medical aid declined",outside_control
+76,PUOPO,"opto (communications) train door monitoring",partial_control
+77,PUSAC,"signals axle counter block failure",within_control
+78,PUSBE,"beacon failure",within_control
+79,PUSCA,"scada related problems",within_control
+80,PUSCR,"subway car radio fault",within_control
+81,PUSEA,"emergency alarm stations",outside_control
+82,PUSI,"signal or related components failure",within_control
+83,PUSIO,"smart io failure",within_control
+84,PUSIS,"signals track weather related issues",outside_control
+85,PUSLC,"signals line controller failure",within_control
+86,PUSNT,"signal problem - no trouble found",within_control
+87,PUSO,"signals - other",within_control
+88,PUSRA,"subway radio system problems",within_control
+89,PUSSW,"track switch failure - s/e/c related problem",within_control
+90,PUSTC,"signals - track circuit problems",within_control
+91,PUSTP,"traction power or related components failure",within_control
+92,PUSTS,"signals - train stops",within_control
+93,PUSWZ,"work zone problems - signals",within_control
+94,PUSZC,"signals zone controller failure",within_control
+95,PUT0,"t&s other",partial_control
+96,PUTCD,"t&s contractor problems",within_control
+97,PUTD,"debris at track level - controllable",partial_control
+98,PUTDN,"debris at track level - non-controllable",partial_control
+99,PUTIJ,"insulated joint related problem",within_control
+100,PUTIS,"ice/snow related problem",partial_control
+101,PUTNT,"t&s related problem - no trouble found",partial_control
+232,PUTO,"t&s other",partial_control
+102,PUTOE,"t&s operator related problem (violations, overshoots, etc.)",within_control
+103,PUTR,"rail related problem",within_control
+104,PUTS,"structure related problem",within_control
+105,PUTSC,"signals-control problem-track",within_control
+106,PUTSM,"track switch failure - t&s related problem",within_control
+107,PUTTC,"track circuit problems re:defective bolts/bonding",within_control
+108,PUTTP,"traction power rail related problems",within_control
+109,PUTWZ,"work zones problems - track",within_control
+324,SRAE,"assault / employee involved",outside_control
+325,SRAP,"assault / patron involved",outside_control
+326,SRBT,"bomb threat",outside_control
+327,SRCOL,"collector booth alarm activated",outside_control
+328,SRDP,"disorderly patron",outside_control
+329,SREAS,"emergency alarm station activation",outside_control
+330,SRO,"passenger other",outside_control
+331,SRSA,"sexual assault",outside_control
+332,SRSP,"suspicious package",outside_control
+333,SRUT,"unauthorized at track level",outside_control
+110,SUAE,"assault / employee involved",outside_control
+111,SUAP,"assualt / patron involved",outside_control
+112,SUBT,"bomb threat",outside_control
+113,SUCOL,"collector booth hold-up alarm activated",outside_control
+114,SUDP,"disorderly patron",outside_control
+115,SUEAS,"eas activated - no trouble found",outside_control
+116,SUG,"graffiti / scratchiti",outside_control
+117,SUO,"security other",outside_control
+118,SUPOL,"held by police - non ttc related",outside_control
+119,SUROB,robbery,outside_control
+120,SUSA,"assault / sexual",outside_control
+121,SUSP,"suspicious package",outside_control
+122,SUUT,"unauthorized at track level",outside_control
+334,TRDOE,"doors open in error",partial_control
+335,TRNIP,"operator not in position",within_control
+336,TRNOA,"no operator immediately available",within_control
+337,TRO,"transportation department - other",partial_control
+338,TRSET,"train controls improperly shut down",within_control
+339,TRST,"storm trains",partial_control
+340,TRTC,"transit control related problems",within_control
+123,TUATC,"atc operator related",within_control
+124,TUCC,"transit control related - tower controller error",within_control
+125,TUDOE,"doors open in error",partial_control
+126,TUKEY,"two drum switch keys in train",within_control
+127,TUML,"mainline storage",within_control
+128,TUMVS,"operator violated signal",within_control
+129,TUNCA,"no collector available",within_control
+130,TUNIP,"operator not in postion",within_control
+131,TUNOA,"no operator available",within_control
+132,TUO,"transportation other",partial_control
+133,TUOPO,"opto operator related",within_control
+134,TUOS,"operator overshot platform",within_control
+135,TUS,"unable to maintain schedule",within_control
+136,TUSC,"operator overspeed",within_control
+137,TUSET,"controls improperly blown down",within_control
+138,TUST,"storm trains",partial_control
+139,TUSUP,"supervisory error",within_control
+140,TUUR,"unauthorized train reversal by operator",within_control
