@@ -5,7 +5,7 @@
 
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
-2. [Tableau Dashboards](#2-tableau-dahsboards)
+2. [Tableau Dashboards](#2-tableau-dashboards)
 3. [Objectives](#3-objectives)
 4. [Project Scope & Tools](#4-project-scope--tools)
 5. [Repository Structure](#5-repository-structure)
