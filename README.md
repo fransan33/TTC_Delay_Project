@@ -34,25 +34,29 @@ rider-facing perspectives.
 
 ### Dashboard 1 — [TTC Subway Delay Overview]
 
-[![Dashboard 1](./visuals/dashboard_1.png)](TABLEAU_LINK)
+[<img width="1400" height="846" alt="TTC Subway Delay Overview" src="https://github.com/user-attachments/assets/268ea5cf-9b46-44a6-9879-9e4a6feb8b52" />
+](TABLEAU_LINK)
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
 
 ### Dashboard 2 — [Operational Delay Patterns]
 
-[![Dashboard 2](./visuals/dashboard_2.png)](TABLEAU_LINK)
+[<img width="1401" height="846" alt="Operational Delay Patterns" src="https://github.com/user-attachments/assets/8cd0f8e5-1862-4c0a-a4ba-e5358e79e3d3" />
+](TABLEAU_LINK)
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
 
 ### Dashboard 3 — [Delay Trends & Causes]
 
-[![Dashboard 1](./visuals/dashboard_1.png)](TABLEAU_LINK)
+[<img width="1394" height="844" alt="Delay Trend   Causes" src="https://github.com/user-attachments/assets/9c553661-b7ad-44ed-b5d4-4920fa04a132" />
+](TABLEAU_LINK)
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
 
 ### Dashboard 4 — [Service Reliability & OTP]
 
-[![Dashboard 2](./visuals/dashboard_2.png)](TABLEAU_LINK)
+[<img width="1394" height="840" alt="Service Reliability   OTP" src="https://github.com/user-attachments/assets/2f551c72-71b3-456e-abd2-1bf1c6221bf8" />
+](TABLEAU_LINK)
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
 
