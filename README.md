@@ -11,7 +11,7 @@
 5. [Repository Structure](#5-repository-structure)
 6. [Data Workflow](#6-data-workflow)
 7. [Data Model & Schema](#7-data-model--schema)
-8. [ERD - Entity Relationship Diagram](#8-erd--entity-relationship-diagram)
+8. [ERD - Entity Relationship Diagram](#8-ERD--entity-relationship-diagram)
 9. [Analysis & Metrics](#9-analysis--metrics)
 10. [Key Insights](#10-key-insights)
 11. [Recommendations](#11-recommendations)
@@ -226,6 +226,7 @@ rider-facing perspectives.
 ## 8. ERD - Entity Relationship Diagram
 
 *[Two-table schema — ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes]*
+
 [<img width="852" height="490" alt="TTC_Subway_Delay_ERD" src="https://github.com/user-attachments/assets/f17d7e8e-c78e-4f9e-9442-52d2ffad404a" />](visuals/TTC_Subway_Delay_ERD.png)
 
 **Table Relationships Summary:**
