@@ -11,7 +11,7 @@
 5. [Repository Structure](#5-repository-structure)
 6. [Data Workflow](#6-data-workflow)
 7. [Data Model & Schema](#7-data-model--schema)
-8. [ERD - Entity Relationship Diagram](#8-ERD--entity-relationship-diagram)
+8. [Entity Relationship Diagram](#8-entity-relationship-diagram)
 9. [Analysis & Metrics](#9-analysis--metrics)
 10. [Key Insights](#10-key-insights)
 11. [Recommendations](#11-recommendations)
@@ -223,7 +223,7 @@ rider-facing perspectives.
 > **Key join / relationship:** [`code_desc_clean_v2.code` → `ttc_subway_cleaned.code`]
 ---
 
-## 8. ERD - Entity Relationship Diagram
+## 8. Entity Relationship Diagram
 
 *[Two-table schema — ttc_subway_cleaned, and code_desc_cleaned_v2 joined on shared codes]*
 
