@@ -32,7 +32,7 @@ The headline finding was unexpected: the single most common cause of delays acro
 
 ## 2. Tableau Dashboards
 
-Four interactive Tableau Public dashboards were developed to analyze TTC subway delay patterns from operational, management, and rider-facing perspectives.
+Four interactive Tableau Public dashboards were developed to analyze TTC subway delay patterns from transit planning, operational, management, and rider-facing perspectives.
 
 ### Dashboard 1 — TTC Subway Delay Overview
 
