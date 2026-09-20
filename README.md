@@ -65,9 +65,9 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 ## 3. Objectives
 
 - **Primary Objective:** Determine whether the frequent delays in TTC Subway system are caused by factors that are controllable (i.e. vehicle issues & crew availability)
-- **Secondary Objective 1:** Identify the specific times or days when service reliability drops 
-- **Secondary Objective 2:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
-- **Secondary Objective 3:** [Remove if not applicable]
+- **Secondary Objective 1:** Evaluate yearly per-line on-time performance against TTC's published 90% KPI target to assess whether current service levels meet the organization's own performance standard
+- **Secondary Objective 2:** Identify the specific times or days when service reliability drops 
+- **Secondary Objective 3:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
 
 ---
 
