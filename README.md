@@ -24,13 +24,15 @@
 
 ## 1. Project Overview
 
-The TTC Subway system has been receiving an ongoing negative feedback through word of mouth and online forums, and I, myself, have experienced delays a few times whilst taking the TTC Subway transit. This begs the question — what are the root causes of these frequent delays, and can they be prevented? This project explored over 10 years of data across the TTC Subway system to determine whether underperformance was driven by factors that are within or outside the system's control. The analysis revealed that the highest delay count and total delay minutes across the system is caused by a delay reason that is not within TTC's control.
+The TTC Subway is one of Toronto's primary modes of daily transportation — and as someone who has taken it regularly, I've experienced firsthand how disruptive unexpected delays can be. This raised a question worth investigating: what's driving these delays, and how much of it is within TTC's control to fix?
+
+This project analyzed over 10 years of TTC Subway delay data (January 2014 – April 2025) to identify the root causes, patterns, and operational impact of delays across the network. The analysis was structured with 16 business questions spanning four stakeholder audiences — Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing — reflecting how delay data would realistically inform decisions across different functions of a transit authority.
+
+The headline finding was unexpected: the single most common cause of delays across TTC stations & time of day weekly is disorderly patron — a factor entirely outside TTC's operational control. This shapes the nature of what improvement initiatives are achievable, and drives the prioritization recommendations at the end of this project.
 
 ## 2. Tableau Dashboards
 
-Four interactive Tableau Public dashboards were developed to analyze TTC
-subway delay patterns from operational, management, and
-rider-facing perspectives.
+Four interactive Tableau Public dashboards were developed to analyze TTC subway delay patterns from operational, management, and rider-facing perspectives.
 
 ### Dashboard 1 — TTC Subway Delay Overview
 
