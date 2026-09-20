@@ -77,10 +77,10 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 | Dimension | Details |
 |-----------|---------|
-| **In Scope** | Delay data across all 4 TTC Subway Lines, January 2014-April 2025, & delay descriptions data. Analysis covers delay frequency, delay trends, delay times, and delay causes |
+| **In Scope** | Delay data across all 4 TTC Subway Lines, and delay descriptions data. Analyses cover delay frequency, delay trends, delay times, delay causes, and KPI. |
 | **Out of Scope** | - Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025. <br> - Three delay records with Line 3 as the TTC Line dated after July 24, 2023 were excluded from KPI calculation in Tableau as Line 3 was shut down permanently following a derailment on July 24, 2023. Note that these three records were included in other analyses as the error was seen after the MySQL queries and Tableau dashboard were created. |
 | **Time Period** | January 2014-April 2025 |
-| **Granularity** | Single delay incident per row, including timestamps, date, day, delay reason, TTC line, station, etc. |
+| **Granularity** | Single delay incident per row, including date, day, station, delay reason, delay minutes, delay min_gap, train bound, train line, vehicle number, and timestamp |
 
 ### Tools & Technologies
 
