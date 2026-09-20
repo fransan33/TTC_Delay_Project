@@ -29,7 +29,7 @@ The TTC Subway system has been receiving an ongoing negative feedback through wo
 ## 2. Tableau Dashboards
 
 Four interactive Tableau Public dashboards were developed to analyze TTC
-subway delay patterns from operational, reliability, management, and
+subway delay patterns from operational, management, and
 rider-facing perspectives.
 
 ### Dashboard 1 — TTC Subway Delay Overview
