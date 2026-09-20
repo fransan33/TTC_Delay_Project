@@ -34,7 +34,7 @@ rider-facing perspectives.
 
 ### Dashboard 1 — TTC Subway Delay Overview
 
-[<img width="1400" height="846" alt="TTC Subway Delay Overview" src="https://github.com/user-attachments/assets/047927e8-8821-46fc-97a1-cad87fce7863" />](visuals/TTC Subway Delay Overview.png)
+[<img width="1400" height="846" alt="TTC Subway Delay Overview" src="https://github.com/user-attachments/assets/047927e8-8821-46fc-97a1-cad87fce7863" />](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/TTC%20Subway%20Delay%20Overview.png)
 
 
 **[View Interactive Dashboard →](TABLEAU_LINK)**
