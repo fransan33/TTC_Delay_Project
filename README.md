@@ -1,5 +1,5 @@
 # TTC Subway Delay 
-> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes of delays are within TTC's operation control and can be prevented by prioritizing improvement initiatives*
+> *This project focused on analyzing the TTC Subway Delay dataset dated between January 2014 and April 2025, to determine whether the main causes of delays are within TTC's operation control and can be prevented by prioritizing improvement initiatives.*
 
 ---
 
