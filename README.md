@@ -37,28 +37,28 @@ rider-facing perspectives.
 [<img width="1400" height="846" alt="TTC Subway Delay Overview" src="https://github.com/user-attachments/assets/047927e8-8821-46fc-97a1-cad87fce7863" />](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/TTC%20Subway%20Delay%20Overview.png)
 
 
-**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D1#1)**
+**[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D1#1)**
 
 ### Dashboard 2 — Operational Delay Patterns
 
 [<img width="1401" height="846" alt="Operational Delay Patterns" src="https://github.com/user-attachments/assets/8cd0f8e5-1862-4c0a-a4ba-e5358e79e3d3" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Operational%20Delay%20Patterns.png)
 
-**[View Interactive Dashboard →](TABLEAU_LINK)**
+**[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D2#2)**
 
 ### Dashboard 3 — Delay Trends & Causes
 
 [<img width="1394" height="844" alt="Delay Trend   Causes" src="https://github.com/user-attachments/assets/9c553661-b7ad-44ed-b5d4-4920fa04a132" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Delay%20Trend%20%26%20Causes.png)
 
-**[View Interactive Dashboard →](TABLEAU_LINK)**
+**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D3#3)**
 
 ### Dashboard 4 — Service Reliability & OTP
 
 [<img width="1394" height="840" alt="Service Reliability   OTP" src="https://github.com/user-attachments/assets/2f551c72-71b3-456e-abd2-1bf1c6221bf8" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Service%20Reliability%20%26%20OTP.png)
 
-**[View Interactive Dashboard →](TABLEAU_LINK)**
+**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D4#4)**
 
 ## 3. Objectives
 
