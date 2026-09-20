@@ -37,7 +37,7 @@ rider-facing perspectives.
 [<img width="1400" height="846" alt="TTC Subway Delay Overview" src="https://github.com/user-attachments/assets/047927e8-8821-46fc-97a1-cad87fce7863" />](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/TTC%20Subway%20Delay%20Overview.png)
 
 
-**[View Interactive Dashboard →](TABLEAU_LINK)**
+**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D1#1)**
 
 ### Dashboard 2 — Operational Delay Patterns
 
