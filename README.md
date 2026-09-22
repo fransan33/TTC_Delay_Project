@@ -147,7 +147,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
    - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
      Ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
 2. **Ingestion:**
-   - Consolidated the delay data CSV files and the delay codes CSV files into a single CSV file (230,841 rows and 340 rows, respectively) using Power Query in           Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
+   - Converted the delay data and delay codes XLSX files into CSV files, and consolidated them into two single CSV file (230,841 rows and 340 rows, respectively) using Power Query in Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
 3. **Cleaning:**
    - ttc_subway table <br>
      - Removed trailing white space. <br>
