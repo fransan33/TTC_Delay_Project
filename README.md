@@ -149,29 +149,30 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
    - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (ttc_subway table), while the delay code description files were combined into one lookup dataset containing 340 rows (code_desc table).
    - The two consolidated CSV files were then loaded into MySQL using Command Prompt for further data cleaning, transformation, and analysis.
+   - Collected external data for TTC subway line names/numbers and station names to support data validation and standardization.
 3. **Cleaning:**
    - ttc_subway table <br>
      - Removed trailing white space. <br>
      - Generated unique primary key values for each row. <br>
      - Removed 0.09% of duplicated rows. <br>
-     - Converted the time column values into an hourly basis and excluded the minutes. <br>
-     - Non-sensical station names in station column (5.66% rows) were converted into NULL values. br>
-     - *Resolved station name inconsistencies // by creating CASE WHEN queries. <br>
+     - Converted the time column values into an hourly level by excluding the minutes. <br>
+     - Converted non-sensical station names in station column (5.66% rows) into NULL values. br>
+     - Standardized TTC station names. <br>
      - Removed 0.08% of rows containing nonsensical values in code column. <br>
-     - Converted the abbreviated values in bound column into the full direction description. <br>
-     - Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values. <br>
-     - *Resolved line name inconsistencies. <br>
-     - Non-sensical values in vehicle column (vehicle number is zero) (31.58% rows) were converted into NULL values. <br>
+     - Converted the abbreviated values in bound column into the full direction descriptions. <br>
+     - Converted non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) into NULL values. <br>
+     - Standardized inconsistent and abbreviated TTC line names. <br>
+     - Converted non-sensical values (vehicle number is zero) in vehicle column (31.58% rows) into NULL values. <br>
      - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values. <br>
    - code_desc table. <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - Assigned operational control level classifications to each delay reasons in the code_desc table 
-   - Created a reference look up table to map the code description dataset to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching delay records with delay reason descriptions and operational control level classifications.
-   - *Collected the subway line names and line numbers from external source[FS1.1] and replaced the abbreviated values in line column in the delay dataset by creating CASE WHEN queries.
-   - *Collected the subway station names from external source to validate the values in station column, resolve inconsistencies, and identify non-sensical names. CASE WHEN queries were created to resolve inconsistencies.
-   - Converted the time column data from VARCHAR to TIME datatype to be able to analyze the data properly throughout MySQL queries.
+   - Assigned operational control level classifications to each delay reason in the code_desc table 
+   - Created a reference lookup structure to map delay codes in the cleaned code_desc table to the cleaned ttc_subway table by using a LEFT JOIN within a MYSQL VIEW, enriching delay records with delay reason descriptions and operational control level classifications.
+   - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC line reference data.
+   - Standardized station names using CASE WHEN queries based on external station reference data.
+   - Converted the time column data from VARCHAR to TIME datatype to support time-based analysis in MySQL.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicles.
