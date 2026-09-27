@@ -144,31 +144,32 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 ```
 
 1. **Source:**
-   - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/).
-     Ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
+   - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
 2. **Ingestion:**
-   - Converted the delay data and delay codes XLSX files into CSV files, and consolidated them into two single CSV file (230,841 rows and 340 rows, respectively) using Power Query in Excel. These two consolidated CSV files were then loaded into MySQL using Command Prompt.
+   - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
+   - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (ttc_subway table), while the delay code description files were combined into one lookup dataset containing 340 rows (code_desc table).
+   - The two consolidated CSV files were then loaded into MySQL using Command Prompt for further data cleaning, transformation, and analysis.
 3. **Cleaning:**
    - ttc_subway table <br>
      - Removed trailing white space. <br>
      - Generated unique primary key values for each row. <br>
      - Removed 0.09% of duplicated rows. <br>
      - Converted the time column values into an hourly basis and excluded the minutes. <br>
-     - Non-sensical station names in station column (5.66% rows) converted into NULL values (non-critical column). <br>
-     - Resolved station name inconsistencies. <br>
-     - Removed 0.08% of rows containing nonsensical values in code column (critical column). <br>
+     - Non-sensical station names in station column (5.66% rows) were converted into NULL values. br>
+     - *Resolved station name inconsistencies // by creating CASE WHEN queries. <br>
+     - Removed 0.08% of rows containing nonsensical values in code column. <br>
      - Converted the abbreviated values in bound column into the full direction description. <br>
-     - Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values (non-critical column). <br>
-     - Resolved line name inconsistencies. <br>
-     - Non-sensical value in vehicle column (vehicle number is zero) (31.58% rows) converted into NULL values (non-critical column). <br>
-     - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values (non-critical column). <br>
+     - Non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) converted into NULL values. <br>
+     - *Resolved line name inconsistencies. <br>
+     - Non-sensical values in vehicle column (vehicle number is zero) (31.58% rows) were converted into NULL values. <br>
+     - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values. <br>
    - code_desc table. <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - Collected code description data from the open Toronto data website to decode the abbreviated delay reason on the TTC Subway delay data, and assigned operational control level classifications to each delay reasons — this dataset was created as a new table (code_desc).
-   -  Created a reference look up table to map the code description to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching records with delay reason descriptions and operational control level classifications.
-   - Collected the subway line names and line numbers from external source and replaced the abbreviated values in line column in the data set by creating CASE WHEN queries.
+   - Assigned operational control level classifications to each delay reasons in the code_desc table 
+   - Created a reference look up table to map the code description dataset to the cleaned subway delay dataset by creating a VIEW and using a LEFT JOIN, enriching delay records with delay reason descriptions and operational control level classifications.
+   - Collected the subway line names and line numbers from external source[FS1.1] and replaced the abbreviated values in line column in the delay dataset by creating CASE WHEN queries.
    - Collected the subway station names from external source to validate the values in station column, resolve inconsistencies, and identify non-sensical names. CASE WHEN queries were created to resolve inconsistencies.
    - Converted the time column data from VARCHAR to TIME datatype to be able to analyze the data properly throughout MySQL queries.
 5. **Analysis:** 
@@ -176,21 +177,22 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
    - Segmenting delay trends by time, station, TTC line, and vehicles.
    - Evaluating the operational impact of delays that are within control.
 6. **Output / Visualization:** <br>
-   - Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior              Management, and Head of Marketing. Included charts are listed below: <br>
-     - Bar charts (most common cause of delay)
-     - Barbell charts (delay frequency by train line and bound)
-     - Bubble charts (delay frequency by station)
-     - Pareto charts (delay cause contribution and vehicle impact)
-     - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
-     - Year-over-year trend lines (avg delay comparison)
-     - Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
-     - Bullet charts (on-time performance (OTP) vs. KPI target of 90% OTP)
-     - Heatmaps (service reliability by day and hour) <br>
-   - Dashboard design decisions included: <br>
-     - Dynamic parameters 
-     - LOD expressions
-     - Calculated fields 
-     - Dual-axis configurations
+   - Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
+      - Included charts are listed below: <br>
+            - Bar charts (most common cause of delay)
+            - Barbell charts (delay frequency by train line and bound)
+            - Bubble charts (delay frequency by station)
+            - Pareto charts (delay cause contribution and vehicle impact)
+            - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis)
+            - Year-over-year trend lines (avg delay comparison)
+            - Scatter plots with quadrant annotations (downstream impact and improvement prioritization)
+            - Bullet charts (on-time performance (OTP) vs. KPI target of 90% OTP)
+            - Heatmaps (service reliability by day and hour) <br>
+      - Dashboard design decisions included: <br>
+            - Dynamic parameters 
+            - LOD expressions
+            - Calculated fields 
+            - Dual-axis configurations
 
 ---
 
