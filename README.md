@@ -145,7 +145,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 1. **Source:**
    - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
-   - Collected external data for TTC subway line names/numbers and station names to support data validation and standardization.
+   - Collected external data for TTC Subway line names/numbers and station names to support data validation and standardization.
 2. **Ingestion:**
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
    - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (ttc_subway table), while the delay code description files were combined into one lookup dataset containing 340 rows (code_desc table).
@@ -170,8 +170,8 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 4. **Transformation:**
    - Assigned operational control level classifications to each delay reason in the code_desc table 
    - Created a reference lookup structure to map delay codes in the cleaned code_desc table to the cleaned ttc_subway table by using a LEFT JOIN within a MYSQL VIEW, enriching delay records with delay reason descriptions and operational control level classifications.
-   - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC line reference data.
-   - Standardized station names using CASE WHEN queries based on external TTC station reference data.
+   - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC Subway line reference data.
+   - Standardized station names using CASE WHEN queries based on external TTC Subway station reference data.
    - Converted the time column data from VARCHAR to TIME datatype to support time-based analysis in MySQL.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
