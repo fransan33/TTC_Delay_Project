@@ -171,7 +171,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
    - Assigned operational control level classifications to each delay reason in the code_desc table 
    - Created a reference lookup structure to map delay codes in the cleaned code_desc table to the cleaned ttc_subway table by using a LEFT JOIN within a MYSQL VIEW, enriching delay records with delay reason descriptions and operational control level classifications.
    - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC line reference data.
-   - Standardized station names using CASE WHEN queries based on external station reference data.
+   - Standardized station names using CASE WHEN queries based on external TTC station reference data.
    - Converted the time column data from VARCHAR to TIME datatype to support time-based analysis in MySQL.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
