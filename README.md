@@ -164,7 +164,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
      - Standardized inconsistent and abbreviated TTC line names. <br>
      - Converted non-sensical values (vehicle number is zero) in vehicle column (31.58% rows) into NULL values. <br>
      - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values. <br>
-   - code_desc table. <br>
+   - code_desc table <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
