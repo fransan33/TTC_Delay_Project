@@ -250,7 +250,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 ### Analytical Approach
 
-In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed by key stakeholders across TTC — Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
+In this project, I used an exploratory, stakeholder-driven approach to have a better understanding of the TTC Subway delay patterns. The analysis was structured with 16 business questions that reflect how delay data would be consumed by key stakeholders across TTC — Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
 
 Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what each specific key stakeholder would need to make a decision. For example, the questions structured for the Head of Operations prioritize frequency and controllability of delay causes, while the questions structured for Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
