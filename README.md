@@ -213,7 +213,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 | `cleaned_bound` | varchar(10) | Standardized direction of travel of train | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
 | `cleaned_vehicle` | bigint | Vehicle number of the train in operation | 5471 | yes |
-| `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
+| `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | yes |
 
 > **Row count:** 230,456 |
 > **Date range:** January 2014-April 2025 |
