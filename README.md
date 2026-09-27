@@ -223,8 +223,8 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
-| `row_id` | int | Unique identifier per delay record | 3 | no |
-| `code` | varchar(10) PK | Abbreviated delay cause code | ERAC | no |
+| `row_id` | int | Unique identifier per delay cause | 3 | no |
+| `code` | varchar(10) PK | Abbreviated delay cause | ERAC | no |
 | `description` | text | Full description of delay cause | work zone problems - signals | no |
 | `control_level` | varchar(50) | Operational controllability classification | within_control | no |
 
