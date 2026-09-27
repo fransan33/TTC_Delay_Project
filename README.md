@@ -145,11 +145,11 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 1. **Source:**
    - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
+   - Collected external data for TTC subway line names/numbers and station names to support data validation and standardization.
 2. **Ingestion:**
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
    - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (ttc_subway table), while the delay code description files were combined into one lookup dataset containing 340 rows (code_desc table).
    - The two consolidated CSV files were then loaded into MySQL using Command Prompt for further data cleaning, transformation, and analysis.
-   - Collected external data for TTC subway line names/numbers and station names to support data validation and standardization.
 3. **Cleaning:**
    - ttc_subway table <br>
      - Removed trailing white space. <br>
