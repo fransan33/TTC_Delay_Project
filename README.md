@@ -175,7 +175,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
    - Converted the time column data from VARCHAR to TIME datatype to support time-based analysis in MySQL.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
-   - Segmenting delay trends by time, station, TTC line, and vehicles.
+   - Segmenting delay trends by time, station, TTC line, and vehicle.
    - Evaluating the operational impact of delays that are within control.
 6. **Output / Visualization:** <br>
    - Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
@@ -185,7 +185,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
             - Bubble charts (delay frequency by station) <br>
             - Pareto charts (delay cause contribution and vehicle impact) <br>
             - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis) <br>
-            - Year-over-year trend lines (avg delay comparison) <br>
+            - Year-over-year trend lines (AVG delay comparison) <br>
             - Scatter plots with quadrant annotations (downstream impact and improvement prioritization) <br>
             - Bullet charts (on-time performance (OTP) vs. KPI target of 90% OTP) <br>
             - Heatmaps (service reliability by day and hour) <br>
