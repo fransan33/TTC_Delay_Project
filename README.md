@@ -207,10 +207,10 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 | `date` | date | Date the delay occurred | 2022-01-01 | no |
 | `day` | text | Day of week the delay occurred | Saturday | no |
 | `cleaned_station` | varchar(27) | Standardized station name | Islington | yes |
-| `code` | text | Abbreviated delay cause code | MUIRS | no |
+| `code` | text | Abbreviated delay cause | MUIRS | no |
 | `min_delay` | int | Duration of delay in minutes | 5 | no |
 | `min_gap` | int | Gap between successive vehicles in minutes | 12 | no |
-| `cleaned_bound` | varchar(10) | Standardized direction of travel | Eastbound | yes |
+| `cleaned_bound` | varchar(10) | Standardized direction of travel of train | Eastbound | yes |
 | `cleaned_line` | varchar(23) | Standardized subway line name | Line 2 Bloor-Danforth | yes |
 | `cleaned_vehicle` | bigint | Vehicle number of the train in operation | 5471 | yes |
 | `time_military_hour` | time | Hour of delay in 24hr datetime format | 17:00:00 | no |
