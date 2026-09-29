@@ -315,7 +315,7 @@ Disruption rate in these specific times and days range from 50% to 82%, which su
 
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
-| High | Conduct inspection and maintenance reviews on the top 34% of trains by total delay minutes - specifically investigate if they're causing significant delay issues on a yearly basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
+| High | Conduct inspection and maintenance reviews on the top 34% of trains by total delay minutes — specifically investigate if they're causing significant delay issues on a yearly basis, and whether they need to be repaired or replaced | Insight 2: Roughly a third of TTC vehicles account for most delays | Head of Operations |
 | Medium | Schedule more trains more frequently on weekends, and on weekdays between 8pm and 1am — specifically on lines and directions with highest disruption rates during these timeframes | Insight 5: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning |
 | Low | Develop public-facing messaging and awareness campaigns regarding expected delays daily due to rider misconduct — include offering travel incentives or loyalty rewards for frequent riders affected by this delay cause | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
 
