@@ -53,14 +53,14 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 [<img width="1394" height="844" alt="Delay Trend   Causes" src="https://github.com/user-attachments/assets/9c553661-b7ad-44ed-b5d4-4920fa04a132" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Delay%20Trend%20%26%20Causes.png)
 
-**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D3#3)**
+**[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D3#3)**
 
 ### Dashboard 4 — Service Reliability & OTP
 
 [<img width="1394" height="840" alt="Service Reliability   OTP" src="https://github.com/user-attachments/assets/2f551c72-71b3-456e-abd2-1bf1c6221bf8" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Service%20Reliability%20%26%20OTP.png)
 
-**[View Interactive Dashboard →](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D4#4)**
+**[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D4#4)**
 
 ## 3. Objectives
 
