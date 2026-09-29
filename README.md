@@ -295,7 +295,7 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
 ## 10. Key Insights
 
 **Insight 1: Disorderly patron explains TTC's frequent delays** <br>
-Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and in 75% of hourly intervals daily. This points to an issue that the main cause of delay is not within TTC's operation control, and initiating improvement initiatives towards this can be challenging.
+Disorderly patron ranks as the leading cause of delays across 60% of TTC subway stations and in 75% of hourly intervals daily. This points to an issue that the main cause of delay is not within TTC's operation control, thus, initiating improvement initiatives towards this can be challenging.
 
 **Insight 2: Roughly a third of TTC vehicles account for most delays** <br>
 34% of trains make up for 80% of total delay time. This points to specific trains that contribute disproportionately to system delays, which should be investigated further.
@@ -304,10 +304,10 @@ Disorderly patron ranks as the leading cause of delays across 60% of TTC subway 
 The OTP for Line 3 ranges 41%-59%, which is extremely low compared to the OTP range of other TTC lines (70%-93%), and is 31%-49% lower than the targeted KPI of 90% OTP. This suggests that this TTC line was experiencing significant delay issues on a yearly basis, heavily struggling to meet the KPI target, which supports the company's decision to permanently shut down the line in July 2023.
 
 **Insight 4: Line 2 consistently met the 90% OTP target from 2014-2019, while Line 1 began falling below target in 2018** <br>
-On-time performance varied between the two subway lines during the 2014-2019 period. Line 2 consistently met or exceeded the 90% KPI target from 2014-2019, while Line 1 met the target from 2014-2017 before declining slightly to 88% and 87% in 2018 and 2019, respectively. From 2020 onwards, both lines experienced a more pronounced decline in OTP, with performance falling below the 90% target in multiple years through 2025. While the dataset does not contain operational context to establish causation, the timing of this broader decline coincides with the onset of the COVID-19 pandemic in 2020. The sustained performance gap may indicate pandemic-era operational disruption, although this hypothesis would require additional staffing, ridership, and service-frequency data to validate.
+On-time performance varied between the two subway lines during the 2014-2019 period. Line 2 consistently met or exceeded the 90% KPI target from 2014-2019, while Line 1 met the target from 2014-2017 before declining slightly to 88% and 87% in 2018 and 2019, respectively. From 2020 onwards, both lines experienced a more pronounced decline in OTP, with performance falling below the 90% target through 2025. While the dataset does not contain operational context to establish causation, the timing of this broader decline coincides with the onset of the COVID-19 pandemic in 2020. The sustained performance gap may indicate pandemic-era operational disruption, although this hypothesis would require additional staffing, ridership, and service-frequency data to validate.
 
 **Insight 5: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays** <br>
-Disruption rate in these specific times and days range from 50% to 82%, which suggests that the riders are not able to rely on the service during these times, and they are likely to find a different method of transportation. This also suggests that there may be crew availability issues during these times, causing the delay issues to get resolved slower.
+Disruption rate in these specific times and days range from 50% to 82%, which suggests that the riders cannot rely on the service during these times, and they are likely to find a different method of transportation. This also suggests that there may be crew availability issues during these times, causing the delay issues to get resolved slower.
 
 ---
 
