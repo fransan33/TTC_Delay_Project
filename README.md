@@ -343,6 +343,10 @@ description reference table** — the control level classification (within_contr
 
 - **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the KPI target yearly** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
+- **Minimum event-volume threshold** — A minimum threshold of 100 delay incidents was applied to certain analyses related to service reliablity. This threshold was used as an analytical assumption to focus on recurring patterns with sufficient observed volume for targeted messaging and service-reliability analysis, while excluding combinations with relatively few observations that may produce less representative results.
+
+- **Field criticality assumption** — The delay code was classified as a critical field because it is necessary to identify the delay cause; records with missing or nonsensical codes were excluded. Station, bound, vehicle, and line were classified as non-critical fields, so records with missing or nonsensical values were retained and the affected fields were converted to NULL.
+
 ### Limitations
 - **No external validation of delay records against TTC operational logs** — 
 the dataset was sourced from Open Toronto and accepted at face value. There was no way to verify whether all delay incidents were captured, whether records were complete, or whether reporting practices changed over the January 2014–April 2025 period in ways that could affect trend comparisons.
