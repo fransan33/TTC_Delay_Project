@@ -398,8 +398,7 @@ threshold uniformly across all lines, times, and service periods. A more
 accurate calculation would apply each line's actual scheduled headway 
 (which varies by time of day and day of week) as the threshold, rather 
 than a single system-wide assumption. TTC publishes scheduled headways 
-in their GTFS feed, which could be joined to the delay dataset to produce 
-a headway-adjusted OTP metric that more accurately reflects the rider 
+in their General Transit Feed Specification (GTFS) data, which could be joined to the delay dataset to produce a headway-adjusted OTP metric that more accurately reflects the rider 
 experience on each line.
 
 - **Expand the analysis to include bus and streetcar delay data** — 
