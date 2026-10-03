@@ -98,24 +98,50 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 ## 5. Repository Structure
 
 ```
-[project-root]/
+TTC_Delay_Project/
 │
 ├── data/
-│   ├── external/  
-│   ├── processed/         
-│   └── raw/         
+│   ├── external/
+│   │   └── stations_by_line.csv
+│   ├── processed/
+│   │   ├── code_desc_cleaned_v2.csv
+│   │   └── ttc_subway_cleaned.csv        
+│   └── raw/
+│   │   ├── Code Descriptions.csv
+│   │   ├── TTC_2018.csv
+│   │   ├── TTC_2019.csv
+│   │   ├── TTC_2020.csv
+│   │   ├── TTC_2021.csv
+│   │   ├── TTC_2022.csv
+│   │   ├── TTC_2023.csv
+│   │   ├── TTC_2024.csv
+│   │   ├── TTC_2025.csv
+│   │   ├── TTC_JAN2014-APRIL2017.csv
+│   │   ├── TTC_MAY2017-DEC2017.xlsx
+│   │   └── ttc-subway-delay-codes.csv      
 │
 ├── docs/
+│   └── Corporate Plan 2025 Mid-Year Progress Report.pdf
 │
 ├── queries/
 │   ├── exploratory/
+│   │   └── ttc_subway_delay_exploratory.sql
 │   ├── final/
+│   │   └── ttc_subway_project_final_v3.sql
 │   └── transformations/
+│       └── ttc_subway_delay_datacleaning.sql
 │
 ├── visuals/
+│   ├── Delay Trend & Causes.png
+│   ├── Operational Delay Patterns.png
+│   ├── Service Reliability & OTP.png
+│   ├── TTC Subway Delay Overview.png
+│   └── TTC_Subway_Delay_ERD.png
 │
-├── project_metadata.yml      # Machine-readable metadata (optional)
-└── README.md                 # You are here
+├── .gitignore
+├── README.md
+└── project_metadata.yml
+
 ```
 
 ---
