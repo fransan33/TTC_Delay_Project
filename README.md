@@ -341,7 +341,7 @@ description reference table** — the control level classification (within_contr
 
 - **The top-ranked delay cause per partition was treated as the dominant cause** — RANK() = 1 was used to identify the most frequent delay cause by station, hour, or day. Where multiple causes tied for first, all tied causes were retained rather than selecting a single cause.
 
-- **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the KPI target yearly** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
+- **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the yearly KPI target** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
 - **Minimum event-volume threshold** — A minimum threshold of 100 delay incidents was applied to certain analyses related to service reliablity. This threshold was used as an analytical assumption to focus on recurring patterns with sufficient observed volume for targeted messaging and service-reliability analysis, while excluding combinations with relatively few observations that may produce less representative results.
 
