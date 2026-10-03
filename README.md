@@ -120,7 +120,7 @@ TTC_Delay_Project/
 │   │   ├── TTC_MAY2017-DEC2017.xlsx
 │   │   └── ttc-subway-delay-codes.csv      
 │
-├── docs/
+├── doc/
 │   └── Corporate Plan 2025 Mid-Year Progress Report.pdf
 │
 ├── queries/
