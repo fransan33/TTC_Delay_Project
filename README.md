@@ -173,7 +173,7 @@ TTC_Delay_Project/
      - Generated unique primary key values for each row. <br>
      - Removed 0.09% of duplicated rows. <br>
      - Converted the time column values into an hourly level by excluding the minutes. <br>
-     - Converted non-sensical station names in station column (5.66% rows) into NULL values. br>
+     - Converted non-sensical station names in station column (5.66% rows) into NULL values. <br>
      - Standardized TTC station names. <br>
      - Removed 0.08% of rows containing nonsensical values in code column. <br>
      - Converted the abbreviated values in bound column into the full direction descriptions. <br>
