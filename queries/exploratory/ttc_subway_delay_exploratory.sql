@@ -8,6 +8,10 @@ SELECT
 COUNT(*)
 FROM ttc_subway; 
 
+SELECT 
+COUNT(*)
+FROM code_desc_clean_v2; 
+
 -- --------------------------------------------------------------------------------------------------------------
 
 /* review the whole dataset */
