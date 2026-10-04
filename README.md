@@ -433,8 +433,8 @@ analysis.
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| **Tableau Dashboard** | [What it contains] | [`/path/to/file`] |
-| **SQL analysis and transformation queries** | [What it contains] | [`/path/to/file`] |
+| **Tableau Dashboard** | Four interactive Tableau Public dashboards targeting Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing. | [link](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D1#1) |
+| **MySQL analysis** | 16 analytical queries spanning four stakeholder audiences | [`/path/to/file`] |
 | **Processed Dataset** | [What it contains] | [`/path/to/file`] |
 | **Entity Relationship Diagram** | [What it contains] | [`/path/to/file`] |
 | **Project Documentation** | [What it contains] | [`/path/to/file`] |
@@ -451,4 +451,4 @@ analysis.
 
 ---
 
-*Last updated: [September 2026]*
+*Last updated: [October 2026]*
