@@ -251,9 +251,9 @@ TTC_Delay_Project/
 
 ## 8. Entity Relationship Diagram
 
-*Two-table schema — ttc_subway_cleaned and code_desc_cleaned_v2 — joined on shared delay codes* <br>
+*Two-table schema — ttc_subway_cleaned and code_desc_cleaned_v2 — joined on shared delay codes.* <br>
 
-*Note: ttc_delay_tagged_VIEW is a VIEW, not a table, derived from the JOIN of the two tables*
+*Note: ttc_delay_tagged_VIEW is a VIEW, not a table, derived from the JOIN of the two tables.*
 
 [<img width="746" height="700" alt="image" src="https://github.com/user-attachments/assets/5d41cd6c-f05d-4e37-b256-960de2a1a245" />](visuals/TTC_Subway_Delay_ERD.png)
 
