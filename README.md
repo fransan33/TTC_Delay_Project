@@ -439,7 +439,7 @@ analysis.
 | **MySQL Analysis** | 16 analytical queries spanning four stakeholder audiences | [`queries/final/ttc_subway_project_final_v3.sql`](queries/final/ttc_subway_project_final_v3.sql) |
 | **Processed Dataset** | Two consolidated and cleaned datasets produced via Power Query and MySQL, used as the basis for all analytical queries and Tableau dashboards | [`data/processed`](data/processed) |
 | **Entity Relationship Diagram** | Visual diagram showing the relationship between `ttc_subway_cleaned`, `code_desc_clean_v2`, and the `ttc_delay_tagged` view | [`visuals/TTC_Subway_Delay_ERD.png`](visuals/TTC_Subway_Delay_ERD.png) |
-| **Project Documentation** | [What it contains] | [`/path/to/file`] |
+| **Project Documentation** | Project documentation covering objectives, scope, data workflow, schema, ERD, analytical approach, key metrics, insights, recommendations, assumptions, and future enhancements | [`README.md`](README.md) |
 
 ---
 
