@@ -435,7 +435,7 @@ analysis.
 |-------------|-------------|----------|
 | **Tableau Dashboard** | Four interactive Tableau Public dashboards targeting Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing. | [`Tableau`](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D1#1) |
 | **MySQL Analysis** | 16 analytical queries spanning four stakeholder audiences | [`MySQL`](queries/final/ttc_subway_project_final_v3.sql) |
-| **Processed Dataset** | [What it contains] | [`/path/to/file`] |
+| **Processed Dataset** | Consolidated and cleaned dataset produced via Power Query and MySQL, used as the basis for all analytical queries and Tableau dashboards | [`/path/to/file`] |
 | **Entity Relationship Diagram** | [What it contains] | [`/path/to/file`] |
 | **Project Documentation** | [What it contains] | [`/path/to/file`] |
 
