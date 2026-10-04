@@ -433,9 +433,11 @@ analysis.
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| [Name] | [What it contains] | [`/path/to/file`] |
-| [Name] | [What it contains] | [`/path/to/file`] |
-| [Name] | [What it contains] | [`/path/to/file`] |
+| **Tableau Dashboard** | [What it contains] | [`/path/to/file`] |
+| **SQL analysis and transformation queries** | [What it contains] | [`/path/to/file`] |
+| **Processed Dataset** | [What it contains] | [`/path/to/file`] |
+| **Entity Relationship Diagram** | [What it contains] | [`/path/to/file`] |
+| **Project Documentation** | [What it contains] | [`/path/to/file`] |
 
 ---
 
