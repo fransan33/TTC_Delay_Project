@@ -161,18 +161,18 @@ TTC_Delay_Project/
 ```
 
 1. **Source:**
-   - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the Open Data website (https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
+   - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the [Open Data website](https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
    - Collected external data for TTC Subway line names/numbers and station names to support data validation and standardization.
 2. **Ingestion:**
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
-   - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (ttc_subway table), while the delay code description files were combined into one lookup dataset containing 340 rows (code_desc table).
+   - The yearly delay files were combined into one consolidated delay dataset containing 230,841 rows (`ttc_subway table`), while the delay code description files were combined into one lookup dataset containing 340 rows (`code_desc table`).
    - The two consolidated CSV files were then loaded into MySQL using Command Prompt for further data cleaning, transformation, and analysis.
 3. **Cleaning:**
-   - ttc_subway table <br>
+   - `ttc_subway` table <br>
      - Removed trailing white space. <br>
      - Generated unique primary key values for each row. <br>
      - Removed 0.09% of duplicated rows. <br>
-     - Converted the time column values into an hourly level by excluding the minutes. <br>
+     - Converted the `time` column values into an hourly level by excluding the minutes and the AM/PM abbreviations. <br>
      - Converted non-sensical station names in station column (5.66% rows) into NULL values. <br>
      - Standardized TTC station names. <br>
      - Removed 0.08% of rows containing nonsensical values in code column. <br>
@@ -181,7 +181,7 @@ TTC_Delay_Project/
      - Standardized inconsistent and abbreviated TTC line names. <br>
      - Converted non-sensical values (vehicle number is zero) in vehicle column (31.58% rows) into NULL values. <br>
      - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values. <br>
-   - code_desc table <br>
+   - `code_desc table` <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
