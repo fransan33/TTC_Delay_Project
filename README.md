@@ -189,7 +189,7 @@ TTC_Delay_Project/
    - Created a reference lookup structure to map delay codes in the cleaned code_desc table to the cleaned ttc_subway table by using a LEFT JOIN within a MYSQL VIEW, enriching delay records with delay reason descriptions and operational control level classifications.
    - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC Subway line reference data.
    - Standardized station names using CASE WHEN queries based on external TTC Subway station reference data.
-   - Converted the time column data from VARCHAR to TIME datatype to support time-based analysis in MySQL.
+   - Created `time_military_hour` column to transform the `time` datatype from VARCHAR to TIME to support time-based analysis in MySQL, .
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicle.
