@@ -10,7 +10,7 @@
 4. [Project Scope and Tools](#4-project-scope--tools)
 5. [Repository Structure](#5-repository-structure)
 6. [Data Workflow](#6-data-workflow)
-7. [Data Model and Schema](#7-data-model--schema)
+7. [Data Model  Schema](#7-data-model--schema)
 8. [Entity Relationship Diagram](#8-entity-relationship-diagram)
 9. [Analysis and Metrics](#9-analysis--metrics)
 10. [Key Insights](#10-key-insights)
@@ -278,8 +278,7 @@ There are two deliberate metric distinctions that shaped the entire analysis —
 
 Note that using raw delay counts alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate was used alongside raw delay counts to give a proportional view.
 
-Further, a CREATE VIEW statement was built to capture the LEFT JOIN between the delay records and the code description reference table. This was used to
-avoid repetition of using LEFT JOIN between the two tables across queries, and to ensure consistent mapping of delay reasons and control level classifications throughout the analysis.
+Further, a `CREATE VIEW` statement was built to capture the `LEFT JOIN` between the two tables, `ttc_subway_cleaned` and `code_desc_clean_v2`. This was used to avoid repetition of using `LEFT JOIN` between the two tables across queries, and to ensure consistent mapping of delay reasons and control level classifications throughout the analysis.
 
 ### Key Metrics Defined
 
@@ -287,12 +286,12 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
 |--------|--------------------------|----------------|
 | `min_delay` | Duration in minutes between a train's scheduled and actual arrival, as experienced by the rider | This is the primary rider-facing severity metric, and is used wherever the question concerns passenger impact rather than operational |
 | `min_gap` | Time in minutes between one vehicle and the next arriving at a station | It measures service regularity from an operator perspective, and is used to assess whether a delay caused a wider service disruption |
-| `disruption_rate` | Percentage of delay incidents where min_gap > 8, indicating a service gap beyond the on-time threshold | Helps distinguish manageable delays from those that compound into system-wide problems |
-| `avg_disruptive_gap` | Average min_gap value among incidents where min_gap > 8 — calculated using conditional aggregation to exclude non-disruptive events from the average | Measures how severe the downstream service disruption is when it does occur — a high average indicates a more severe downstream impact |
-| `total_disruptive_gap` | Sum of all min_gap values exceeding 8 minutes | Measures the overall time lost to service gaps across all incidents — a cause that disrupts service moderately but frequently can have a more significant total impact than a rare but severe one |
-| `on_time_service_pct` | Percentage of service events where min_gap ≤ 8 minutes | This is the system-wide KPI metric, and is compared against TTC's general standard target of 90% as claimed on their website |
-| `pct_line_delays / pct_station_delays` | Each line or station's portion of total system delays, computed using SUM(COUNT(*)) OVER() as the denominator | They help identify disproportionate contributors to system-wide delay volume for marketing and operational attention |
-| `severity_consistency_ratio` | Average delay severity divided by its standard deviation across weekdays (avg / NULLIF(stddev, 0)), computed via two-level CTE aggregation | Identifies time periods that are severe — a high ratio indicates that riders can predict poor service and may seek alternative transportation |
+| `disruption_rate` | Percentage of delay incidents where `min_gap` > 8, indicating a service gap beyond the on-time threshold | Helps distinguish manageable delays from those that compound into system-wide problems |
+| `avg_disruptive_gap` | Average `min_gap` value among incidents where `min_gap` > 8 — calculated using conditional aggregation to exclude non-disruptive events from the average | Measures how severe the downstream service disruption is when it does occur — a high average indicates a more severe downstream impact |
+| `total_disruptive_gap` | Sum of all `min_gap` values exceeding 8 minutes | Measures the overall time lost to service gaps across all incidents — a cause that disrupts service moderately but frequently can have a more significant total impact than a rare but severe one |
+| `on_time_service_pct` | Percentage of service events where `min_gap` ≤ 8 minutes | This is the system-wide KPI metric, and is compared against TTC's general standard target of 90% as claimed on their website |
+| `pct_line_delays / pct_station_delays` | Percentage of total system delays by `cleaned_line` and `cleaned_station` | They help identify disproportionate contributors to system-wide delay volume for marketing and operational attention |
+| `severity_consistency_ratio` | Average delay severity divided by its standard deviation across weekdays (avg / NULLIF(stddev, 0)), computed via two-level `CTE` aggregation | Identifies time periods that are severe — a high ratio indicates that riders can predict poor service and may seek alternative transportation |
 | `control_level` | Classification of each delay cause as within_control, partial_control, or outside_control | Filters the improvement analysis to delay causes that TTC has the ability to address operationally |
 
 ### Methods Used
