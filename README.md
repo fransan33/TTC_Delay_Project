@@ -179,7 +179,7 @@ TTC_Delay_Project/
      - Converted non-sensical values (blanks, random letter, none, numbers) in `bound` column (26.49% rows) into `NULL` values. <br>
      - Converted non-sensical values (vehicle number is zero) in `vehicle` column (31.58% rows) into `NULL` values. <br>
      - Converted non-sensical values (numbers, address, none) in `line` column (0.35% rows) into `NULL` values. <br>
-   - `code_desc table` <br>
+   - `code_desc` table <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
