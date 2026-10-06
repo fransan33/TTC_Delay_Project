@@ -80,7 +80,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 | **In Scope** | Delay data across all 4 TTC Subway Lines, and delay descriptions data. Analyses cover delay frequency, delay trends, delay times, delay causes, and KPI. |
 | **Out of Scope** | - Delay data from May 2025-December 2025 were excluded as the data sets were extracted and reviewed in June 2025. <br> - Three delay records with Line 3 as the TTC Line dated after July 24, 2023 were excluded from KPI calculation in Tableau as Line 3 was shut down permanently following a derailment on July 24, 2023. Note that these three records were included in other analyses as the error was seen after the MySQL queries and Tableau dashboard were created. |
 | **Time Period** | January 2014-April 2025 |
-| **Granularity** | Single delay incident per row, including date, day, station, delay reason, delay minutes, delay min_gap, train bound, train line, vehicle number, and timestamp |
+| **Granularity** | Single delay incident per row, including the date, day, train station, delay reason, delay minutes, time gap between successive vehicles, train bound, train line, vehicle number, and timestamp |
 
 ### Tools & Technologies
 
@@ -173,23 +173,21 @@ TTC_Delay_Project/
      - Generated unique primary key values for each row. <br>
      - Removed 0.09% of duplicated rows. <br>
      - Converted the `time` column values into an hourly level by excluding the minutes and the AM/PM abbreviations. <br>
-     - Converted non-sensical station names in station column (5.66% rows) into NULL values. <br>
-     - Standardized TTC station names. <br>
-     - Removed 0.08% of rows containing nonsensical values in code column. <br>
-     - Converted the abbreviated values in bound column into the full direction descriptions. <br>
-     - Converted non-sensical values (blanks, random letter, none, numbers) in bound column (26.49% rows) into NULL values. <br>
-     - Standardized inconsistent and abbreviated TTC line names. <br>
-     - Converted non-sensical values (vehicle number is zero) in vehicle column (31.58% rows) into NULL values. <br>
-     - Converted non-sensical values (numbers, address, none) in line column (0.35% rows) into NULL values. <br>
+     - Converted non-sensical station names in `station` column (5.66% rows) into `NULL` values. <br>
+     - Removed 0.08% of rows containing nonsensical values in `code` column. <br>
+     - Converted the abbreviated values in `bound` column into the full direction descriptions. <br>
+     - Converted non-sensical values (blanks, random letter, none, numbers) in `bound` column (26.49% rows) into `NULL` values. <br>
+     - Converted non-sensical values (vehicle number is zero) in `vehicle` column (31.58% rows) into `NULL` values. <br>
+     - Converted non-sensical values (numbers, address, none) in `line` column (0.35% rows) into `NULL` values. <br>
    - `code_desc table` <br>
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - Assigned operational control level classifications to each delay reason in the code_desc table 
-   - Created a reference lookup structure to map delay codes in the cleaned code_desc table to the cleaned ttc_subway table by using a LEFT JOIN within a MYSQL VIEW, enriching delay records with delay reason descriptions and operational control level classifications.
-   - Standardized TTC subway line names and numbers using CASE WHEN queries based on external TTC Subway line reference data.
-   - Standardized station names using CASE WHEN queries based on external TTC Subway station reference data.
-   - Created `time_military_hour` column to transform the `time` datatype from VARCHAR to TIME to support time-based analysis in MySQL, .
+   - Assigned operational control level classifications to each delay reason in the `code_desc` table 
+   - Created a reference lookup structure to map delay codes in the cleaned `code_desc` table to the cleaned `ttc_subway` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
+   - Standardized TTC subway line names and numbers in `line` column using CASE WHEN queries based on external TTC Subway line reference data.
+   - Standardized station names in `station` column using CASE WHEN queries based on external TTC Subway station reference data.
+   - Created `time_military_hour` column to transform the `time` datatype from `VARCHAR` to TIME to support time-based analysis in MySQL, .
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicle.
