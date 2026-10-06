@@ -183,6 +183,7 @@ TTC_Delay_Project/
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
+   - A new table was created 
    - Assigned operational control level classifications to each delay reason in the `code_desc` table 
    - Created a reference lookup structure to map delay codes in the cleaned `code_desc` table to the cleaned `ttc_subway` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
    - Standardized TTC subway line names and numbers in `line` column using CASE WHEN queries based on external TTC Subway line reference data.
