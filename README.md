@@ -183,12 +183,12 @@ TTC_Delay_Project/
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - A new table was created 
-   - Assigned operational control level classifications to each delay reason in the `code_desc` table 
-   - Created a reference lookup structure to map delay codes in the cleaned `code_desc` table to the cleaned `ttc_subway` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
-   - Standardized TTC subway line names and numbers in `line` column using CASE WHEN queries based on external TTC Subway line reference data.
-   - Standardized station names in `station` column using CASE WHEN queries based on external TTC Subway station reference data.
-   - Created `time_military_hour` column to transform the `time` datatype from `VARCHAR` to TIME to support time-based analysis in MySQL, .
+   - Two new tables were created using CTE to save the final output from data cleaning for both `ttc_subway` table and `code_desc` table: `code_desc_clean` & `ttc_subway_cleaned`.
+   - Assigned operational control level classifications to each delay reason in the `code_desc_clean` table, saving the final output to another new table, `code_desc_clean_v2` 
+   - Created a reference lookup structure, `ttc_delay_tagged`, to map delay codes in the `code_desc_clean_v2` table to the `ttc_subway_cleaned` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
+   - Standardized TTC subway line names and numbers in `line` column using CASE WHEN queries based on an external TTC Subway line reference data, and renamed the resulting column to `cleaned_line`.
+   - Standardized station names in `station` column using CASE WHEN queries based on an external TTC Subway station reference data, and renamed the resulting column to `cleaned_station`.
+   - Created a new column, `time_military_hour`, to transform the `time` column datatype from `VARCHAR` to `TIME`, supporting the time-based analyses in MySQL.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicle.
