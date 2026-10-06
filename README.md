@@ -7,15 +7,15 @@
 1. [Project Overview](#1-project-overview)
 2. [Tableau Dashboards](#2-tableau-dashboards)
 3. [Objectives](#3-objectives)
-4. [Project Scope & Tools](#4-project-scope--tools)
+4. [Project Scope and Tools](#4-project-scope--tools)
 5. [Repository Structure](#5-repository-structure)
 6. [Data Workflow](#6-data-workflow)
-7. [Data Model & Schema](#7-data-model--schema)
+7. [Data Model and Schema](#7-data-model--schema)
 8. [Entity Relationship Diagram](#8-entity-relationship-diagram)
-9. [Analysis & Metrics](#9-analysis--metrics)
+9. [Analysis and Metrics](#9-analysis--metrics)
 10. [Key Insights](#10-key-insights)
 11. [Recommendations](#11-recommendations)
-12. [Assumptions & Limitations](#12-assumptions--limitations)
+12. [Assumptions and Limitations](#12-assumptions--limitations)
 13. [Future Enhancements](#13-future-enhancements)
 14. [Deliverables](#14-deliverables)
 15. [Author](#15-author)
@@ -28,7 +28,7 @@ The TTC Subway is one of Toronto's primary modes of daily transportation — and
 
 This project analyzed over 10 years of TTC Subway delay data (January 2014 – April 2025) to identify the root causes, patterns, and operational impact of delays across the network. The analysis was structured with 16 business questions spanning four stakeholder audiences — Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing — reflecting how delay data would realistically inform decisions across different functions of a transit authority.
 
-The headline finding was unexpected: the single most common cause of delays across TTC stations & time of day weekly is disorderly patron — a factor entirely outside TTC's operational control. This shapes the nature of what improvement initiatives are achievable, and drives the prioritization recommendations at the end of this project.
+The headline finding was unexpected: the single most common cause of delays across TTC stations and time of day weekly is disorderly patron — a factor entirely outside TTC's operational control. This shapes the nature of what improvement initiatives are achievable, and drives the prioritization recommendations at the end of this project.
 
 ## 2. Tableau Dashboards
 
@@ -48,14 +48,14 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 **[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D2#2)**
 
-### Dashboard 3 — Delay Trends & Causes
+### Dashboard 3 — Delay Trends and Causes
 
 [<img width="1394" height="844" alt="Delay Trend   Causes" src="https://github.com/user-attachments/assets/9c553661-b7ad-44ed-b5d4-4920fa04a132" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Delay%20Trend%20%26%20Causes.png)
 
 **[View Interactive Dashboard](https://public.tableau.com/app/profile/francine.sangil2025/viz/TTCSubwayDelay_17893342391120/D3#3)**
 
-### Dashboard 4 — Service Reliability & OTP
+### Dashboard 4 — Service Reliability and OTP
 
 [<img width="1394" height="840" alt="Service Reliability   OTP" src="https://github.com/user-attachments/assets/2f551c72-71b3-456e-abd2-1bf1c6221bf8" />
 ](https://github.com/fransan33/TTC_Delay_Project/blob/main/visuals/Service%20Reliability%20%26%20OTP.png)
@@ -64,14 +64,14 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 
 ## 3. Objectives
 
-- **Primary Objective:** Determine whether the frequent delays in TTC Subway system are caused by factors that are controllable (i.e. vehicle issues & crew availability)
+- **Primary Objective:** Determine whether the frequent delays in TTC Subway system are caused by factors that are controllable (i.e. vehicle issues and crew availability)
 - **Secondary Objective 1:** Evaluate per-line on-time performance against TTC's published 90% KPI target to assess whether the service levels for each year meet the organization's own performance standard
 - **Secondary Objective 2:** Identify the specific times or days when service reliability drops 
 - **Secondary Objective 3:** Build improvement initiatives to lessen the occurrence of delays root causes and its operational impact
 
 ---
 
-## 4. Project Scope & Tools
+## 4. Project Scope and Tools
 
 ### Scope
 
@@ -82,7 +82,7 @@ Four interactive Tableau Public dashboards were developed to analyze TTC subway 
 | **Time Period** | January 2014-April 2025 |
 | **Granularity** | Single delay incident per row, including the date, day, train station, delay reason, delay minutes, time gap between successive vehicles, train bound, train line, vehicle number, and timestamp |
 
-### Tools & Technologies
+### Tools and Technologies
 
 | Category | Tool(s) Used |
 |----------|-------------|
@@ -132,9 +132,9 @@ TTC_Delay_Project/
 │       └── ttc_subway_delay_datacleaning.sql
 │
 ├── visuals/
-│   ├── Delay Trend & Causes.png
+│   ├── Delay Trend and Causes.png
 │   ├── Operational Delay Patterns.png
-│   ├── Service Reliability & OTP.png
+│   ├── Service Reliability and OTP.png
 │   ├── TTC Subway Delay Overview.png
 │   └── TTC_Subway_Delay_ERD.png
 │
@@ -153,7 +153,7 @@ TTC_Delay_Project/
       ↓
 [Ingestion / Collection Method]
       ↓
-[Cleaning & Transformation]
+[Cleaning and Transformation]
       ↓
 [Analysis]
       ↓
@@ -161,7 +161,7 @@ TTC_Delay_Project/
 ```
 
 1. **Source:**
-   - Yearly Delay XLSX exports & Delay Code Descriptions CSV & XLSX exports pulled from the [Open Data website](https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
+   - Yearly Delay XLSX exports and Delay Code Descriptions CSV and XLSX exports pulled from the [Open Data website](https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
    - Collected external data for TTC Subway line names/numbers and station names to support data validation and standardization.
 2. **Ingestion:**
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
@@ -180,7 +180,7 @@ TTC_Delay_Project/
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - Two new tables were created using `CTE` to save the final output from data cleaning for both `ttc_subway` table and `code_desc` table: `code_desc_clean` & `ttc_subway_cleaned`.
+   - Two new tables were created using `CTE` to save the final output from data cleaning for both `ttc_subway` table and `code_desc` table: `code_desc_clean` and `ttc_subway_cleaned`.
    - Generated unique primary key values for each row in `ttc_subway_cleaned`. <br>
    - Assigned operational control level classifications to each delay reason in the `code_desc_clean` table, saving the final output to another new table, `code_desc_clean_v2` 
    - Created a reference lookup structure, `ttc_delay_tagged`, to map delay codes in the `code_desc_clean_v2` table to the `ttc_subway_cleaned` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
@@ -193,16 +193,16 @@ TTC_Delay_Project/
    - Renamed the `vehicle` column to `cleaned_vehicle` to save the final output from data cleaning of the column.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
-   - Segmenting delay trends by time, station, TTC line, and vehicle.
+   - Segmenting delay trends by day, time, train station, train line, and vehicle number.
    - Evaluating the operational impact of delays that are within control.
 6. **Output / Visualization:** <br>
    - Developed 4 interactive dashboards in Tableau Public, targeting 4 distinct stakeholder audiences: Head of Transit Planning, Head of Operations, Senior Management, and Head of Marketing.
       - Included charts are listed below: <br>
             - Bar charts (most common cause of delay) <br>
             - Barbell charts (delay frequency by train line and bound) <br>
-            - Bubble charts (delay frequency by station) <br>
+            - Bubble charts (delay frequency by train station) <br>
             - Pareto charts (delay cause contribution and vehicle impact) <br>
-            - Dual-axis bar and line charts (peak period analysis & disruptive delay cause analysis) <br>
+            - Dual-axis bar and line charts (peak period analysis and disruptive delay cause analysis) <br>
             - Year-over-year trend lines (AVG delay comparison) <br>
             - Scatter plots with quadrant annotations (downstream impact and improvement prioritization) <br>
             - Bullet charts (on-time performance (OTP) vs. KPI target of 90% OTP) <br>
@@ -215,7 +215,7 @@ TTC_Delay_Project/
 
 ---
 
-## 7. Data Model & Schema
+## 7. Data Model and Schema
 
 ### Dataset / Table: `ttc_subway_cleaned`
 
@@ -252,9 +252,9 @@ TTC_Delay_Project/
 
 ## 8. Entity Relationship Diagram
 
-Two-table schema — ttc_subway_cleaned and code_desc_cleaned_v2 — joined on shared delay codes. <br>
+Two-table schema — `ttc_subway_cleaned` and `code_desc_cleaned_v2` — joined on shared delay codes. <br>
 
-***Note**: ttc_delay_tagged_VIEW is a VIEW, not a table, derived from the JOIN of the two tables.*
+***Note**: ttc_delay_tagged_VIEW is a `VIEW`, not a table, derived from the `JOIN` of the two tables.*
 
 [<img width="746" height="700" alt="image" src="https://github.com/user-attachments/assets/5d41cd6c-f05d-4e37-b256-960de2a1a245" />](visuals/TTC_Subway_Delay_ERD.png)
 
@@ -266,7 +266,7 @@ Two-table schema — ttc_subway_cleaned and code_desc_cleaned_v2 — joined on s
 
 ---
 
-## 9. Analysis & Metrics
+## 9. Analysis and Metrics
 
 ### Analytical Approach
 
@@ -274,7 +274,7 @@ In this project, I used an exploratory, stakeholder-driven approach to have a be
 
 Each question was treated as its own analytical unit: the appropriate grain, metric, and filtering logic were determined independently based on what each specific key stakeholder would need to make a decision. For example, the questions structured for the Head of Operations prioritize frequency and controllability of delay causes, while the questions structured for Head of Marketing prioritize disruption rate and rider-facing reliability — both using the same underlying dataset but through fundamentally different lenses.
 
-There are two deliberate metric distinctions that shaped the entire analysis — min_delay & min_gap. These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
+There are two deliberate metric distinctions that shaped the entire analysis — `min_delay` and `min_gap`. These were applied selectively based on whether a question was about rider experience or downstream network impact. Using the wrong metric for a given question would produce a technically correct but analytically misleading result.
 
 Note that using raw delay counts alone can be misleading since a higher number indicates a higher number of delay incidents. Where the question concerned reliability or risk, disruption rate was used alongside raw delay counts to give a proportional view.
 
@@ -306,7 +306,7 @@ avoid repetition of using LEFT JOIN between the two tables across queries, and t
 - Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level CTE to first calculate the average delay per hour per day, then the standard deviation is calculated to measure how much of that varied across weekdays. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour.
 - On-time performance benchmarking — per train line, OTP is calculated in a yearly basis using min_gap ≤ 8 as the on-time threshold, and is benchmarked against TTC's published KPI of 90% OTP target from the Corporate Plan 2025 Mid-Year Progress Report. 
 - Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how uneven delay is distributed across TTC vehicles — roughly a third of the trains account for 80% of all delay time, pointing to specific vehicles worth investigating further.
-- Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent & moderate, frequent & severe, rare but severe, and monitor), using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
+- Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent and moderate, frequent and severe, rare but severe, and monitor), using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
 - Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops.
 - Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
 
@@ -343,7 +343,7 @@ Note: Priority reflects both delay severity and operational controllability — 
 
 ---
 
-## 12. Assumptions & Limitations
+## 12. Assumptions and Limitations
 
 ### Assumptions
 - **`min_delay = 0` records were treated as non-events** — records where min_delay = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
