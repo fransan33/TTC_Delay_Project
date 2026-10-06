@@ -180,15 +180,17 @@ TTC_Delay_Project/
      - Removed trailing white space. <br>
      - Removed 0.06% of duplicated rows. <br>
 4. **Transformation:**
-   - Two new tables were created using CTE to save the final output from data cleaning for both `ttc_subway` table and `code_desc` table: `code_desc_clean` & `ttc_subway_cleaned`.
+   - Two new tables were created using `CTE` to save the final output from data cleaning for both `ttc_subway` table and `code_desc` table: `code_desc_clean` & `ttc_subway_cleaned`.
    - Generated unique primary key values for each row in `ttc_subway_cleaned`. <br>
    - Assigned operational control level classifications to each delay reason in the `code_desc_clean` table, saving the final output to another new table, `code_desc_clean_v2` 
    - Created a reference lookup structure, `ttc_delay_tagged`, to map delay codes in the `code_desc_clean_v2` table to the `ttc_subway_cleaned` table by using a `LEFT JOIN` within a MySQL `VIEW`, enriching delay records with delay reason descriptions and operational control level classifications.
-   - Standardized TTC subway line names and numbers in `line` column using CASE WHEN queries based on an external TTC Subway line reference data, and renamed the resulting column to `cleaned_line`.
-   - Standardized station names in `station` column using CASE WHEN queries based on an external TTC Subway station reference data, and renamed the resulting column to `cleaned_station`.
-   - Created a new column, `time_military_hour`, to transform the `time` column datatype from `VARCHAR` to `TIME`, supporting the time-based analyses in MySQL.
+   - Standardized TTC subway line names and numbers in `line` column using `CASE WHEN` queries based on an external TTC Subway line reference data, and renamed the resulting column to `cleaned_line`.
+   - Standardized station names in `station` column using `CASE WHEN` queries based on an external TTC Subway station reference data, and renamed the resulting column to `cleaned_station`.
+   - Created a new column, `time_military_hour`, in `ttc_subway_cleaned` table to transform the `time` column datatype from `VARCHAR` to `TIME`, supporting the time-based analyses in MySQL and Tableau.
    - Converted the `time_military_hour` column values into an hourly level by excluding the minutes and the AM/PM abbreviations.
+   - Deleted the `time` column.
    - Converted the abbreviated values in `bound` column into the full direction descriptions, and renamed the resulting column to `cleaned_bound`. <br>
+   - Renamed the `vehicle` column to `cleaned_vehicle` to save the final output from data cleaning of the column.
 5. **Analysis:** 
    - Yearly KPI and delay trends comparison.
    - Segmenting delay trends by time, station, TTC line, and vehicle.
