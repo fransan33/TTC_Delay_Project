@@ -161,7 +161,7 @@ TTC_Delay_Project/
 ```
 
 1. **Source:**
-   - Yearly Delay XLSX exports and Delay Code Descriptions CSV and XLSX exports pulled from the [Open Data website](https://open.toronto.ca/dataset/ttc-subway-delay-data/) — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
+   - Yearly Delay XLSX exports and Delay Code Descriptions CSV and XLSX exports pulled from the [Open Data](https://open.toronto.ca/dataset/ttc-subway-delay-data/) website — ten files covering delay data from January 2014 to April 2025, and two files containing delays codes and descriptions.
    - Collected external data for TTC Subway line names/numbers and station names to support data validation and standardization.
 2. **Ingestion:**
    - The source XLSX files were converted to CSV format and consolidated using Power Query in Excel.
