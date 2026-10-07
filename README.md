@@ -217,7 +217,7 @@ TTC_Delay_Project/
 
 ## 7. Data Model and Schema
 
-### Dataset / Table: `ttc_subway_cleaned`
+### Table: `ttc_subway_cleaned`
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
@@ -237,7 +237,7 @@ TTC_Delay_Project/
 > **Date range:** January 2014-April 2025 |
 > **Key join / relationship:** [`ttc_subway_cleaned.code` → `code_desc_clean_v2.code`]
 
-### Dataset / Table: `code_desc_clean_v2`
+### Table: `code_desc_clean_v2`
 
 | Field Name | Data Type | Description | Example Value | Nullable (yes/no) |
 |------------|-----------|-------------|---------------|----------|
