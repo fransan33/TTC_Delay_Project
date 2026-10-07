@@ -296,18 +296,18 @@ Further, a `CREATE VIEW` statement was built to capture the `LEFT JOIN` between 
 
 ### Methods Used
 
-- Descriptive statistics — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (`cleaned_station`, `cleaned_line`, `cleaned_bound`, `cleaned_vehicle`, `time_military_hour`, and `day`) to establish delay patterns across the TTC subway network.
-- Top-N ranking per partition — `RANK()` and `DENSE_RANK()` window functions partitioned by `cleaned_station`, `time_military_hour`, or `day` in MySQL to surface the single most common delay cause per grouping.
-- Trend analysis — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity.
-- Segmentation by operational controllability — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table in MySQL (`code_desc_clean_v2`), enabling analyses to be filtered by what TTC can realistically act on vs. can't act on.
-- Disruption analysis — conditional aggregation using `CASE WHEN` `min_gap` > 8 to distinguish delays that remained self-contained from those that caused downstream service gaps exceeding the 8-minute on-time threshold, analyzing disruption rate and total disruptive gap metrics per delay cause.
-- Cumulative contribution analysis — used a Pareto chart to visualize the cumulative contribution of each delay cause to total disruptive service gap (`min_gap` > 8).
-- Weekday delay consistency analysis — identified which hours of the day experience consistently severe delays by using a two-level `CTE` to first calculate the average delay per hour per day, then the standard deviation is calculated to measure how much of that varied across weekdays. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour.
-- On-time performance benchmarking — per train line, OTP is calculated in a yearly basis using `min_gap` ≤ 8 as the on-time threshold, and is benchmarked against TTC's published KPI of 90% OTP target from the [Corporate Plan 2025 Mid-Year Progress Report](https://github.com/fransan33/TTC_Delay_Project/blob/main/doc/Corporate%20Plan%202025%20Mid-Year%20Progress%20Report.pdf). 
-- Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how uneven delay is distributed across TTC vehicles — roughly a third of the trains account for 80% of all delay time, pointing to specific vehicles worth investigating further.
-- Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent and moderate, frequent and severe, rare but severe, and monitor), using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
-- Service reliability heatmap — disruption rate visualized across a grid in Tableau containing `day` and `time_military_hour` to identify the specific day and time combinations where service reliability consistently drops.
-- Relative delay share analysis — computed the percentage of total system delays by `cleaned_line` and `cleaned_station` using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
+- **Descriptive statistics** — delay frequency, average delay duration, and total delay time calculated across multiple dimensions (`cleaned_station`, `cleaned_line`, `cleaned_bound`, `cleaned_vehicle`, `time_military_hour`, and `day`) to establish delay patterns across the TTC subway network.
+- **Top-N ranking per partition** — `RANK()` and `DENSE_RANK()` window functions partitioned by `cleaned_station`, `time_military_hour`, or `day` in MySQL to surface the single most common delay cause per grouping.
+- **Trend analysis** — year-over-year comparison of average delay time using a dynamic current year vs. previous year parameter in Tableau, with monthly trends to identify seasonal patterns and shifts in delay severity.
+- **Segmentation by operational controllability** — delay causes classified into within_control, partial_control, and outside_control tiers via a reference lookup table in MySQL (`code_desc_clean_v2`), enabling analyses to be filtered by what TTC can realistically act on vs. can't act on.
+- **Disruption analysis** — conditional aggregation using `CASE WHEN` `min_gap` > 8 to distinguish delays that remained self-contained from those that caused downstream service gaps exceeding the 8-minute on-time threshold, analyzing disruption rate and total disruptive gap metrics per delay cause.
+- **Cumulative contribution analysis** — used a Pareto chart to visualize the cumulative contribution of each delay cause to total disruptive service gap (`min_gap` > 8).
+- **Weekday delay consistency analysis** — identified which hours of the day experience consistently severe delays by using a two-level `CTE` to first calculate the average delay per hour per day, then the standard deviation is calculated to measure how much of that varied across weekdays. Hours with high average severity and low variation indicates that riders would plausibly adjust their travel behaviour.
+- **On-time performance benchmarking** — per train line, OTP is calculated in a yearly basis using `min_gap` ≤ 8 as the on-time threshold, and is benchmarked against TTC's published KPI of 90% OTP target from the [Corporate Plan 2025 Mid-Year Progress Report](https://github.com/fransan33/TTC_Delay_Project/blob/main/doc/Corporate%20Plan%202025%20Mid-Year%20Progress%20Report.pdf). 
+- **Vehicle delay distribution analysis** — Lorenz curve built in Tableau to show how uneven delay is distributed across TTC vehicles — roughly a third of the trains account for 80% of all delay time, pointing to specific vehicles worth investigating further.
+- **Prioritization matrix** — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent and moderate, frequent and severe, rare but severe, and monitor), using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
+- **Service reliability heatmap** — disruption rate visualized across a grid in Tableau containing `day` and `time_military_hour` to identify the specific day and time combinations where service reliability consistently drops.
+- **Relative delay share analysis** — computed the percentage of total system delays by `cleaned_line` and `cleaned_station` using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
 
 ---
 
@@ -338,33 +338,30 @@ Disruption rate in these specific times and days range from 50% to 82%, which su
 | Medium | Schedule more trains more frequently on weekends, and on weekdays between 8pm and 1am | Insight 5: Disruption rate is significantly high on weekends and on times between 8pm and 1am on weekdays | Head of Transit Planning |
 | Low | Develop public-facing messaging and awareness campaigns regarding expected delays daily due to rider misconduct — include offering travel incentives or loyalty rewards for frequent riders affected by this delay cause | Insight 1: Disorderly patron explains TTC's frequent delays | Head of Marketing |
 
-Note: Priority reflects both delay severity and operational controllability — outside-control causes are assigned lower priority because the improvement initiatives are limited to communication and mitigation rather than operational.
+***Note**: Priority reflects both delay severity and operational controllability — outside-control causes are assigned lower priority because the improvement initiatives are limited to communication and mitigation rather than operational.*
 
 ---
 
 ## 12. Assumptions and Limitations
 
 ### Assumptions
-- **`min_delay = 0` records were treated as non-events** — records where min_delay = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
+- **`min_delay` = 0 records were treated as non-events** — records where `min_delay` = 0 were excluded from all delay analyses on the assumption that they do not represent delay incidents. These may reflect on-time arrivals logged in the system rather than actual delays.
 
-- **The 8-minute service gap threshold was treated as the on-time benchmark** 
-— TTC published on the 2025 Corporate Plan Mid-year Progress Report that a train is considered on time if it arrives within 1.5 times its scheduled headway. Assuming a standard 5-minute headway, 1.5 × 5 = 7.5 minutes, rounded up to 8 minutes. This threshold was applied consistently across all disruption rate and OTP calculations.
+- **The 8-minute service gap threshold was treated as the on-time benchmark** — TTC published on the 2025 Corporate Plan Mid-year Progress Report that a train is considered on time if it arrives within 1.5 times its scheduled headway. Assuming a standard 5-minute headway, 1.5 × 5 = 7.5 minutes, rounded up to 8 minutes. This threshold was applied consistently across all disruption rate and OTP calculations.
 
-- **`min_gap = 0` records were treated as evaluable service intervals** — 
-after investigating the distribution of zero-gap records across hours of the day, their pattern mirrored overall delay volume rather than clustering at service start times, suggesting they represent normal service intervals rather than system resets or data artifacts. They were retained in OTP calculations accordingly.
+- **`min_gap` = 0 records were treated as evaluable service intervals** — after investigating the distribution of zero-gap records across hours of the day, their pattern mirrored overall delay volume rather than clustering at service start times, suggesting they represent normal service intervals rather than system resets or data artifacts. They were retained in OTP calculations accordingly.
 
-- **Delay reason classifications were accepted as given from the TTC code 
-description reference table** — the control level classification (within_control, partial_control, and outside_control) assigned to each delay code was treated as accurate without independent verification. These classifications directly influenced prioritization and improvement initiative analyses.
+- **Delay reason classifications were accepted as given from the TTC code description reference table** — the control level classification (within_control, partial_control, and outside_control) assigned to each delay reason was treated as accurate without independent verification. These classifications directly influenced prioritization and improvement initiative analyses.
 
 - **Weekday analysis excluded Saturday and Sunday throughout** — peak period and consistency analyses were scoped to Monday–Friday on the assumption that weekday commuter patterns are the primary planning concern. Weekend service patterns were analyzed separately where relevant.
 
-- **The top-ranked delay cause per partition was treated as the dominant cause** — RANK() = 1 was used to identify the most frequent delay cause by station, hour, or day. Where multiple causes tied for first, all tied causes were retained rather than selecting a single cause.
+- **The top-ranked delay cause per partition was treated as the dominant cause** — `RANK()` = 1 was used to identify the most frequent delay cause by `cleaned_station`, `time_military_hour`, or `day`. Where multiple causes tied for first, all tied causes were retained rather than selecting a single cause.
 
 - **The KPI target of 90% OTP from the 2025 Corporate Plan Mid-year Progress Report was treated as the yearly KPI target** — the KPI target for years 2014-2024 were not disclosed on the TTC website, thus, yearly KPI analysis were conducted on the assumption that the KPI target is 90% OTP.
 
 - **Minimum event-volume threshold** — A minimum threshold of 100 delay incidents was applied to certain analyses related to service reliablity. This threshold was used as an analytical assumption to focus on recurring patterns with sufficient observed volume for targeted messaging and service-reliability analysis, while excluding combinations with relatively few observations that may produce less representative results.
 
-- **Field criticality assumption** — The delay code was classified as a critical field because it is necessary to identify the delay cause; records with missing or nonsensical codes were excluded. Station, bound, vehicle, and line were classified as non-critical fields, so records with missing or nonsensical values were retained and the affected fields were converted to NULL.
+- **Field criticality assumption** — The `code` column was classified as a critical field because it is necessary to identify the delay cause; records with missing or nonsensical codes were excluded. `cleaned_station`, `cleaned_bound`, `cleaned_vehicle`, and `cleaned_line` columns were classified as non-critical fields, so records with missing or nonsensical values were retained and the affected fields were converted to `NULL`.
 
 ### Limitations
 - **No external validation of delay records against TTC operational logs** — 
@@ -374,8 +371,7 @@ the dataset was sourced from Open Toronto and accepted at face value. There was 
 
 - **Vehicle-level analysis cannot confirm persistent vehicle-specific performance issues over time** — the analysis identifies vehicles with the highest cumulative delay based on vehicle number. However, cumulative analysis does not show whether a vehicle consistently ranks among the highest-delay vehicles across multiple years. Year-over-year analysis would be required to determine whether the observed performance issues are persistent or concentrated within specific periods.
 
-- **Fixed min_gap threshold does not account for variation in scheduled headways** — 
-the 8-minute gap threshold was derived from a standard headway assumption and may not accurately reflect scheduled service across all lines, times, and service periods. For example, an 8-minute gap represents a much larger disruption for a route scheduled every 3 minutes than for one scheduled every 12 minutes. As a result, disruption rates may not be directly comparable across service periods with different scheduled headways.
+- **Fixed min_gap threshold does not account for variation in scheduled headways** — the 8-minute gap threshold was derived from a standard headway assumption and may not accurately reflect scheduled service across all train lines and service periods. For example, an 8-minute gap represents a much larger disruption for a route scheduled every 3 minutes than for one scheduled every 12 minutes. As a result, disruption rates may not be directly comparable across service periods with different scheduled headways.
 
 - **The analysis cannot distinguish between delay causes that were accurately coded at the time vs. coded generically** — codes like "miscellaneous other" and "paa - no trouble found" suggest some incidents were logged without a confirmed cause. These records were included in frequency counts but may mask the true prevalence of more specific delay causes.
 
@@ -383,50 +379,19 @@ the 8-minute gap threshold was derived from a standard headway assumption and ma
 
 ## 13. Future Enhancements
 
-- **Incorporate ridership volume data** — delay impact is currently 
-measured by duration and frequency, but not by how many passengers were 
-affected. Joining Open Toronto's TTC ridership data to the delay dataset 
-would allow disruption rate and service gap metrics to be weighted by 
-passenger volume, making prioritization recommendations significantly 
-more precise. A 10-minute delay at Kennedy Station during AM Peak affects 
-more riders than the same delay at Ellesmere at midnight.
+- **Incorporate ridership volume data** — delay impact is currently measured by duration and frequency, but not by how many passengers were affected. Joining Open Toronto's TTC ridership data to the delay dataset would allow disruption rate and service gap metrics to be weighted by passenger volume, making prioritization recommendations significantly more precise. A 10-minute delay at Kennedy Station during AM Peak affects more riders than the same delay at Ellesmere at midnight.
 
-- **Add weather data as an explanatory variable** — several delay 
-causes (i.e. track-level incidents, signal issues, door problems) may be 
-seasonally driven but this cannot be confirmed from the current dataset 
-alone. Joining historical weather data (i.e. temperature, precipitation, 
-snowfall, etc.) from Environment Canada to the delay records by date would 
-allow seasonal and weather-driven delay patterns to be isolated from 
-structural ones, strengthening the root cause analysis.
-
+- **Add weather data as an explanatory variable** — several delay causes (i.e. track-level incidents, signal issues, door problems) may be seasonally driven but this cannot be confirmed from the current dataset alone. Joining historical weather data (i.e. temperature, precipitation, snowfall, etc.) from Environment Canada to the delay records by date would 
+allow seasonal and weather-driven delay patterns to be isolated from structural ones, strengthening the root cause analysis.
 
 - **Automate monthly data ingestion from Open Toronto** — the current workflow requires manually downloading updated TTC delay CSV files from the Open Toronto data portal and re-running the Power Query consolidation and MySQL cleaning steps. This could be replaced with a scheduled Python pipeline that retrieves newly published monthly data from the Open Toronto data portal, appends it to a MySQL staging table, executes the required cleaning and transformation steps, and triggers a Tableau data-source refresh. This would eliminate recurring manual updates and keep the dashboard current as new data becomes available.
 
-- **Track vehicle-level delay patterns year over year** — the current 
-vehicle analysis identifies which vehicles have the highest cumulative 
-delay but cannot confirm whether the same vehicles are chronic offenders 
-across multiple years. Adding a year dimension to the vehicle query and 
-building a Tableau view that tracks each vehicle's ranking over time 
-would allow the operational audit recommendation to be validated — 
-confirming whether flagged vehicles are genuinely deteriorating or 
+- **Track vehicle-level delay patterns year over year** — the current vehicle analysis identifies which vehicles have the highest cumulative delay but cannot confirm whether the same vehicles are chronic offenders across multiple years. Adding a year dimension to the vehicle query and building a Tableau view that tracks each vehicle's ranking over time would allow the operational audit recommendation to be validated — confirming whether flagged vehicles are genuinely deteriorating or 
 whether high totals reflect high utilization rather than poor condition.
 
-- **Refine the on-time performance calculation using line-specific 
-headway data** — the current OTP metric applies a fixed 8-minute gap 
-threshold uniformly across all lines, times, and service periods. A more 
-accurate calculation would apply each line's actual scheduled headway 
-(which varies by time of day and day of week) as the threshold, rather 
-than a single system-wide assumption. TTC publishes scheduled headways 
-in their General Transit Feed Specification (GTFS) data, which could be joined to the delay dataset to produce a headway-adjusted OTP metric that more accurately reflects the rider 
-experience on each line.
+- **Refine the on-time performance calculation using line-specific headway data** — the current OTP metric applies a fixed 8-minute gap threshold uniformly across all lines, times, and service periods. A more accurate calculation would apply each line's actual scheduled headway (which varies by time of day and day of week) as the threshold, rather than a single system-wide assumption. TTC publishes scheduled headways in their General Transit Feed Specification (GTFS) data, which could be joined to the delay dataset to produce a headway-adjusted OTP metric that more accurately reflects the rider experience on each line.
 
-- **Expand the analysis to include bus and streetcar delay data** — 
-the current project is scoped to subway delays only. Open Toronto also 
-publishes delay data for TTC bus and streetcar routes, which would allow 
-cross-modal comparisons and a more complete picture of system-wide 
-reliability. This would be particularly valuable for the marketing 
-dashboard, where riders on surface routes connecting to affected subway 
-stations may experience compounding delays not captured in the current 
+- **Expand the analysis to include bus and streetcar delay data** — the current project is scoped to subway delays only. Open Toronto also publishes delay data for TTC bus and streetcar routes, which would allow cross-modal comparisons and a more complete picture of system-wide reliability. This would be particularly valuable for the marketing dashboard, where riders on surface routes connecting to affected subway stations may experience compounding delays not captured in the current 
 analysis.
 
 ---
