@@ -10,7 +10,7 @@
 4. [Project Scope and Tools](#4-project-scope-and-tools)
 5. [Repository Structure](#5-repository-structure)
 6. [Data Workflow](#6-data-workflow)
-7. [Data Model  Schema](#7-data-model--schema)
+7. [Data Model and Schema](#7-data-model-and-schema)
 8. [Entity Relationship Diagram](#8-entity-relationship-diagram)
 9. [Analysis and Metrics](#9-analysis-and-metrics)
 10. [Key Insights](#10-key-insights)
