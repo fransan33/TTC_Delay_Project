@@ -306,8 +306,8 @@ Further, a `CREATE VIEW` statement was built to capture the `LEFT JOIN` between 
 - On-time performance benchmarking — per train line, OTP is calculated in a yearly basis using `min_gap` ≤ 8 as the on-time threshold, and is benchmarked against TTC's published KPI of 90% OTP target from the [Corporate Plan 2025 Mid-Year Progress Report](https://github.com/fransan33/TTC_Delay_Project/blob/main/doc/Corporate%20Plan%202025%20Mid-Year%20Progress%20Report.pdf). 
 - Vehicle delay distribution analysis — Lorenz curve built in Tableau to show how uneven delay is distributed across TTC vehicles — roughly a third of the trains account for 80% of all delay time, pointing to specific vehicles worth investigating further.
 - Prioritization matrix — scatter plot in Tableau segmenting controllable delay causes into four quadrants (frequent and moderate, frequent and severe, rare but severe, and monitor), using average delay time and delay count as axes to identify both high-volume and high-severity delay causes for improvement initiatives.
-- Service reliability heatmap — disruption rate visualized across a day x hour grid in Tableau to identify specific day and time combinations where service reliability consistently drops.
-- Relative delay share analysis — computed each station and line's percentage contribution to total system delays using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
+- Service reliability heatmap — disruption rate visualized across a grid in Tableau containing `day` and `time_military_hour` to identify the specific day and time combinations where service reliability consistently drops.
+- Relative delay share analysis — computed the percentage of total system delays by `cleaned_line` and `cleaned_station` using partitioned window functions, enabling fair comparisons across locations with different delay volumes rather than relying on raw delay counts alone.
 
 ---
 
